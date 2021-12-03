@@ -1,0 +1,26 @@
+body {
+  width: 100vw;
+  height: 100vh;
+}
+.chessboard {
+  width: fit-content;
+}
+.square {
+  height: 50px;
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.square.black {
+  outline: 1px solid black;
+  background: #37797D;
+}
+.square.white {
+  outline: 1px solid black;
+  background: white
+}
+.row {
+  display: flex;
+  justify-content: center;
+}

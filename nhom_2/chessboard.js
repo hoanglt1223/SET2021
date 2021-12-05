@@ -1,136 +1,103 @@
+const letters = ["a", "b", "c", "d", "e", "f", "g", "h"];
+letters.reverse();
+
 function ChessBoard() {
-    let state = STATE.NEWGAME;
-    this.selectedSquare = null;
-    let selecting = false;
-    let turn;
+  this.table = document.getElementById("chessboard");
 
-    // board - chessboard in HTML
-    this.boardHTML = document.createElement("div");
-    Object.assign(this.boardHTML, {
-        id: 'chessboard__board',
-        style: `width : ${SQUARE_SIZE * NUMBER_SQUARE + "px"};
-                height : ${SQUARE_SIZE * NUMBER_SQUARE + "px"};`
-    });
+  this.rows = 8;
 
-    // map - chessboard in JS
-    this.chessMap;
+  this.columns = 8;
 
-    // set
-    this.setNewChessMap = () => {
-        this.chessMap = [];
-        turn = ColorType.TEAM.WHITE;
-        for (let i = 0; i < NUMBER_SQUARE; i++) {
-            let row = [];
-            for (let j = 0; j < NUMBER_SQUARE; j++) {
-                let square = new Square(j, i, SQUARE_SIZE);
-                let tile = square.getTile();
-                // select chessman
-                tile.addEventListener('click', () => {
-                    debugger;
-                    if (!selecting) {
-                        // select the chess
-                        if (square.havingChessMan() && square.getChessman().getColor() === turn) {
-                            selecting = true;
-                            square.select(true);
-                            this.selectedSquare = square;
-                        }
-                    }
-                    else {
-                        // move the chess
-                        if (!square.havingChessMan()) {
-                            // to: empty square
-                            selecting = false;
-                            moveChess(this.selectedSquare, square);
-                            turn = (turn === ColorType.TEAM.WHITE) ? ColorType.TEAM.BLACK : ColorType.TEAM.WHITE;
-
-                        }
-                        else if (this.selectedSquare.getChessman().getColor() !== square.getChessman().getColor()) {
-                            // to: enemy
-                            selecting = false;
-                            moveChess(this.selectedSquare, square);
-                            turn = (turn === ColorType.TEAM.WHITE) ? ColorType.TEAM.BLACK : ColorType.TEAM.WHITE;
-
-                        }
-                        else {
-                            // to: ally -> select again
-                            square.select(true);
-                            this.selectedSquare.select(false);
-                            this.selectedSquare = square;
-                            selecting = true;
-                        }
-
-                    }
-                })
-                row.push(square);
-            }
-            this.chessMap.push(row);
-        }
+  this.setRows = function () {
+    for (let rowId = 8; rowId >= 0; rowId--) {
+      let boardRow = document.createElement("tr");
+      this.table.appendChild(boardRow);
+      boardRow.id = "row" + rowId.toString();
+      let labelRow = document.createElement("label");
+      boardRow.appendChild(labelRow);
+      if (rowId > 0) {
+        labelRow.innerHTML = rowId;
+        this.setCells(rowId);
+      } else {
+        letters.reverse().forEach(function (letter) {
+          let labelColumn = document.createElement("td");
+          boardRow.appendChild(labelColumn);
+          labelColumn.innerHTML = letter.toLocaleUpperCase();
+          labelColumn.style.borderStyle = "none";
+          labelColumn.style.width = "20px";
+          labelColumn.style.height = "20px";
+        })
+      }
     }
 
-    this.setNewChessBoard = () => {
-        for (let i = 0; i < NUMBER_SQUARE; i++) {
-            for (let j = 0; j < NUMBER_SQUARE; j++) {
-                let chessman = null;
-                if (i == 6) {
-                    chessman = new Pawn(ColorType.TEAM.WHITE);
-                }
-                if (i == 1) {
-                    chessman = new Pawn(ColorType.TEAM.BLACK);
-                }
-                if (i == 0 || i == 7) {
-                    let color = (i == 7) ? ColorType.TEAM.WHITE : ColorType.TEAM.BLACK;
-                    switch (j) {
-                        case 0:
-                        case 7:
-                            chessman = new Rook(color)
-                            break;
-                        case 1:
-                        case 6:
-                            chessman = new Bishop(color);
-                            break;
-                        case 2:
-                        case 5:
-                            chessman = new Knight(color);
-                            break;
-                        case 3:
-                            chessman = new Queen(color);
-                            break;
-                        case 4:
-                            chessman = new King(color);
-                            break;
-                    }
-                }
-                if (chessman != null) {
-                    this.chessMap[i][j].setChessman(chessman);
-                }
-                this.boardHTML.appendChild(this.chessMap[i][j].getTile());
-            }
-        }
+    this.setImages = function () {
+      // king
+      new King(1, 'e', "white");
+      new King(8, 'e', "black");
+
+      // queen
+      new Queen(1, "d", "white");
+      new Queen(8, "d", "black");
+
+      // pawn
+      letters.forEach(function (letter) {
+        new Pawn(2, letter, "black", "pawn");
+        new Pawn(7, letter, "black", "pawn");
+      });
+      // rook
+      new Rook(1, "a", "white");
+      new Rook(8, "a", "black");
+      new Rook(1, "h", "white");
+      new Rook(8, "h", "black");
+
+      // //knight
+      new Knight(1, "b", "white");
+      new Knight(8, "g", "black");
+      new Knight(1, "g", "white");
+      new Knight(8, "b", "black");
+
+      //bishop
+      new Bishop(1, 'c', "white");
+      new Bishop(8, "f", "black");
+      new Bishop(1, "f", "white");
+      new Bishop(8, "c", "black"); // instance
     }
+  }
 
-    // event handler
-
-    this.handleSelect = () => {
-
+  this.setCells = function createCell(rowId) {
+    for (let i = 8; i >= 1; i--) {
+      let boardCell = document.createElement("td");
+      let boardRow = document.getElementById("row" + rowId.toString());
+      boardRow.appendChild(boardCell);
+      boardCell.id = letters[i - 1] + rowId.toString();
+      let getCellById = document.getElementById(boardCell.id);
+      if ((i % 2 != 0 && rowId % 2 == 0) || (i % 2 == 0 && rowId % 2 != 0)) {
+        this.setCellBackground(getCellById, "rgb(163, 119, 84)");
+      } else {
+        this.setCellBackground(getCellById, "rgb(243, 235, 215)");
+      }
     }
+  }
 
-    //method
-    function moveChess(source, destination) {
-        let chessman = source.getChessman();
-        source.select(false);
-        source.removeChessman();
-        destination.setChessman(chessman);
-    }
-
-    // render
-    this.render = () => {
-        if (state == STATE.NEWGAME) {
-            this.setNewChessMap();
-            this.setNewChessBoard();
-            state = STATE.PLAYING;
-        }
-        document.body.appendChild(this.boardHTML);
-    }
+  this.setCellBackground = function colorBackground(getCellById, color) {
+    getCellById.style.backgroundColor = color;
+  }
 
 }
+
+// function Cell(haveChessPiece, row, letter){
+//   this.cell = document.getElementById(letter + row);
+  
+//   this.haveChessPiece = function(){
+//     const cell = this.cell;
+//     cell.classList.add("haveChessPiece");
+//   }
+// }
+
+// const a2 = new Cell(false, "2", "a");
+// a2.haveChessPiece
+
+const chessBoard = new ChessBoard();
+chessBoard.setRows(); // create board
+chessBoard.setImages(); // set images
 

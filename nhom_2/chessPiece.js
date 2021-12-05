@@ -1,11 +1,11 @@
-function ChessPiece(row, letter, color, chessType) {
-  this.cell = document.getElementById(letter + row);
-
+function ChessPiece(row, letter, color) {
   this.chessImage = document.createElement("img");
-  this.setImage = function () {
-    const cell = this.cell;
-    cell.appendChild(this.chessImage);
-    this.chessImage.src = "/img_src/chess-" + chessType + "-" + color + ".png";
+
+  this.setImage = (chessType) => {
+    this.chessImage.src = "/assets/chess-" + chessType + "-" + color + ".png";
+  }
+
+  this.getImage = () =>{
     return this.chessImage;
   }
 
@@ -39,33 +39,33 @@ function ChessPiece(row, letter, color, chessType) {
 }
 
 function Pawn(row, letter, color) {
-  ChessPiece.call(this, row, letter, color, "pawn");
-  this.image = this.setImage();
+  ChessPiece.call(this, row, letter, color);
+  this.setImage("pawn");
 }
 
 function King(row, letter, color) {
-  ChessPiece.call(this, row, letter, color, "king");
-  this.image = this.setImage();
+  ChessPiece.call(this, row, letter, color);
+  this.setImage("king");
 }
 
 function Queen(row, letter, color) {
-  ChessPiece.call(this, row, letter, color, "queen");
-  this.image = this.setImage();
+  ChessPiece.call(this, row, letter, color);
+  this.setImage("queen");
 }
 
 function Rook(row, letter, color) {
-  ChessPiece.call(this, row, letter, color, "rook");
-  this.image = this.setImage();
+  ChessPiece.call(this, row, letter, color);
+  this.setImage("rook");
 }
 
 function Bishop(row, letter, color) {
-  ChessPiece.call(this, row, letter, color, "bishop");
-  this.image = this.setImage();
+  ChessPiece.call(this, row, letter, color);
+  this.setImage("bishop");
 }
 
 function Knight(row, letter, color) {
-  ChessPiece.call(this, row, letter, color, "knight");
-  this.image = this.setImage();
+  ChessPiece.call(this, row, letter, color);
+  this.setImage("knight");
 }
 
  

@@ -9,15 +9,15 @@ body{
   justify-content: center;
   align-items: center;
   background-color: #B9A280;
+  margin: 0;
 }
 #main{
   border: 4px solid #333;
-  padding: 15px;
 }
 
 table{
-  width:400px;
-  height:400px;
+  width:640px;
+  height:640px;
   border-collapse: collapse; 
 }
 

@@ -4,30 +4,21 @@ letters.reverse();
 function ChessBoard() {
   this.table = document.getElementById("chessboard");
 
-  this.rows = 8;
-
-  this.columns = 8;
-
-  this.setRows = function () {
-    for (let rowId = 8; rowId >= 0; rowId--) {
-      let boardRow = document.createElement("tr");
-      this.table.appendChild(boardRow);
-      boardRow.id = "row" + rowId.toString();
-      let labelRow = document.createElement("label");
-      boardRow.appendChild(labelRow);
-      if (rowId > 0) {
-        labelRow.innerHTML = rowId;
-        this.setCells(rowId);
-      } else {
-        letters.reverse().forEach(function (letter) {
-          let labelColumn = document.createElement("td");
-          boardRow.appendChild(labelColumn);
-          labelColumn.innerHTML = letter.toLocaleUpperCase();
-          labelColumn.style.borderStyle = "none";
-          labelColumn.style.width = "20px";
-          labelColumn.style.height = "20px";
-        })
+  this.render = function () {
+    for (let x = 8; x >= 1; x--) {
+      let row = document.createElement("tr");
+      for (let y = 8; y >= 1; y--) {
+        let boardCell = document.createElement("td");
+        boardCell.id = letters[y - 1] + x.toString();
+        if ((y + x) % 2 != 0) {
+          this.setCellBackground(boardCell, "rgb(163, 119, 84)");
+        } 
+        else {
+          this.setCellBackground(boardCell, "rgb(243, 235, 215)");
+        }
+        row.appendChild(boardCell);
       }
+      this.table.appendChild(row);
     }
 
     this.setImages = function () {
@@ -64,40 +55,14 @@ function ChessBoard() {
     }
   }
 
-  this.setCells = function createCell(rowId) {
-    for (let i = 8; i >= 1; i--) {
-      let boardCell = document.createElement("td");
-      let boardRow = document.getElementById("row" + rowId.toString());
-      boardRow.appendChild(boardCell);
-      boardCell.id = letters[i - 1] + rowId.toString();
-      let getCellById = document.getElementById(boardCell.id);
-      if ((i % 2 != 0 && rowId % 2 == 0) || (i % 2 == 0 && rowId % 2 != 0)) {
-        this.setCellBackground(getCellById, "rgb(163, 119, 84)");
-      } else {
-        this.setCellBackground(getCellById, "rgb(243, 235, 215)");
-      }
-    }
-  }
 
-  this.setCellBackground = function colorBackground(getCellById, color) {
-    getCellById.style.backgroundColor = color;
+  this.setCellBackground = function colorBackground(cell, color) {
+    cell.style.backgroundColor = color;
   }
 
 }
 
-// function Cell(haveChessPiece, row, letter){
-//   this.cell = document.getElementById(letter + row);
-  
-//   this.haveChessPiece = function(){
-//     const cell = this.cell;
-//     cell.classList.add("haveChessPiece");
-//   }
-// }
-
-// const a2 = new Cell(false, "2", "a");
-// a2.haveChessPiece
-
 const chessBoard = new ChessBoard();
-chessBoard.setRows(); // create board
+chessBoard.render(); // create board
 chessBoard.setImages(); // set images
 

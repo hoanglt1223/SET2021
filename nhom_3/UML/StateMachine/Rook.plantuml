@@ -1,0 +1,10 @@
+@startuml Rook
+[*] --> Created
+Created --> Wait
+Wait --> Chosen
+Chosen --> Wait
+Chosen --> Move
+Move --> Wait
+Wait --> Taken
+Taken --> [*]
+@enduml

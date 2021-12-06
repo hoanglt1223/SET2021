@@ -1,0 +1,52 @@
+@startuml Application use cases diagram
+skinparam actorStyle awesome
+left to right direction
+:Player: as player
+
+rectangle ChessGame {
+  usecase "Sign in" as signin
+  usecase "Log out" as logout
+  usecase "Guide" as guide
+  usecase "New game" as newgame
+  usecase "Reset game" as reset
+  usecase "Select level" as level
+  usecase "Quit game" as quit
+  usecase "Surrender" as surrender
+  usecase "Save game" as save 
+  usecase "PvP" as playwithPerson
+  usecase "Play with AI" as playwithAI
+  usecase "Preview history" as history
+  usecase "Ranked" as ranked
+  usecase "Match game" as match
+  usecase "Move Piece" as move
+  usecase "Undo" as undo
+  usecase "Capture" as capture
+  usecase "Promotion" as promotion
+  usecase "Check" as check
+  usecase "Checkmate" as checkmate
+
+  move ..> promotion: <<extend>>
+  move ..> capture: <<extend>>
+  move ..> check: <<extend>>
+  move ..> checkmate: <<extend>>
+}
+
+player ---> signin
+player ---> logout
+player ---> guide
+player ---> newgame
+player ---> reset
+player ---> level
+player ---> quit
+player ---> surrender
+player ---> save
+player ---> playwithPerson
+player ---> playwithAI
+player ---> history
+player ---> ranked
+player ---> match
+player ---> move
+player ---> undo
+
+
+@enduml

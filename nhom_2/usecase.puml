@@ -9,11 +9,9 @@ left to right direction
 package "Website"{
   rectangle "Log in"{
     usecase "login" as login
-    login --> gameplay
   }
   rectangle "Register"{
     usecase "Sign up" as signup
-    signup -> login
   }
 rectangle "Playgame"{
     usecase "Move chesspiece" as move
@@ -26,7 +24,6 @@ rectangle "Playgame"{
     usecase "Log out" as logout
     usecase "New game" as newgame
     usecase "Read rules" as read
-    logout --> login
   }
 
 

@@ -8,5 +8,5 @@ skinparam actorStyle awesome
 :Player: --> (Move chess)
 :Player: -> (Play with computer)
 :Player: -> (Go to previous step)
-(Play with computer) .> (Score) : include
+(Play with computer) .> (Score) : extends
 @enduml

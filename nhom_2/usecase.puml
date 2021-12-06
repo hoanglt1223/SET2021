@@ -1,0 +1,48 @@
+@startuml Application use cases diagram
+skinparam actorStyle awesome
+left to right direction
+:Admin: as admin
+:Ads_buyer: as ads_buyer
+:Customer: as customer
+
+package Website{
+  usecase "Validate account" as validate
+  usecase "Ads Censorship" as censor
+  rectangle Header{
+    usecase "Sign in" as signin
+    usecase "Log out" as logout
+    usecase "Put ads" as ad
+    ad ..> censor: include
+    signin ..> validate: extend
+  }
+  rectangle GamePlay{
+    usecase "New game" as newgame
+    usecase "Undo" as undo 
+    usecase "Read rules" as read
+  }
+} 
+customer --> signin
+customer --> logout
+customer --> undo    
+customer --> newgame
+customer --> read
+ads_buyer --> ad
+ads_buyer --> signin
+ads_buyer --> logout
+package "Account Settings"{
+  usecase "Filter" as filter 
+  usecase "Sort" as sort
+  rectangle "Account List"{
+    usecase "View rating list" as view_rating_list 
+    view_rating_list ..> filter: include
+    view_rating_list ..> sort: include
+  }
+  rectangle "Repair List"{
+    usecase "View repair list" as view_repair_list
+    view_repair_list ..> sort: include
+  }
+}
+admin --> view_rating_list
+admin --> view_repair_list
+
+@enduml

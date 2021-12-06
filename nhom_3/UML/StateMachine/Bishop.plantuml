@@ -1,0 +1,10 @@
+@startuml Bishop
+[*] --> Created
+Created --> Wait
+Wait --> Chosen
+Chosen --> Move
+Chosen --> Wait
+Move --> Wait
+Wait --> Taken
+Taken --> [*]
+@enduml

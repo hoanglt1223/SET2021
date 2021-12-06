@@ -1,0 +1,11 @@
+@startuml
+left to right direction
+skinparam actorStyle awesome
+:Player: --> (Start game)
+:Player: --> (Pause game)
+:Player: --> (Reset game)
+:Player: --> (Move chess)
+:Player: -> (Play with computer)
+:Player: -> (Go to previous step)
+(Play with computer) .> (Score) : include
+@enduml

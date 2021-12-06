@@ -1,0 +1,24 @@
+@startuml ChessBoard
+skinparam groupInheritance 2
+class ChessBoard {
+    + create()
+    + addSquareToRow()
+    + changeSquareColor()
+}
+ChessBoard <-- ChessPiece
+ChessBoard <-- Controller
+class ChessPiece {
+    + id
+    + name 
+    + url 
+    + setPiece() 
+    + isChosen() 
+    + recommendMoves() 
+}
+ChessPiece <|-- Pawn 
+ChessPiece <|-- Rook 
+ChessPiece <|-- Knight 
+ChessPiece <|-- Bishop 
+ChessPiece <|-- Queen  
+ChessPiece <|-- King 
+@enduml

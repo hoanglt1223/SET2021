@@ -3,14 +3,20 @@ class Spot{
   piece: Piece
   x: Number
   y: Number
+  canMove: Boolean
+  void setCanMove(newCanMove: boolean)
 }
 
 class Board{
-  rows: Number
-  cols: Number
   boxes: Spot[][]
+  currentSpotSelected: Spot
+
   void initialize()
   void renderBoard()
+  Spot getSpotFromBoxes(x: number, y: number)
+  void setCurrentSpotSelected(spot:Spot)
+  void setPieceForSpot(pice:Piece, x: number, y: number)
+
 }
 
 class Piece{
@@ -62,7 +68,10 @@ class ComputerPlayer{}
 class King{}
 class Bishop{}
 class Knight{}
-class Pawn{}
+class Pawn{
+  isFirstStep: Boolean
+  void setIsFirstStep(newIsFirstStep: Boolean)
+}
 class Queen{}
 class Rook{}
 

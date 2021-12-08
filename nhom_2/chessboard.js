@@ -10,51 +10,45 @@ function ChessBoard() {
     for (let x = 8; x >= 1; x--) {
       let row = document.createElement("tr");
       for (let y = 8; y >= 1; y--) {
-        let boardCell = document.createElement("td");
-        boardCell.id = letters[y - 1] + x.toString();
+        let color = ((y + x) % 2 != 0) ? "rgb(163, 119, 84)" : "rgb(243, 235, 215)";
+        let cell = new Cell(letters[y - 1] + x.toString(), color);
         let chesspiece = null;
-        switch (x){
+        switch (x) {
           case 1:
           case 8:
             let color = x == 1 ? "white" : "black";
-            switch(letters[y-1]){
+            switch (letters[y - 1]) {
               case "a":
               case "h":
-                chesspiece = new Rook(x, letters[y-1], color);
+                chesspiece = new Rook(x, letters[y - 1], color);
                 break;
               case "b":
               case "g":
-                chesspiece = new Knight(x, letters[y-1], color);
+                chesspiece = new Knight(x, letters[y - 1], color);
                 break;
               case "c":
               case "f":
-                chesspiece = new Bishop(x, letters[y-1], color);
+                chesspiece = new Bishop(x, letters[y - 1], color);
                 break;
               case "d":
-                chesspiece = new Queen(x, letters[y-1], color);
+                chesspiece = new Queen(x, letters[y - 1], color);
                 break;
               case "e":
-                chesspiece = new King(x, letters[y-1], color);
+                chesspiece = new King(x, letters[y - 1], color);
                 break;
             }
             break;
           case 2:
-            chesspiece = new Pawn(x, letters[y-1], "white");
+            chesspiece = new Pawn(x, letters[y - 1], "white");
             break;
           case 7:
-            chesspiece = new Pawn(x, letters[y-1], "black");
+            chesspiece = new Pawn(x, letters[y - 1], "black");
             break;
         }
         if (chesspiece != null) {
-          boardCell.appendChild(chesspiece.getImage());
+          cell.appendChesspiece(chesspiece);
         }
-        if ((y + x) % 2 != 0) {
-          this.setCellBackground(boardCell, "rgb(163, 119, 84)");
-        }
-        else {
-          this.setCellBackground(boardCell, "rgb(243, 235, 215)");
-        }
-        row.appendChild(boardCell);
+        row.appendChild(cell.getCell());
       }
       this.table.appendChild(row);
     }
@@ -64,11 +58,6 @@ function ChessBoard() {
     let x = document.getElementById('main');
     x.appendChild(this.table);
     this.setNewChessBoard();
-
-  }
-
-  this.setCellBackground = function colorBackground(cell, color) {
-    cell.style.backgroundColor = color;
   }
 }
 

@@ -34,7 +34,7 @@
 +create(): void
 +capture(): void
 +move(): void
-+showPossibilities: void</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>600</x><y>0</y><w>210</w><h>190</h></coordinates><panel_attributes>Square
++showPossibilities(): void</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>600</x><y>0</y><w>210</w><h>190</h></coordinates><panel_attributes>Square
 --
 +boardPosition: Object
 +position: String
@@ -43,7 +43,7 @@
 --
 +create(): void</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>300</x><y>540</y><w>210</w><h>110</h></coordinates><panel_attributes>Pawn
 --
-
++isMoved: Boolean
 
 --
 +fastMove(): void

@@ -69,7 +69,7 @@ class King{
   + isFirstStep: Boolean
   + isChecked: Boolean
   + void setIsFirstStep(newIsFirstStep: Boolean)
-  + void setIsChecked(newIsFirstStep: Boolean)
+  + void setIsChecked(newIsChecked: Boolean)
   + void handleCastle(board: Board)
 }
 class Bishop{}

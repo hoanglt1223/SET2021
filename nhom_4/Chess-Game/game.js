@@ -84,19 +84,19 @@ function Game() {
   this.board = null;
   this.pieces = [];
   this.setPieces = function () {
-    pieceData.forEach((piece, index) => {
       //get data
-      let { name, length, alias, position } = piece;
-      let { letter: letters, number } = position;
+	  const blackPawn = 8;
+	  const whitePawn = 8;
+	  const letters = ["a", "b", "c", "d", "e", "f", "g", "h"];
       // loop through theirs length
-      Array.from(Array(length)).forEach((value, i) => {
-        const position = `${letters[i]}${number}`; // get position
-        const obj = { name, alias, position, index: i }; //create Piece Element
-        const piece = new Piece(obj); //new Piece
+      Array.from(Array(blackPawn)).forEach((value, i) => {
+        const position = `${letters[i]}7`; // get position
+        const piece = new Pawn(this, 'Pawn', 'bp', 'black', position, i); //new Piece
         piece.create(); //create Piece
+		piece.listener();
         this.pieces.push(piece);
       })
-    })
+
   }
   this.init = function () {
     this.board = new Board(this);

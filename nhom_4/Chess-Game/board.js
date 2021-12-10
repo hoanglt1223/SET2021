@@ -43,9 +43,9 @@ function Board(game) { // component
 		const pieceList = game.pieces; // all pieces
 
 		const place = function (piece) {
-			const position = piece.info.position; // piece pos
+			const position = piece.position; // piece pos
       const square = board.filterSquare(position); // select square by its pos
-			const pieceElement = piece.info.element; // piece image
+			const pieceElement = piece.element; // piece image
 			const squareElement = square.info.element; // square element
 
 			square.piece = piece; 

@@ -117,7 +117,6 @@ function ChessBoard() {
               this.boardHTML.appendChild(this.chessMap[y][x].getTile());
           }
       }
-      this.table.appendChild(row);
     }
 
     // event handler

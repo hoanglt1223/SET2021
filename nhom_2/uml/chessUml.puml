@@ -34,7 +34,7 @@ note right of Chessboard
 end note
 
 class Square{
-    + td
+    + 
     + id
     + chessman
     
@@ -61,6 +61,7 @@ class Chessman{
 class Pawn{
     + direct
     + showPossibleMoves()
+    + promotePawn()
 }
 
 class Bishop{
@@ -68,7 +69,7 @@ class Bishop{
 }
 
 class King{
-
+    +castle();
 }
 
 class Queen{

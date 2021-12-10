@@ -1,9 +1,6 @@
 @startuml ChessBoard
 skinparam groupInheritance 2
-
 class ChessBoard {
-    + cells
-
     + create()
     + addSquareToRow()
     + changeSquareColor()
@@ -14,14 +11,31 @@ class ChessPiece {
     + url 
     + setPiece() 
     + isChosen() 
+    + isNotChosen()
+    + isEmpty()
     + recommendMoves() 
+    + movePiece()
+}
+class Pawn {
+    + promote()
+}
+class Knight {
+    
+}
+class Rook {
+    + isMoved
+}
+class Bishop {
+}
+class Queen {
+}
+class King {
+    + isChecked()
+    + isCheckmate()
+    + castle()
 }
 
-
-ChessBoard <-- ChessPiece
-ChessBoard <-- Controller
-note left of Controller: implement later
-
+ChessBoard "1" <-- "n" ChessPiece
 ChessPiece <|-- Pawn 
 ChessPiece <|-- Rook 
 ChessPiece <|-- Knight 

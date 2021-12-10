@@ -1,7 +1,7 @@
 @startuml playerUseCase
 left to right direction
 actor Player as p
-actor "Player 2" as p2
+actor Player2 as p2
 usecase "Start game" as startGame
 usecase "End game" as endGame
 usecase "Save game" as saveGame
@@ -15,16 +15,16 @@ usecase "Promote pawn" as promote
 usecase "Single player" as sp
 usecase "2 players" as 2p
 p --> startGame
-startGame ..> sp: extends
-startGame ..> 2p: extends
+startGame --> sp
+startGame --> 2p
 2p <-- p2
 p --> saveGame
 p --> loadGame
 p --> movePieces
-movePieces ..> takePieces: extends
-movePieces ..> check: extends
-movePieces ..> checkMate: extends
-movePieces ..> promote: extends
-movePieces ..> undo: extends
+movePieces ..|> takePieces : extends
+movePieces ..|> check : extends
+movePieces ..|> checkMate : extends
+movePieces ..|> promote : extends
+movePieces ..|> undo : extends
 p --> endGame
 @enduml

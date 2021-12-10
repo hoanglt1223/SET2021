@@ -102,6 +102,6 @@ const Square = function (column, row, piece) {
   return square;
 }
 
-
+debugger
 const board = new Board();
 board.render();

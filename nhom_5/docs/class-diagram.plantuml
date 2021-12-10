@@ -1,65 +1,65 @@
 @startuml
 class Spot{
-  piece: Piece
-  x: Number
-  y: Number
-  canMove: Boolean
-  void setCanMove(newCanMove: boolean)
+  + piece: Piece
+  + x: Number
+  + y: Number
+  + canMove: Boolean
+  + void setCanMove(newCanMove: boolean)
 }
 
 class Board{
-  boxes: Spot[][]
-  currentSpotSelected: Spot
+  +boxes: Spot[][]
+  +currentSpotSelected: Spot
 
-  void initialize()
-  void renderBoard()
-  Spot getSpotFromBoxes(x: number, y: number)
-  void setCurrentSpotSelected(spot:Spot)
-  void setPieceForSpot(pice:Piece, x: number, y: number)
+  +void initialize()
+  +void renderBoard()
+  +Spot getSpotFromBoxes(x: number, y: number)
+  +void setCurrentSpotSelected(spot:Spot)
+  +void setPieceForSpot(pice:Piece, x: number, y: number)
 
 }
 
 class Piece{
-  name: String
-  imgUrl: String
-  isWhite: Boolean
-  isKilled: Boolean
-  Boolean canMove(Board board,Spot start, Spot end)
-  {x:number, y:number}[] getSpotsCanMove(startX: number, startY: number)
+  + name: String
+  + imgUrl: String
+  + isWhite: Boolean
+  + isKilled: Boolean
+  + Boolean canMove(Board board,Spot start, Spot end)
+  + {x:number, y:number}[] getSpotsCanMove(startX: number, startY: number)
 }
 
 class Move{
-  player: Player
-  start: Spot
-  end: Spot
-  pieceMoved: Piece
-  pieceKilled: Piece
+  + player: Player
+  + start: Spot
+  + end: Spot
+  + pieceMoved: Piece
+  + pieceKilled: Piece
 }
 
 class Game{
-  status: String
-  board: Board
-  players: Player[]
-  currentTurn: Player
-  moves: Move[]
+  + status: String
+  + board: Board
+  + players: Player[]
+  + currentTurn: Player
+  + moves: Move[]
 
-  void initialize()
-  void startGame()
-  void endGame()
-  void pauseGame()
-  void resetGame()
-  void playerMove(player: Player, startX: Number, startY: Number, endX: Number, endY: Number)
-  void goToPreviousStep(player: Player)
+  + void initialize()
+  + void startGame()
+  + void endGame()
+  + void pauseGame()
+  + void resetGame()
+  + void playerMove(player: Player, startX: Number, startY: Number, endX: Number, endY: Number)
+  + void goToPreviousStep(player: Player)
 }
 
 class Player{
-  name: String
-  isWhiteSide: Boolean
+  + name: String
+  + isWhiteSide: Boolean
 }
 
 class HumanPlayer{
-  score: Number
-  void calculatingScore()
+  + score: Number
+  + void calculatingScore()
 }
 
 class ComputerPlayer{}
@@ -69,8 +69,8 @@ class King{}
 class Bishop{}
 class Knight{}
 class Pawn{
-  isFirstStep: Boolean
-  void setIsFirstStep(newIsFirstStep: Boolean)
+  + isFirstStep: Boolean
+  + void setIsFirstStep(newIsFirstStep: Boolean)
 }
 class Queen{}
 class Rook{}

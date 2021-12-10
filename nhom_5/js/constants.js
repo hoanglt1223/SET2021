@@ -4,5 +4,8 @@ const PieceName = {
   QUEEN: "queen",
   BISHOP: "bishop",
   KNIGHT: "knight",
-  ROOK: "rook"
-}
+  ROOK: "rook",
+};
+
+const ROWS = 8;
+const COLS = 8;

@@ -1,6 +1,3 @@
-const ROWS = 8;
-const COLS = 8;
-
 function Board() {
   this.currentPieceSelected = null;
   this.boxes = null; // boxes has Spot items in 8x8 array 2D

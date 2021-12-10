@@ -65,15 +65,26 @@ class HumanPlayer{
 class ComputerPlayer{}
 
 
-class King{}
+class King{
+  + isFirstStep: Boolean
+  + isChecked: Boolean
+  + void setIsFirstStep(newIsFirstStep: Boolean)
+  + void setIsChecked(newIsFirstStep: Boolean)
+  + void handleCastle(board: Board)
+}
 class Bishop{}
 class Knight{}
 class Pawn{
   + isFirstStep: Boolean
   + void setIsFirstStep(newIsFirstStep: Boolean)
+  + void handlePromote(board: Board)
 }
 class Queen{}
-class Rook{}
+class Rook{
+  + isFirstStep: Boolean
+  + void setIsFirstStep(newIsFirstStep: Boolean)
+  + void handleCastle(board: Board)
+}
 
 
 

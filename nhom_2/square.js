@@ -58,9 +58,13 @@ function Square(x, y, square__Size) {
         this.isHighLighted = status;
     }
 
-    this.hightlight = (status) => {
+    this.hightlight = (status, opponent = false) => {
         if (status) {
-            tile.style.backgroundColor = ColorType.HIGHTLIGHT;
+            tile.style.backgroundColor = ColorType.POSSIBLE_MOVE;
+            if (opponent) {
+            tile.style.backgroundColor = ColorType.POSSIBLE_MOVE_OPPONENT;
+
+            }
             tile.style.borderColor = "black";
             this.isSuggested = true;
         }
@@ -70,7 +74,6 @@ function Square(x, y, square__Size) {
             this.isSuggested = false;
         }
     }
-
 
 
     // get

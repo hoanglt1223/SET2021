@@ -104,10 +104,11 @@ function ChessBoard() {
     // event handler
 
     this.hightLightPossibleSquare = (status) => {
-        possibleMoves.forEach((move, index)=>{
-            let x = possibleMoves[index].x;
-            let y = possibleMoves[index].y;
-            this.chessMap[y][x].hightlight(status);
+        possibleMoves.forEach((move)=>{
+            let x = move.x;
+            let y = move.y;
+            let opponent = move.opponent;
+            this.chessMap[y][x].hightlight(status , opponent);
         })
     }
 

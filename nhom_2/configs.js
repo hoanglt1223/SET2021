@@ -12,7 +12,7 @@ const ColorType = {
     },
     HOVER: "#512F26",
     SELECT: "#B45927",
-    TEAM:{
+    TURN:{
         WHITE: "white",
         BLACK: "black",
     }

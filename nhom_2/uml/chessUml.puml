@@ -2,37 +2,65 @@
 skinparam actorStyle awesome
 title UML of chess game
 
-class Chessboard{
-    + table
-    + chessmap
-
-    + setNewChessBoard()
-    + render()
-
+enum GameState{
+    NEWGAME
+    PLAYING
+    GAMEOVER
 }
 
-class Cell{
+enum ColorType{
+    BACKGROUND
+    HOVER
+    SELECT
+    TURN
+}
+
+class Chessboard{
+    ..property..
+    + table
+    + chessmap[]
+    + state
+    + selectedSquare
+    + turn
+    
+    + setNewChessMap()
+    + setNewChessBoard()
+    + moveChess()
+    + render()
+}
+note right of Chessboard
+    table: chess board in HTML
+    chessmap: an array contain rows having squares
+end note
+
+class Square{
     + td
     + id
-    + chesspiece
+    + chessman
     
-    + setChesspiece()
-    + getCell()
+    + setChessman()
+    + getTile()
 
 }
 
-class Chesspiece{
-    + position
-    + chessImage
-
-    + Chesspiece()
+class Chessman{
+    ..property..
+    + position_X
+    + position_Y
+    + image
+    ..setter..
+    + setPosition()
     + setImage()
+    ..getter..
     + getImage()
-
+    + getColor()
+    ..
+    # showPossibleMoves()
 }
 
 class Pawn{
-
+    + direct
+    + showPossibleMoves()
 }
 
 class Bishop{
@@ -56,16 +84,19 @@ class Knight{
 }
 
 
-Pawn --|> Chesspiece
-Bishop --|> Chesspiece
-King --|> Chesspiece
-Queen --|> Chesspiece
-Rook --|> Chesspiece
-Knight --|> Chesspiece
 
 
-Chessboard --> Cell
-Cell --> Chesspiece
+Pawn --|> Chessman
+Bishop --|> Chessman
+King --|> Chessman
+Queen --|> Chessman
+Rook --|> Chessman
+Knight --|> Chessman
+
+
+Chessboard --> Square
+Square ..> Chessman
+
 
 
 

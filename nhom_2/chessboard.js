@@ -28,7 +28,7 @@ function ChessBoard() {
 
                 // select chessman
                 tile.addEventListener('click', () => {
-                    let chessman = square.getChessman();
+                    
                     if (!secondClick) {
                         // select the chess
                         if (square.havingChessMan() && square.getChessman().getColor() === turn) {
@@ -40,33 +40,20 @@ function ChessBoard() {
                         }
                     }
                     else {
+                        debugger
                         this.hightLightPossibleSquare(false);
+                        secondClick = false;
                         // have done first click
                         // move the chess
-                        if (!square.havingChessMan()) {
-                            // to: empty square
-                            secondClick = false;
+                        if (this.isValidSquare(square)) {
                             moveChess(this.selectedSquare, square);
                             turn = (turn === ColorType.TEAM.WHITE) ? ColorType.TEAM.BLACK : ColorType.TEAM.WHITE;
-                        }
-                        else if (this.selectedSquare.getChessman().getColor() !== square.getChessman().getColor()) {
-                            // to: enemy
-                            secondClick = false;
-                            moveChess(this.selectedSquare, square);
-                            turn = (turn === ColorType.TEAM.WHITE) ? ColorType.TEAM.BLACK : ColorType.TEAM.WHITE;
-
                         }
                         else {
-                            secondClick = false;
                             this.selectedSquare.select(false);
-                            return;
                         }
-
                     }
                 })
-                if (square.isSuggested) {
-                    tile.style.backgroundColor = square.color;
-                }
                 row.push(square);
             }
             this.chessMap.push(row);
@@ -124,6 +111,12 @@ function ChessBoard() {
         }
     }
 
+
+    this.isValidSquare = (square) => {
+        return possibleMoves.some(cell => {
+            return (cell.x == square.getPosition().x && cell.y == square.getPosition().y);
+        })
+    }
 
 
     //method

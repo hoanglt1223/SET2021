@@ -76,13 +76,13 @@ function Pawn(color) {
 				y: y + 2 * direct,
 			});
 		}
-		if (chessmap[y + direct][x + direct].havingChessMan()){
+		if (chessmap[y + direct][x + direct].havingChessMan() && chessmap[y + direct][x+direct].getChessman().getColor() !== this.color){
 			possibleMovesList.push({
 				x : x + direct,
 				y : y + direct,
 			})
 		}
-		if (chessmap[y + direct][x - direct].havingChessMan()){
+		if (chessmap[y + direct][x - direct].havingChessMan() && chessmap[y + direct][x-direct].getChessman().getColor() !== this.color){
 			possibleMovesList.push({
 				x : x - direct,
 				y : y + direct,

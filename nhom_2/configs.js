@@ -12,10 +12,11 @@ const ColorType = {
     },
     HOVER: "#512F26",
     SELECT: "#B45927",
-    TURN:{
+    TEAM:{
         WHITE: "white",
         BLACK: "black",
-    }
+    },
+    POSSIBLE_MOVE: "green"
 }
 
 const NUMBER_SQUARE = 8;

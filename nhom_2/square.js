@@ -4,7 +4,8 @@ function Square(x, y, square__Size) {
     this.position_X = x;
     this.position_Y = y;
     this.chessman = null;
-    let isHighLighted = false;
+    this.isHighLighted = false;
+    this.isSuggested = false;
     Object.assign(tile, {
         value: `${x}-${y}`,
         className: "square",
@@ -19,13 +20,15 @@ function Square(x, y, square__Size) {
     // event
     tile.addEventListener("mouseover", () => {
         if (this.chessman != null) {
-            tile.style.backgroundColor = ColorType.HOVER;
+            if (!this.isSuggested){
+                tile.style.backgroundColor = ColorType.HOVER;
+            }
             tile.style.cursor = "pointer";
-
         }
     })
 
     tile.addEventListener("mouseout", () => {
+        if (!this.isSuggested)
         tile.style.backgroundColor = this.color;
     })
 
@@ -52,7 +55,7 @@ function Square(x, y, square__Size) {
         else {
             tile.style.borderColor = this.color;
         }
-        isHighLighted = status;
+        this.isHighLighted = status;
     }
 
     // get

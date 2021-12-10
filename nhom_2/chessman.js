@@ -26,11 +26,38 @@ function ChessMan() {
       return this.color;
   }
 
+  this.getPossibleColor = (chessmap, x, y) =>{
+    if(chessmap[y][x].chessman == null){
+      chessmap[y][x].getTile().style.backgroundColor = ColorType.POSSIBLE_MOVE;
+      chessmap[y][x].isSuggested = true;
+    }
+  }
 }
 
 function Pawn(color) {
   ChessMan.call(this);
   this.setImage('pawn', color);
+  this.showPossibleMoves = (chessmap) =>{
+    let x = this.position_X;
+    let y = this.position_Y;
+    let direct = (this.getColor() == ColorType.TEAM.WHITE) ? "up" : "down";
+    if (direct == "up"){
+      if (y == 6){
+        this.getPossibleColor(chessmap, x, y - 1);
+        this.getPossibleColor(chessmap, x, y - 2);
+      } else {
+      this.getPossibleColor(chessmap, x, y - 1);
+      }
+    } else {
+      if (y == 1){
+        this.getPossibleColor(chessmap, x, y + 1);
+        this.getPossibleColor(chessmap, x, y + 2);
+      } else {
+        this.getPossibleColor(chessmap, x, y + 1);
+      }
+    }
+
+  }
 }
 
 function Bishop(color) {

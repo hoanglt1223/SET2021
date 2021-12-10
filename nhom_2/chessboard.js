@@ -31,6 +31,7 @@ function ChessBoard() {
                     
                     if (!secondClick) {
                         // select the chess
+                        debugger;
                         if (square.havingChessMan() && square.getChessman().getColor() === turn) {
                             secondClick = true;
                             square.select(true);
@@ -40,7 +41,6 @@ function ChessBoard() {
                         }
                     }
                     else {
-                        debugger
                         this.hightLightPossibleSquare(false);
                         secondClick = false;
                         // have done first click
@@ -104,11 +104,11 @@ function ChessBoard() {
     // event handler
 
     this.hightLightPossibleSquare = (status) => {
-        for (let i = 0; i < possibleMoves.length; i++) {
-            let x = possibleMoves[i].x;
-            let y = possibleMoves[i].y;
+        possibleMoves.forEach((move, index)=>{
+            let x = possibleMoves[index].x;
+            let y = possibleMoves[index].y;
             this.chessMap[y][x].hightlight(status);
-        }
+        })
     }
 
 

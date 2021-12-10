@@ -16,7 +16,6 @@ const ColorType = {
         WHITE: "white",
         BLACK: "black",
     },
-    POSSIBLE_MOVE: "green",
     HIGHTLIGHT : "#2B933E",
 }
 

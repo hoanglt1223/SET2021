@@ -1,11 +1,13 @@
-import { COLUMNS, ROWS, Side, PieceName } from './variables.js';
-import {Piece} from './piece.js';
-import { Queen } from './queen.js'
-import {Bishop} from './bishop.js';
-import {Knight} from './knight.js';
-import {Rook} from './rook.js';
-import {King} from './king.js';
-import {Pawn} from './pawn.js';
+import { COLUMNS, ROWS, Side} from './variables.js';
+import { Queen } from './pieces/queen.js'
+import {Bishop} from './pieces/bishop.js';
+import {Knight} from './pieces/knight.js';
+import {Rook} from './pieces/rook.js';
+import {King} from './pieces/king.js';
+import {Pawn} from './pieces/pawn.js';
+import { getSelectedItem } from './utilities/localStorage.js';
+import { move } from './utilities/move.js';
+import { select } from './utilities/select.js';
 
 const Board = function () {
   this.blackPieces = [];
@@ -87,6 +89,16 @@ const Square = function (column, row, piece) {
     square.appendChild(piece.getElement());
   }
   square.id = column + row;
+
+  // add click event listener
+  square.onclick = () => {
+    if(getSelectedItem()) {
+      console.log('ahihi');
+      move(square.id);
+    } else {
+      select(square.id);
+    }
+  }
   return square;
 }
 

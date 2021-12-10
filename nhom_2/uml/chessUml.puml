@@ -1,0 +1,71 @@
+@startuml Application use cases diagram
+skinparam actorStyle awesome
+title UML of chess game
+
+class Chessboard{
+    + table
+    + chessmap
+
+    + setNewChessBoard()
+    + render()
+
+}
+
+class Cell{
+    + td
+    + id
+    + chesspiece
+    
+    + setChesspiece()
+    + getCell()
+
+}
+
+class Chesspiece{
+    + position
+    + chessImage
+
+    + Chesspiece()
+    + setImage()
+    + getImage()
+
+}
+
+class Pawn{
+
+}
+
+class Bishop{
+
+}
+
+class King{
+
+}
+
+class Queen{
+
+}
+
+class Rook{
+
+}
+
+class Knight{
+
+}
+
+
+Pawn --|> Chesspiece
+Bishop --|> Chesspiece
+King --|> Chesspiece
+Queen --|> Chesspiece
+Rook --|> Chesspiece
+Knight --|> Chesspiece
+
+
+Chessboard --> Cell
+Cell --> Chesspiece
+
+
+

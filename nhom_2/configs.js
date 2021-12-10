@@ -16,7 +16,8 @@ const ColorType = {
         WHITE: "white",
         BLACK: "black",
     },
-    POSSIBLE_MOVE: "green"
+    POSSIBLE_MOVE: "green",
+    HIGHTLIGHT : "#2B933E",
 }
 
 const NUMBER_SQUARE = 8;

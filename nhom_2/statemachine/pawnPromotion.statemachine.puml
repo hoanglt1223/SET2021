@@ -1,0 +1,12 @@
+@startuml
+  [*] --> State1
+
+  State1 -> State2
+  State1 : at row 1 (black) or
+  State1 : at row 8 (white)
+  State1 : is a pawn
+
+  State2: is queen
+  State2 --> [*]
+
+@enduml

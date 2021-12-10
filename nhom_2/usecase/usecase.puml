@@ -1,0 +1,55 @@
+@startuml Application use cases diagram
+skinparam actorStyle awesome
+title Use case of chess game
+
+left to right direction
+:Player: as player
+
+package "Website"{
+  rectangle "Log in"{
+    usecase "login" as login
+    (validate) .> (login): extends
+  }
+  rectangle "Register"{
+    usecase "Sign up" as signup
+    (validate) .> (signup): extends
+  }
+  
+rectangle "Playgame"{
+    usecase "Move chesspiece" as move
+    usecase "Undo" as undo
+    usecase "Save game" as save
+    usecase "Load game" as load
+    usecase "Quit game" as quit 
+    usecase "Surrender" as surrender
+  }
+
+  rectangle "Game" as gameplay{
+    usecase "Log out" as logout
+    usecase "New game" as newgame
+    usecase "Read rules" as read
+    usecase "Select level" as level
+    usecase "Play with computer" as playvscomputer
+    usecase "High score" as score 
+    usecase "Match history" as history
+    score .> playvscomputer:extends
+  }
+
+}
+
+player --> signup
+player --> login
+player --> read
+player --> logout
+player --> newgame
+player --> save
+player --> undo
+player --> move
+player --> load
+player --> quit
+player --> surrender
+player --> level
+player --> playvscomputer
+player --> score
+player --> history
+@enduml

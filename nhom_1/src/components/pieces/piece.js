@@ -25,6 +25,8 @@ export const Piece = function (name, color, column, row, isSelected = false, isK
   }
 
   this.move = (squareId) => {
+    this.column = squareId[0];
+    this.row = Number(squareId[1]);
     this.element.parentElement.classList.toggle('c-board__square--selected');
     const square = document.getElementById(squareId);
     square.appendChild(this.element);

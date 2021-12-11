@@ -2,9 +2,9 @@ import {Player} from "./player.js";
 import {COLUMNS, ROWS, Side} from "./variables.js";
 import {Square} from "./components/square.js";
 
-export const Game = function () {
-    this.playerOne = new Player('Vinh', Side.WHITE);
-    this.playerTwo = new Player('Phuc', Side.BLACK);
+export const Game = function (playerOneName, playerTwoName) {
+    this.playerOne = new Player(playerOneName, Side.WHITE);
+    this.playerTwo = new Player(playerTwoName, Side.BLACK);
 
     this.squares = [];
 

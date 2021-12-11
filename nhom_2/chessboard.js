@@ -14,7 +14,7 @@ function ChessBoard() {
     });
 
     // map - chessboard in JS
-    this.chessMap;
+    this.chessMap = [];
 
     // set
     this.setNewChessMap = () => {
@@ -25,13 +25,10 @@ function ChessBoard() {
             for (let x = 0; x < NUMBER_SQUARE; x++) {
                 let square = new Square(x, y, SQUARE_SIZE);
                 let tile = square.getTile();
-
                 // select chessman
                 tile.addEventListener('click', () => {
-                    
                     if (!secondClick) {
                         // select the chess
-                        debugger;
                         if (square.havingChessMan() && square.getChessman().getColor() === turn) {
                             secondClick = true;
                             square.select(true);

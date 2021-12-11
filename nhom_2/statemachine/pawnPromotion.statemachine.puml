@@ -1,4 +1,4 @@
-@startuml
+@startuml Application use cases diagram
   [*] --> State1
 
   State1 -> State2

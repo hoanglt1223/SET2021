@@ -2,7 +2,6 @@ function Pawn(color) {
     ChessMan.call(this);
     this.setImage('pawn', color);
     this.getPossibleMoves = (chessmap) => {
-        debugger;
         let x = this.position_X;
         let y = this.position_Y;
         let possibleMovesList = [];

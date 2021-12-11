@@ -1,0 +1,103 @@
+@startuml Application use cases diagram
+skinparam actorStyle awesome
+title UML of chess game
+
+enum GameState{
+    NEWGAME
+    PLAYING
+    GAMEOVER
+}
+
+enum ColorType{
+    BACKGROUND
+    HOVER
+    SELECT
+    TURN
+}
+
+class Chessboard{
+    ..property..
+    + table
+    + chessmap[]
+    + state
+    + selectedSquare
+    + turn
+    ..
+    + setNewChessMap()
+    + setNewChessBoard()
+    + moveChess()
+    + render()
+}
+note right of Chessboard
+    table: chess board in HTML
+    chessmap: an array contain rows having squares
+end note
+
+class Square{
+    + isHighlighted
+    + isSuggested
+    + chessman
+
+    + setChessman()
+    + getTile()
+
+}
+
+class Chessman{
+    ..property..
+    + position_X
+    + position_Y
+    + image
+    ..setter..
+    + setPosition()
+    + setImage()
+    ..getter..
+    + getImage()
+    + getColor()
+    ..
+    # getPossibleMoves()
+}
+
+class Pawn{
+    + direct
+    + promotePawn()
+}
+
+class Bishop{
+
+}
+
+class King{
+    + hasMoved
+    +castle()
+}
+
+class Queen{
+
+}
+
+class Rook{
+
+}
+
+class Knight{
+
+}
+
+
+
+
+Pawn --|> Chessman
+Bishop --|> Chessman
+King --|> Chessman
+Queen --|> Chessman
+Rook --|> Chessman
+Knight --|> Chessman
+
+
+Chessboard --> Square
+Square "1"..o "0.n" Chessman
+
+
+
+

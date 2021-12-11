@@ -1,102 +1,96 @@
 const chessboardParent = document.getElementById("chessboard");
-const pieceData = [
-  {
-		"name": "Pawn",
-		"length": 8,
-		"alias": "bp",
-		"position": {
-			"letter": ["a", "b", "c", "d", "e", "f", "g", "h"],
-			"number": 7
-		}
-	},
-  {
-		"name": "Knight",
-		"length": 2,
-		"alias": "bn",
-		"position": { "letter": ["b", "g"], "number": 8 }
-	},
-	{
-		"name": "Bishope",
-		"length": 2,
-		"alias": "bb",
-		"position": { "letter": ["c", "f"], "number": 8 }
-	},
-  {
-		"name": "Rook",
-		"length": 2,
-		"alias": "br",
-		"position": { "letter": ["a", "h"], "number": 8 }
-	},
-	{
-		"name": "Queen",
-		"length": 1,
-		"alias": "bq",
-		"position": { "letter": ["d"], "number": 8 }
-	},
-	{
-		"name": "King",
-		"length": 1,
-		"alias": "bk",
-		"position": { "letter": ["e"], "number": 8 }
-	},
-  {
-		"name": "Pawn",
-		"length": 8,
-		"alias": "wp",
-		"position": {
-			"letter": ["a", "b", "c", "d", "e", "f", "g", "h"],
-			"number": 2
-		}
-	},
-	{
-		"name": "Knight",
-		"length": 2,
-		"alias": "wn",
-		"position": { "letter": ["b", "g"], "number": 1 }
-	},
-	{
-		"name": "Bishope",
-		"length": 2,
-		"alias": "wb",
-		"position": { "letter": ["c", "f"], "number": 1 }
-	},
-	{
-		"name": "Rook",
-		"length": 2,
-		"alias": "wr",
-		"position": { "letter": ["a", "h"], "number": 1 }
-	},
-	{
-		"name": "Queen",
-		"length": 1,
-		"alias": "wq",
-		"position": { "letter": ["d"], "number": 1 }
-	},
-	{
-		"name": "King",
-		"length": 1,
-		"alias": "wk",
-		"position": { "letter": ["e"], "number": 1 }
-	}
-]
 // class Game
 function Game() {
   this.board = null;
   this.pieces = [];
   this.setPieces = function () {
-      //get data
-	  const blackPawn = 8;
-	  const whitePawn = 8;
-	  const letters = ["a", "b", "c", "d", "e", "f", "g", "h"];
+      //default position
+	  const bpPosition = ["a7", "b7", "c7", "d7", "e7", "f7", "g7", "h7"];
+	  const wpPosition = ["a2", "b2", "c2", "d2", "e2", "f2", "g2", "h2"];
+	  const bnPosition = ["b8", "g8"];
+	  const wnPosition = ["b1", "g1"];
+	  const brPosition = ["a8", "h8"];
+	  const wrPosition = ["a1", "h1"];
+	  const bbPosition = ["c8", "f8"];
+	  const wbPosition = ["c1", "f1"];
       // loop through theirs length
-      Array.from(Array(blackPawn)).forEach((value, i) => {
-        const position = `${letters[i]}7`; // get position
-        const piece = new Pawn(this, 'Pawn', 'bp', 'black', position, i); //new Piece
+	  // blackPawn first
+      bpPosition.forEach((value, i) => {
+        const piece = new Pawn(this, 'Pawn', 'bp', 'black', value, i); //new Piece
+        piece.create(); //create Piece
+		piece.listener();
+        this.pieces.push(piece);
+      });
+	  // whitePawn
+	  wpPosition.forEach((value, i) => {
+        const piece = new Pawn(this, 'Pawn', 'wp', 'white', value, i); //new Piece
         piece.create(); //create Piece
 		piece.listener();
         this.pieces.push(piece);
       })
-
+	  // black rook
+	  brPosition.forEach((value, i) => {
+        const piece = new Rook(this, 'Rook', 'br', 'black', value, i); //new Piece
+        piece.create(); //create Piece
+		piece.listener();
+        this.pieces.push(piece);
+      });
+	  // white rook
+	  wrPosition.forEach((value, i) => {
+        const piece = new Rook(this, 'Rook', 'wr', 'white', value, i); //new Piece
+        piece.create(); //create Piece
+		piece.listener();
+        this.pieces.push(piece);
+      });
+	  // black knight
+	  bnPosition.forEach((value, i) => {
+        const piece = new Knight(this, 'Knight', 'bn', 'black', value, i); //new Piece
+        piece.create(); //create Piece
+		piece.listener();
+        this.pieces.push(piece);
+      });
+	  // white knight
+	  wnPosition.forEach((value, i) => {
+        const piece = new Knight(this, 'Knight', 'wn', 'white', value, i); //new Piece
+        piece.create(); //create Piece
+		piece.listener();
+        this.pieces.push(piece);
+      });
+	  // black bishop
+	  bbPosition.forEach((value, i) => {
+        const piece = new Bishop(this, 'Bishop', 'bb', 'black', value, i); //new Piece
+        piece.create(); //create Piece
+		piece.listener();
+        this.pieces.push(piece);
+      });
+	  // white bishop
+	  wbPosition.forEach((value, i) => {
+        const piece = new Bishop(this, 'Bishop', 'wb', 'white', value, i); //new Piece
+        piece.create(); //create Piece
+		piece.listener();
+        this.pieces.push(piece);
+      });
+	  // black queen
+        const bqueen = new Queen(this, 'Queen', 'bq', 'black', 'd8', 1); //new Piece
+        bqueen.create(); //create Piece
+		bqueen.listener();
+        this.pieces.push(bqueen);
+	  // white queen
+        const wqueen = new Queen(this, 'Queen', 'wq', 'white', 'd1', 1); //new Piece
+        wqueen.create(); //create Piece
+		wqueen.listener();
+        this.pieces.push(wqueen);
+	  // black king
+		const bking = new King(this, 'King', 'bk', 'black', 'e8', 1); //new Piece
+		bking.create(); //create Piece
+		bking.listener();
+		this.pieces.push(bking);
+	  // white king
+	  	const wking = new King(this, 'King', 'wk', 'white', 'e1', 1); //new Piece
+		wking.create(); //create Piece
+		wking.listener();
+		this.pieces.push(wking);
+	  
   }
   this.init = function () {
     this.board = new Board(this);

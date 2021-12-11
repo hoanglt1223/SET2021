@@ -15,12 +15,20 @@ export const Piece = function (name, color, column, row, isSelected = false, isK
   this.row = row;
   this.element = Piece.prototype.createPieceElement(name, color, backgroundUrl);
 
-  this.select = () => {
+  this.setSelected = () => {
+    this.isSelected = true;
+    this.element.parentElement.classList.toggle('c-board__square--selected')
+  }
+
+  this.showPossibleMove = () => {
 
   }
 
-  this.move = (column, row) => {
-    
+  this.move = (squareId) => {
+    this.element.parentElement.classList.toggle('c-board__square--selected');
+    const square = document.getElementById(squareId);
+    square.appendChild(this.element);
+    this.isSelected = false;
   }
 }
 

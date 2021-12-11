@@ -20,7 +20,13 @@ export const Game = function (playerOneName, playerTwoName) {
         // if there 2 selected square -> move piece from square 1 to 2
         const selectedPiece = this.getSelectedPiece();
         if(selectedPiece) {
+            const pieceTo = this.getPieceBySquareId(squareId);
+            if(pieceTo){
+                selectedPiece.kill(pieceTo);
+            }
+
             selectedPiece.move(squareId);
+
         } else {
             const piece = this.getPieceBySquareId(squareId);
             console.log(piece);

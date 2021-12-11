@@ -31,6 +31,11 @@ export const Piece = function (name, color, column, row, isSelected = false, isK
     const square = document.getElementById(squareId);
     square.appendChild(this.element);
     this.isSelected = false;
+
+  }
+  this.kill = (piece) => {
+    piece.isKilled = true;
+    piece.element.remove();
   }
 }
 

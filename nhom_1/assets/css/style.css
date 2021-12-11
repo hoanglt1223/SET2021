@@ -32,7 +32,7 @@
   color: #7fa650;
 }
 .c-board__square--selected{
-  background-color: rgb(201, 245, 99);
+  background-color: rgba(155,199,0,0.41);
   color: red;
 }
 .c-row-letter {

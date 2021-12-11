@@ -34,6 +34,10 @@ export const Piece = function (name, color, column, row, isSelected = false, isK
     this.isFirstMove = false;
     this.isSelected = false;
   }
+  this.kill = (piece) => {
+    piece.element.parentNode.removeChild(piece.element);
+    piece.isKilled = true;
+  }
 }
 
 Piece.prototype.createPieceElement = (name, color, backgroundUrl) => {

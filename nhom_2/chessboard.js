@@ -35,6 +35,7 @@ function ChessBoard() {
                             this.selectedSquare = square;
                             possibleMoves = square.getChessman().getPossibleMoves(this.chessMap);
                             this.hightLightPossibleSquare(true);
+                            console.log(possibleMoves);
                         }
                     }
                     else {
@@ -101,29 +102,37 @@ function ChessBoard() {
     // event handler
 
     this.hightLightPossibleSquare = (status) => {
-        possibleMoves.forEach((move)=>{
-            let x = move.x;
-            let y = move.y;
-            let opponent = move.opponent;
-            this.chessMap[y][x].hightlight(status , opponent);
-        })
+        if (possibleMoves) {
+            possibleMoves.forEach((move) => {
+                let x = move.x;
+                let y = move.y;
+                let opponent = move.opponent;
+                this.chessMap[y][x].hightlight(status, opponent);
+            })
+        }
     }
 
 
     this.isValidSquare = (square) => {
-        return possibleMoves.some(cell => {
-            return (cell.x == square.getPosition().x && cell.y == square.getPosition().y);
-        })
+        if (possibleMoves) {
+            return possibleMoves.some(cell => {
+                return (cell.x == square.getPosition().x && cell.y == square.getPosition().y);
+            })
+        }
+        return false;
     }
-
 
     //method
     function moveChess(source, destination) {
         let chessman = source.getChessman();
         source.select(false);
         source.removeChessman();
-        if (chessman.type === "pawn" && (destination.position_Y === 0 || destination.position_Y === 7)){
+        if (chessman.type === "pawn" && (destination.position_Y === 0 || destination.position_Y === 7)) {
             chessman = chessman.promotePawn();
+        }
+        if (chessman.type === "king") {
+            chessman.moved();
+            console.log(chessman);
         }
         destination.setChessman(chessman);
     }

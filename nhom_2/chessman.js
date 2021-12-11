@@ -39,7 +39,6 @@ function Bishop(color) {
 
 
 
-
 function Rook(color) {
 	ChessMan.call(this);
 	this.setImage('rook', color);

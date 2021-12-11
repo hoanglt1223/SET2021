@@ -76,11 +76,13 @@ function ChessBoard() {
                             break;
                         case 1:
                         case 6:
-                            chessman = new Bishop(color);
+                            // chessman = new Knight(color);
+
                             break;
                         case 2:
                         case 5:
-                            // chessman = new Knight(color);
+                            chessman = new Bishop(color);
+
                             break;
                         case 3:
                             chessman = new Queen(color);

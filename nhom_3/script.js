@@ -1,5 +1,4 @@
-const column = ['', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
-
+const column = ["", "a", "b", "c", "d", "e", "f", "g", "h"];
 const link = window.location.href;
 function Board() {
   this.layout = document.getElementById("chessboard");
@@ -12,6 +11,7 @@ function Board() {
       this.addSquareToRow(rowId);
     }
   };
+
   this.addSquareToRow = function (rowId) {
     this.rowId = document.getElementById(`${rowId}`);
     for (let columnId = 0; columnId <= 8; columnId++) {
@@ -28,40 +28,87 @@ function Board() {
           : this.square.classList.add("white"));
     }
   };
-  this.changeSquareColor = function (x, y) {
+
+  this.changeSquareColor = function (x, y, chess) {
     const id = `${column[x]}${y}`;
-    console.log(id);
+    // console.log(id);
     const square = document.getElementById(id);
     square.classList.add("recommend");
-    square.addEventListener("click", () => this.movePiece(`${id}`));
+    square.addEventListener("click", () => this.movePiece(id, chess));
   };
+
   this.resetSquareColor = () => {
     const squares = document.querySelectorAll(`.square`);
     squares.forEach((square) => {
       square.classList.remove("recommend");
-      // square.removeEventListener("click", () => this.movePiece(`${id}`));
-      // square.removeEventListener("mouseup", () => {
-      //   this.isChosen(this.id);
-      //   this.recommendMoves(this.id);
-      // })
     });
   };
-  this.oldId = function () {};
-  this.currentId = function () {};
-  this.movePiece = function (id) {
-    const square = document.getElementById(id);
-    if (square.classList.contains("recommend")) {
-      square.firstChild.src = document.querySelector(".chosen img").src;
-      const current = document.querySelector(".chosen");
-      square.setAttribute("name", current.getAttribute("name"));
-      current.setAttribute("name", "");
-      current.firstChild.src = "";
-      current.classList.remove("chosen");
+
+  this.movePiece = function (id, chess) {
+    console.log(id);
+    chess.position = id;
+    console.log("tới move", chess);
+    setDataToLocal("isMove", true);
+    const moveToSquare = document.getElementById(id);
+    const chosenSquare = document.querySelector(".chosen");
+    console.log(chosenSquare);
+    const position = getDataFromLocal("position");
+    position.forEach((chess) => {
+      if (chess.key === chosenSquare.getAttribute("key")) {
+        chess.position = id;
+      }
+    });
+    setDataToLocal("position", position);
+    board.defaultPosition();
+    if (moveToSquare.classList.contains("recommend")) {
+      moveToSquare.firstChild.src = document.querySelector(".chosen img").src;
+      moveToSquare.setAttribute("name", chosenSquare.getAttribute("name"));
+      chosenSquare.setAttribute("name", "");
+      moveToSquare.setAttribute("key", chosenSquare.getAttribute("key"));
+      chosenSquare.setAttribute("key", "");
+      chosenSquare.firstChild.src = "";
+      chosenSquare.classList.remove("chosen");
       this.resetSquareColor();
     }
+  };
+
+  this.defaultPosition = function () {
+    const position = getDataFromLocal("position");
+    position.forEach((chess) => {
+      const square = document.getElementById(chess.position);
+      square.firstChild.src = chess.url;
+      square.setAttribute("name", chess.name);
+      square.setAttribute("key", chess.key);
+      // square.addEventListener("click", () => {
+      //   if (!this.isEmpty(chess.position)) {
+      //     this.isChosen(chess.position);
+      //     this.showMoves(chess.position);
+      //   }
+      // });
+    });
+  };
+  // this.isChosen = function (position) {
+  //   console.log("chosen");
+  //   setDataToLocal("isMove", false);
+  //   this.position = position;
+  //   this.isNotChosen();
+  //   document.getElementById(position).classList.add("chosen");
+  // };
+  // this.isNotChosen = function () {
+  //   const squares = document.querySelectorAll(`.square`);
+  //   squares.forEach((square) => square.classList.remove("chosen"));
+  //   squares.forEach((square) => square.classList.remove("recommend"));
+  // };
+  // this.isEmpty = function (position) {
+  //   if (document.getElementById(position).firstChild.src === link) return true;
+  // };
+  this.showMoves = function (position) {
+    const piece = document.getElementById(position);
+    piece.getAttribute("name");
   };
 }
 
 //jesus
 const board = new Board();
 board.create();
+board.defaultPosition();

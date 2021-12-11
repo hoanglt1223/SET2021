@@ -75,13 +75,14 @@ function Board(game) {
   // setting classes and possibilities
   this.showSquarePossibilities = function (possibilities, insertUI) {
     if (!possibilities) return;
-    const moves = possibilities;
+    const { moves, enemies } = possibilities;
 
     // reset first
     this.resetSquares();
 
     // then set square properties according to possibilities values
     moves.forEach((square) => square.setAs("move", true, insertUI));
+	enemies.forEach((square) => square.setAs("enemy", true, insertUI));
   };
 
   // set moved square

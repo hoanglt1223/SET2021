@@ -123,4 +123,24 @@ function Game() {
     this.board.resetSquares(); // reset possible squares ui
     this.board.setMovedSquare(...param);
   };
+
+  // test move
+  this.testMove = function (piece, square) {
+    const board = this.board;
+	const { moves, enemies } = piece.getPossibleMovesOnly();
+	// check if possibilities are empty
+
+	if (!moves && !enemies) {
+		return false;
+	}
+	const possibleMoves = [...moves, ...enemies];
+	console.log('PossibleMoveArr ', possibleMoves);
+	
+    if (!piece || !square) return false;
+    // store square of param piece and piece inside param square
+    const currentData = { square: piece.square, piece: square.piece };
+    console.log('indexOf ', possibleMoves.indexOf(square));
+	const index = possibleMoves.indexOf(square);
+    return index === false || index == -1 ? false : true;
+  };
 }

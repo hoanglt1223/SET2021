@@ -25,8 +25,6 @@ function Square(boardPosition, position, role) {
   this.setAs = function (classname, bool, ui) {
     const element = this.element;
 
-    this.isMove = classname == "move" && bool; // if can possibly move the piece
-
     if (!ui) return;
     // add class if true and remove if false
     bool

@@ -27,6 +27,8 @@ function Piece(game, name, alias, color, position, index) {
   // move from current square to the target square
   this.move = function (square) {
     const old = this.square;
+    // capture piece inside
+    this.capture(square);
     // move piece into the square
     this.silentMove(square);
     // move the image into the square element
@@ -53,6 +55,26 @@ function Piece(game, name, alias, color, position, index) {
     piece.square = square;
     piece.position = square.position;
   };
+
+  // capture enemy
+  this.capture = function (square) {
+    const piece = square.piece;
+    // return if there is no piece inside
+    if (!piece) return;
+		const piecePlayer = piece.player;
+		const player = this.player;
+
+		// if element exist, remove the element
+		piece.element && piece.element.remove();
+
+		// insert into the target player dropped pieces
+		piecePlayer.dropped.push(piece);
+		// remove piece into the target player pieces
+		piecePlayer.pieces.splice(piecePlayer.pieces.indexOf(piece), 1);
+		// insert into the player eated pieces
+		player.captured.push(piece);
+
+  }
 
   // listen events
   this.listener = function () {
@@ -99,7 +121,7 @@ function Piece(game, name, alias, color, position, index) {
           current.getAttribute("data-position")
         );
         //move piece
-        piece.move(square);
+        piece.player.move(piece, square);
       };
 
       // just setting the styles

@@ -10,8 +10,23 @@ function Pawn(game, name, alias, color, position, index) {
     const game = this.game; // the game
     const gameboard = game.board; // gameboard
     const boardData = gameboard.data; // and the board data
-    const pos = { moves: [] }; // possibilities object
+    const pos = { moves: [], enemies: [] }; // possibilities object
     let { x, y } = square.boardPosition; // square position on board
+
+    // will check if the piece inside square is enemy or not
+    // then if it is push it into enemies pos
+    const testEnemy = function (y, x) {
+      // check if the position is valid
+      if (!gameboard.isValidPos(y, x)) return false;
+
+      const square = boardData[y][x]; // target square
+      const piece = square.piece; // piece inside the target square
+
+      if (!square || !piece) return false;
+      if (piece.player.role == role) return false;
+
+      pos.enemies.push(square);
+    };
 
     //add comment later
     const testSquare = function (y, x) {
@@ -31,7 +46,6 @@ function Pawn(game, name, alias, color, position, index) {
 
     // move pattern
     const movePattern = function () {
-
       // loop through until values
       for (let i = 1; i < 2; i++) {
         if (role == "white") {
@@ -44,6 +58,17 @@ function Pawn(game, name, alias, color, position, index) {
           if (!testSquare(y + i, x)) break;
         }
       }
+
+      // enemy detection
+      if (role == "white") {
+        // (white) check the top left and right square from it's position
+        testEnemy(y - 1, x - 1);
+        testEnemy(y - 1, x + 1);
+      } else {
+        // (black) check the bottom left and right square from it's position
+        testEnemy(y + 1, x - 1);
+        testEnemy(y + 1, x + 1);
+      }
     };
 
     movePattern();
@@ -51,10 +76,12 @@ function Pawn(game, name, alias, color, position, index) {
   };
 
   this.getPossibleMovesOnly = function () {
-    let { moves } = this.getPossibilities();
+    let { moves, enemies } = this.getPossibilities();
     const game = this.game;
 
     game.board.resetSquares();
-    return moves.length ? moves : false;
+    return moves.length || enemies.length 
+    ? { moves, enemies } 
+    : false;
   };
 }

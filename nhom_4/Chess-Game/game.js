@@ -14,9 +14,10 @@ function Game() {
           player.pieces.push(piece);
         }
       });
-	  this.players.push(player);
+      this.players.push(player);
     }
   };
+
   // init pieces
   this.setPieces = function () {
     //default position
@@ -106,6 +107,8 @@ function Game() {
     wking.listener();
     this.pieces.push(wking);
   };
+
+  // init game
   this.init = function () {
     this.board = new Board(this);
     this.board.create(); // create Board
@@ -113,5 +116,11 @@ function Game() {
     this.board.placeChessAsDefault();
     this.setPlayer("Tuấn Anh", "black");
     this.setPlayer("Tiến Logan", "white");
+  };
+
+  // trigger after the player move
+  this.moved = function (...param) {
+    this.board.resetSquares(); // reset possible squares ui
+    this.board.setMovedSquare(...param);
   };
 }

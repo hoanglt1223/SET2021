@@ -26,16 +26,19 @@ function Piece(game, name, alias, color, position, index) {
 
   // move from current square to the target square
   this.move = function (square) {
+    const old = this.square;
     // move piece into the square
     this.silentMove(square);
     // move the image into the square element
     this.moveElementTo(square);
+    // trigger, finished moved
+		this.game.moved(old, square);
   };
 
   // append this piece to square
   this.moveElementTo = function (square) {
     // append the element into the target square element
-    square.info.element.appendChild(this.element);
+    square.element.appendChild(this.element);
   };
 
   // move in the background
@@ -44,7 +47,7 @@ function Piece(game, name, alias, color, position, index) {
 
     // set first to false
     square.piece = false;
-    piece.square.piece =false;
+    piece.square.piece = false;
     // change data
     square.piece = piece;
     piece.square = square;
@@ -95,7 +98,7 @@ function Piece(game, name, alias, color, position, index) {
         const square = piece.game.board.filterSquare(
           current.getAttribute("data-position")
         );
-		//move piece
+        //move piece
         piece.move(square);
       };
 
@@ -125,6 +128,10 @@ function Piece(game, name, alias, color, position, index) {
       setStyle();
       manageListener();
       move(event.pageX, event.pageY);
+
+      // get the piece possibilities,
+      // then show circles to all that squares
+      piece.game.board.showSquarePossibilities(piece.getPossibleMovesOnly(), true);
     };
 
     // add mousedown listener

@@ -55,6 +55,37 @@ body{
     border-bottom-right-radius: 10px;
 }
 
+.chessboard > .chessboard-square::before{
+    content: "";
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #BEC5A3;
+    position: absolute;
+    opacity: 0.50;
+    visibility: hidden;
+}
+
+.chessboard > .chessboard-square.move::before{
+    visibility: visible;
+}
+
+.chessboard > .chessboard-square.enemy::before{
+    visibility: visible;
+}
+
+.chessboard > .chessboard-square.castling::before{
+    visibility: visible;
+}
+
+.chessboard > .chessboard-square.from{
+    background: #bd5c6c; 
+}
+
+.chessboard > .chessboard-square.to{
+    background: #e27587;
+}
+
 .chessboard > .chessboard-square > img.chessboard-piece{
     max-width: 50px;
     width: 50px;
@@ -63,4 +94,8 @@ body{
     user-select: none;
     -webkit-user-select: none;
     -webkit-user-drag: none;
+}
+
+.chessboard > .chessboard-square > img.chessboard-piece:active{
+    cursor: grabbing;
 }

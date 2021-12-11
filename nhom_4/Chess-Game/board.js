@@ -48,7 +48,7 @@ function Board(game) {
       const position = piece.position; // piece pos
       const square = board.filterSquare(position); // select square by its pos
       const pieceElement = piece.element; // piece image
-      const squareElement = square.info.element; // square element
+      const squareElement = square.element; // square element
 
       square.piece = piece;
 
@@ -59,6 +59,37 @@ function Board(game) {
     pieceList.forEach(place);
   };
 
+  // remove all class from all squares
+  this.resetSquares = function () {
+    for (let squares of this.data) {
+      for (let square of squares) {
+        square.setAs("move", false, true);
+        square.setAs("enemy", false, true);
+        square.setAs("castling", false, true);
+        square.setAs("from", false, true);
+        square.setAs("to", false, true);
+      }
+    }
+  };
+
+  // setting classes and possibilities
+  this.showSquarePossibilities = function (possibilities, insertUI) {
+    if (!possibilities) return;
+    const moves = possibilities;
+
+    // reset first
+    this.resetSquares();
+
+    // then set square properties according to possibilities values
+    moves.forEach((square) => square.setAs("move", true, insertUI));
+  };
+
+  // set moved square
+  this.setMovedSquare = function (from, to) {
+    from.setAs("from", true, true);
+    to.setAs("to", true, true);
+  };
+
   //filter square by position
   this.filterSquare = function (square) {
     // loop in board
@@ -66,10 +97,15 @@ function Board(game) {
       // loop through the squares
       for (let sq of squares) {
         // check if square the position is equal to the given pos
-        if (sq.info.position == square) {
+        if (sq.position == square) {
           return sq;
         }
       }
     }
+  };
+
+  // Check if the x and y position is valid in board
+  this.isValidPos = function (y, x) {
+    return this.data[y] ? this.data[y][x] : false;
   };
 }

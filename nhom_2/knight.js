@@ -56,7 +56,7 @@ function Knight(color) {
     }
 
     // x - 2 && y + 1
-    if (x > 1 && y > 0){
+    if (x > 1 && y < 7){
       if ((!chessmap[y + 1][x - 2].havingChessman() || chessmap[y + 1][x - 2].getChessman().getColor() !== this.color)) {
         possibleMoves.push({
             x: x - 2,

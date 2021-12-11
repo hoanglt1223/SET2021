@@ -1,6 +1,7 @@
 function Piece(game, name, alias, color, position, index) {
   // properties
   this.game = game;
+  this.player = null;
   this.name = name;
   this.alias = alias;
   this.color = color;

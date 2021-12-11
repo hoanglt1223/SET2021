@@ -122,6 +122,9 @@ function ChessBoard() {
         let chessman = source.getChessman();
         source.select(false);
         source.removeChessman();
+        if (chessman.type === "pawn" && (destination.position_Y === 0 || destination.position_Y === 7)){
+            chessman = chessman.promotePawn();
+        }
         destination.setChessman(chessman);
     }
 

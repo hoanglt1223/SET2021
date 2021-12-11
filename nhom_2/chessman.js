@@ -6,10 +6,12 @@ function ChessMan() {
 	this.position_X;
 	this.position_Y;
 	this.color;
+	this.type;
 	// set
 	this.setImage = (type, color) => {
 		this.image.src = `/assets/chess-${type}-${color}.png`;
 		this.color = color;
+		this.type = type;
 	}
 
 	this.setPosition = (posX, posY) => {
@@ -36,10 +38,7 @@ function Bishop(color) {
 
 
 
-function Queen(color) {
-	ChessMan.call(this);
-	this.setImage('queen', color);
-}
+
 
 function Rook(color) {
 	ChessMan.call(this);

@@ -1,6 +1,11 @@
 function Pawn(color) {
     ChessMan.call(this);
     this.setImage('pawn', color);
+
+    this.promotePawn = () => {
+        return new Queen (this.color);
+    }
+
     this.getPossibleMoves = (chessmap) => {
         let x = this.position_X;
         let y = this.position_Y;
@@ -66,7 +71,6 @@ function Pawn(color) {
                     break;
             }
         }
-        
         return possibleMovesList;
     }
 }

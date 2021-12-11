@@ -1,14 +1,14 @@
 import { COLUMNS, ROWS, Side} from './variables.js';
-import { Queen } from './pieces/queen.js'
-import {Bishop} from './pieces/bishop.js';
-import {Knight} from './pieces/knight.js';
-import {Rook} from './pieces/rook.js';
-import {King} from './pieces/king.js';
-import {Pawn} from './pieces/pawn.js';
+import { Queen } from './components/pieces/queen.js'
+import {Bishop} from './components/pieces/bishop.js';
+import {Knight} from './components/pieces/knight.js';
+import {Rook} from './components/pieces/rook.js';
+import {King} from './components/pieces/king.js';
+import {Pawn} from './components/pieces/pawn.js';
 import { getSelectedItem } from './utilities/localStorage.js';
 import { move } from './utilities/move.js';
 import { select } from './utilities/select.js';
-import { Piece } from './pieces/piece.js';
+import { Piece } from './components/pieces/piece.js';
 
 const Player = function (name, side) {
   this.name = name;

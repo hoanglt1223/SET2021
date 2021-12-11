@@ -31,10 +31,6 @@ function ChessMan() {
 	this.getPossibleMoves = () => { };
 }
 
-function Bishop(color) {
-	ChessMan.call(this);
-	this.setImage('bishop', color);
-}
 
 
 

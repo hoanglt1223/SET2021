@@ -28,7 +28,7 @@ function ChessBoard() {
                 // select chessman
                 tile.addEventListener('click', () => {
                     if (!secondClick) {
-                        // select the chess
+                        // select the chess - first CLICK
                         if (square.havingChessman() && square.getChessman().getColor() === turn) {
                             secondClick = true;
                             square.select(true);
@@ -38,16 +38,29 @@ function ChessBoard() {
                         }
                     }
                     else {
+                        // select the target - second CLICK
                         this.hightLightPossibleSquare(false);
                         secondClick = false;
-                        // have done first click
-                        // move the chess
-                        if (this.isValidSquare(square)) {
-                            moveChess(this.selectedSquare, square);
+                        // castle
+                        if (square.havingChessman() && this.isAbleToCastling(this.selectedSquare, square)) {
+                            if (this.selectedSquare.getChessman().type == ChessmanType.KING) {
+                                this.castle(this.selectedSquare, square);
+                            }
+                            else {
+                                this.castle(square, this.selectedSquare);
+                            }
                             turn = (turn === ColorType.TEAM.WHITE) ? ColorType.TEAM.BLACK : ColorType.TEAM.WHITE;
+
                         }
                         else {
-                            this.selectedSquare.select(false);
+                            // move the chess
+                            if (this.isValidSquare(square)) {
+                                moveChess(this.selectedSquare, square);
+                                turn = (turn === ColorType.TEAM.WHITE) ? ColorType.TEAM.BLACK : ColorType.TEAM.WHITE;
+                            }
+                            else {
+                                this.selectedSquare.select(false);
+                            }
                         }
                     }
                 })
@@ -62,10 +75,10 @@ function ChessBoard() {
             for (let x = 0; x < NUMBER_SQUARE; x++) {
                 let chessman = null;
                 if (y == 6) {
-                    // chessman = new Pawn(ColorType.TEAM.WHITE);
+                    chessman = new Pawn(ColorType.TEAM.WHITE);
                 }
                 if (y == 1) {
-                    // chessman = new Pawn(ColorType.TEAM.BLACK);
+                    chessman = new Pawn(ColorType.TEAM.BLACK);
                 }
                 if (y == 0 || y == 7) {
                     let color = (y == 7) ? ColorType.TEAM.WHITE : ColorType.TEAM.BLACK;
@@ -77,7 +90,6 @@ function ChessBoard() {
                         case 1:
                         case 6:
                             // chessman = new Knight(color);
-
                             break;
                         case 2:
                         case 5:
@@ -137,7 +149,52 @@ function ChessBoard() {
         destination.setChessman(chessman);
     }
 
-    
+    this.isAbleToCastling = (source, destination) => {
+        if (source.getChessman().getColor() !== destination.getChessman().getColor()) {
+            return false;
+        }
+        let sourceType = source.getChessman().type;
+        let desType = destination.getChessman().type;
+
+        if ((sourceType === ChessmanType.KING && desType === ChessmanType.ROOK) || (desType === ChessmanType.KING && sourceType === ChessmanType.ROOK)) {
+            if (source.getChessman().hasMoved() || destination.getChessman().hasMoved()) {
+                return false;
+            }
+            let direct = source.getPosition().x > destination.getPosition().x ? - 1 : 1;
+
+            for (let x = source.getPosition().x + direct; x < destination.getPosition().x; x += 1 * direct) {
+                if (this.chessmap[source.getPosition().y][x].havingChessman()) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    this.castle = (kingSquare, rookSquare) => {
+        kingSquare.getChessman().hasMoved();
+        rookSquare.getChessman().hasMoved();
+        let direct = kingSquare.getPosition().x > rookSquare.getPosition().x ? -1 : 1;
+        let position_X = kingSquare.getPosition().x;
+        let position_Y = kingSquare.getPosition().y;
+        let target_of_King = this.findSquare(position_X + 2 * direct, position_Y);
+        let target_of_Rook = this.findSquare(position_X + direct, position_Y);
+        moveChess(kingSquare, target_of_King);
+        moveChess(rookSquare, target_of_Rook);
+    }
+
+    this.findSquare = (x, y) => {
+        let result = null;
+        this.chessmap.forEach(row => {
+            row.forEach(square => {
+                if (square.getPosition().x == x && square.getPosition().y == y) {
+                    result = square;
+                }
+            })
+        })
+        return result;
+    }
 
     // render
     this.render = () => {

@@ -36,11 +36,5 @@ function ChessMan() {
 
 
 
-function Knight(color) {
-	ChessMan.call(this);
-	this.setImage('knight', color);
-}
-
-
 
 

@@ -34,10 +34,7 @@ function Bishop(color) {
 	this.setImage('bishop', color);
 }
 
-function King(color) {
-	ChessMan.call(this);
-	this.setImage('king', color);
-}
+
 
 function Queen(color) {
 	ChessMan.call(this);

@@ -28,7 +28,6 @@ function Pawn(color) {
             // pawn from x = 1 to x = 6 
             switch (x) {
                 case 0:
-                    debugger;
                     if (chessmap[y + direct][x + 1].havingChessMan() && chessmap[y + direct][x + 1].getChessman().getColor() !== this.color) {
                         possibleMovesList.push({
                             x: x + 1,

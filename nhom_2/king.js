@@ -30,7 +30,7 @@ function King(color) {
 				if (x === this.position_X && y === this.position_Y) {
 					continue;
 				}
-				if (!chessmap[y][x].havingChessMan() ||  chessmap[y][x].getChessman().getColor() !== this.color) {
+				if (!chessmap[y][x].havingChessMan() || chessmap[y][x].getChessman().getColor() !== this.color) {
 					possibleMovesList.push({
 						x: x,
 						y: y,

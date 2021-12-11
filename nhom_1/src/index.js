@@ -42,6 +42,7 @@ const Player = function (name, side) {
             this.pieces.push(
               new Queen(side, col, row)
             );
+            console.log(this.pieces);
           }
           if (col === 'e') {
             this.pieces.push(
@@ -60,6 +61,24 @@ const Board = function () {
 
   this.squares = [];
 
+  const boardElement = document.getElementById('board');
+
+  boardElement.onclick = (e) => {
+    //get a square of click
+    const squareElement = e.target.tagName == 'BUTTON' ? e.target : e.target.parentElement;
+    const squareId = squareElement.id;
+
+    //hightlight selected
+    squareElement.classList.toggle('c-board__square--selected');
+
+    // if there 2 selected square -> move piece from square 1 to 2
+    const selectedSquares = document.getElementsByClassName('c-board__square--selected');
+    if(selectedSquares.length == 2) {
+      const selectedSquare = selectedSquares[0]; 
+    }
+  }
+  this.element = boardElement; 
+
   ROWS.forEach((row, indexRow) => {
     COLUMNS.forEach((col, indexCol) => {
       this.squares.push(new Square(col, row));
@@ -68,7 +87,7 @@ const Board = function () {
 
   this.renderSquares = () => {
     this.squares.forEach(square => {
-      document.getElementById('board').appendChild(square);
+      document.getElementById('board').appendChild(square.element);
     })
   }
 
@@ -87,6 +106,17 @@ const Board = function () {
     this.playerTwo.pieces.forEach((piece) => {
       this.renderPiece(piece);
     });
+  }
+  
+  this.getSquareBySquareId = squareId => this.squares.filter(square => square.column === squareId && square.row === squareId)[0];
+
+  this.getPieceBySquareId = (squareId) => {
+    const pieces = this.playerOne.pieces.concat(this.playerTwo.pieces).filter(piece => piece.column === squareId[0] && piece.row === squareId[1]);
+    return pieces.length === 0 ? null : pieces[0];
+  }
+  this.getSelectedPiece = () => {
+    const pieces = this.playerOne.pieces.concat(this.playerTwo.pieces).filter(piece => piece.isSelected);
+    return pieces.length === 0 ? null : pieces[0];
   }
 }
 
@@ -124,8 +154,12 @@ const Square = function (column, row) {
   //     select(square.id);
   //   }
   // }
-  return square;
+  // square.onclick = () => {
+  //   square.classList.toggle('c-board__square--selected');
+  // }
+  this.element = square;
 }
+document.addEventListener
 
 const board = new Board();
 board.initializeBoard();

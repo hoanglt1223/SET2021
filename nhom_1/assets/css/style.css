@@ -17,6 +17,12 @@
   border: none;
   cursor: pointer;
 }
+.c-board__square img{
+
+}
+.c-board__piece--die{
+  display: none;
+}
 .c-board__square--black {
   background-color: #7fa650;
   color: rgb(230, 240, 210);
@@ -24,6 +30,10 @@
 .c-board__square--white {
   background-color: rgb(230, 240, 210);
   color: #7fa650;
+}
+.c-board__square--selected{
+  background-color: rgb(201, 245, 99);
+  color: red;
 }
 .c-row-letter {
   padding: 0;

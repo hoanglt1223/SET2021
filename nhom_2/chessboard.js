@@ -14,11 +14,11 @@ function ChessBoard() {
     });
 
     // map - chessboard in JS
-    this.chessMap = [];
+    this.chessmap = [];
 
     // set
-    this.setNewChessMap = () => {
-        this.chessMap = [];
+    this.setNewchessmap = () => {
+        this.chessmap = [];
         turn = ColorType.TEAM.WHITE;
         for (let y = 0; y < NUMBER_SQUARE; y++) {
             let row = [];
@@ -29,16 +29,16 @@ function ChessBoard() {
                 tile.addEventListener('click', () => {
                     if (!secondClick) {
                         // select the chess
-                        if (square.havingChessMan() && square.getChessman().getColor() === turn) {
+                        if (square.havingChessman() && square.getChessman().getColor() === turn) {
                             secondClick = true;
                             square.select(true);
                             this.selectedSquare = square;
-                            possibleMoves = square.getChessman().getPossibleMoves(this.chessMap);
+                            possibleMoves = square.getChessman().getPossibleMoves(this.chessmap);
                             this.hightLightPossibleSquare(true);
-                            console.log(possibleMoves);
                         }
                     }
                     else {
+                        // console.log(this.chessmap, isAbleToCastling(this.selectedSquare, square));
                         this.hightLightPossibleSquare(false);
                         secondClick = false;
                         // have done first click
@@ -54,7 +54,7 @@ function ChessBoard() {
                 })
                 row.push(square);
             }
-            this.chessMap.push(row);
+            this.chessmap.push(row);
         }
     }
 
@@ -92,9 +92,9 @@ function ChessBoard() {
                     }
                 }
                 if (chessman != null) {
-                    this.chessMap[y][x].setChessman(chessman);
+                    this.chessmap[y][x].setChessman(chessman);
                 }
-                this.boardHTML.appendChild(this.chessMap[y][x].getTile());
+                this.boardHTML.appendChild(this.chessmap[y][x].getTile());
             }
         }
     }
@@ -107,11 +107,10 @@ function ChessBoard() {
                 let x = move.x;
                 let y = move.y;
                 let opponent = move.opponent;
-                this.chessMap[y][x].hightlight(status, opponent);
+                this.chessmap[y][x].hightlight(status, opponent);
             })
         }
     }
-
 
     this.isValidSquare = (square) => {
         if (possibleMoves) {
@@ -127,20 +126,45 @@ function ChessBoard() {
         let chessman = source.getChessman();
         source.select(false);
         source.removeChessman();
-        if (chessman.type === "pawn" && (destination.position_Y === 0 || destination.position_Y === 7)) {
+        // promote
+        if (chessman.type === ChessmanType.PAWN && (destination.position_Y === 0 || destination.position_Y === 7)) {
             chessman = chessman.promotePawn();
         }
-        if (chessman.type === "king") {
+        if (chessman.type === ChessmanType.KING || chessman.type === ChessmanType.ROOK) {
             chessman.moved();
-            console.log(chessman);
         }
         destination.setChessman(chessman);
+    }
+
+    function isAbleToCastling(chessmap, source, destination){
+        if (source.getColor() !== destination.getColor()){
+            return false;
+        }
+        let sourceType = source.getChessman().type;
+        let desType = source.getChessman().type;
+
+        if ((sourceType !== ChessmanType.KING && desType !== ChessmanType.ROOK)|| (desType !== ChessmanType.KING && sourceType !== ChessmanType.ROOK) ){
+            return false;
+        }
+        if (source.getChessman().hasMoved() || destination.getChessman().hasMoved()){
+            return false;
+        }
+        let direct = source.getPosition().x > destination.getPosition().x ? - 1 : 1;
+        console.log(source.getPosition());
+        console.log(destination.getPosition());
+
+        for (let x = source.getPosition().x + direct; x < destination.getPosition().x; x+= 1 *direct){
+            if (chessmap[source.getPosition().y][x].havingChessman()){
+                return false;
+            }
+        }
+        return true;
     }
 
     // render
     this.render = () => {
         if (state == GAME_STATE.NEWGAME) {
-            this.setNewChessMap();
+            this.setNewchessmap();
             this.setNewChessBoard();
             state = GAME_STATE.PLAYING;
         }

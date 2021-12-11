@@ -20,5 +20,14 @@ const ColorType = {
     POSSIBLE_MOVE_OPPONENT : "#CCB717",
 }
 
+const ChessmanType = {
+    KING: "king",
+    PAWN: "pawn",
+    QUEEN: "queen",
+    ROOK: "rook",
+    KNIGHT: "knight",
+    BISHOP: "bishop",
+}
+
 const NUMBER_SQUARE = 8;
 const SQUARE_SIZE = 80;

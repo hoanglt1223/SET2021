@@ -81,7 +81,7 @@ function Square(x, y, square__Size) {
         return this.chessman;
     }
 
-    this.havingChessMan = () => {
+    this.havingChessman = () => {
         return (this.chessman != null);
     }
 

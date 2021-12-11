@@ -18,10 +18,10 @@ export const Piece = function (name, color, column, row, isSelected = false, isK
   this.setSelected = () => {
     this.isSelected = true;
     this.element.parentElement.classList.toggle('c-board__square--selected')
+
   }
 
-  this.showPossibleMove = () => {
-
+  this.showPossibleMove = (piece) => {
   }
 
   this.move = (squareId) => {
@@ -30,6 +30,8 @@ export const Piece = function (name, color, column, row, isSelected = false, isK
     this.element.parentElement.classList.toggle('c-board__square--selected');
     const square = document.getElementById(squareId);
     square.appendChild(this.element);
+
+    this.isFirstMove = false;
     this.isSelected = false;
   }
 }

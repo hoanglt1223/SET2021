@@ -24,7 +24,11 @@ export const Game = function (playerOneName, playerTwoName) {
         } else {
             const piece = this.getPieceBySquareId(squareId);
             console.log(piece);
-            piece?.setSelected();
+            
+            //show available possition
+            piece.showPossibleMove(squareId);
+
+            piece?.setSelected();            
         }
     }
     this.element = boardElement;

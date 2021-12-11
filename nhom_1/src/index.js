@@ -8,61 +8,91 @@ import {Pawn} from './pieces/pawn.js';
 import { getSelectedItem } from './utilities/localStorage.js';
 import { move } from './utilities/move.js';
 import { select } from './utilities/select.js';
+import { Piece } from './pieces/piece.js';
+
+const Player = function (name, side) {
+  this.name = name;
+  this.side = side;
+
+  this.pieces = [];
+  ROWS.forEach((row, indexRow) => {
+    COLUMNS.forEach((col, indexCol) => {
+      if ((row < 5 && side === Side.WHITE) || (row >= 5 && side === Side.BLACK)) {
+        if(row === 7 || row === 2){
+          this.pieces.push(
+            new Pawn(side, col, row)
+          );
+        } else if (row === 1 || row === 8) {
+          if (col === 'a' || col === 'h') {
+            this.pieces.push(
+              new Rook(side, col, row)
+            );
+          }
+          if (col === 'b' || col === 'g') {
+            this.pieces.push(
+              new Knight(side, col, row)
+            );
+          }
+          if (col === 'c' || col === 'f') {
+            this.pieces.push(
+              new Bishop(side, col, row)
+            );
+          }
+          if (col === 'd') {
+            this.pieces.push(
+              new Queen(side, col, row)
+            );
+          }
+          if (col === 'e') {
+            this.pieces.push(
+              new King(side, col, row)
+            );
+          }
+        }
+      }
+    })
+  }) 
+}
 
 const Board = function () {
-  this.blackPieces = [];
-  this.whitePieces = [];
+  this.playerOne = new Player('Vinh', Side.WHITE);
+  this.playerTwo = new Player('Phuc', Side.BLACK);
+
   this.squares = [];
 
   ROWS.forEach((row, indexRow) => {
     COLUMNS.forEach((col, indexCol) => {
-      let pieceColor;
-      if (row < 5) {
-        pieceColor = Side.WHITE;
-      } else {
-        pieceColor = Side.BLACK;
-      }
-      if (row === 7 || row === 2) {
-        this.squares.push(new Square(col, row, new Pawn(pieceColor)));
-      } else if (row === 1 || row === 8) {
-        if (col === 'a' || col === 'h') {
-          this.squares.push(new Square(col, row, new Rook(pieceColor)));
-
-        }
-        if (col === 'b' || col === 'g') {
-          this.squares.push(new Square(col, row, new Knight(pieceColor)));
-
-        }
-        if (col === 'c' || col === 'f') {
-          this.squares.push(new Square(col, row, new Bishop(pieceColor)));
-
-        }
-        if (col === 'd') {
-          this.squares.push(new Square(col, row, new Queen(pieceColor)));
-
-        }
-        if (col === 'e') {
-          this.squares.push(new Square(col, row, new King(pieceColor)));
-
-        }
-      }
-      else {
-        this.squares.push(new Square(col, row, null));
-      }
+      this.squares.push(new Square(col, row));
     })
   })
 
-  this.render = () => {
+  this.renderSquares = () => {
     this.squares.forEach(square => {
       document.getElementById('board').appendChild(square);
     })
   }
+
+  this.renderPiece = (piece) => {
+    // get square id 
+    const squareId = piece.column + piece.row;
+    const squareElement = document.getElementById(squareId);
+    squareElement.appendChild(piece.element);
+  }
+
+  this.initializeBoard = () => {
+    this.renderSquares();
+    this.playerOne.pieces.forEach((piece) => {
+      this.renderPiece(piece);
+    });
+    this.playerTwo.pieces.forEach((piece) => {
+      this.renderPiece(piece);
+    });
+  }
 }
 
-const Square = function (column, row, piece) {
+const Square = function (column, row) {
   this.column = column;
   this.row = row;
-  this.piece = piece;
 
   // render and return
   const square = document.createElement('button');
@@ -84,24 +114,18 @@ const Square = function (column, row, piece) {
     letter.className = 'c-column-letter';
     square.appendChild(letter);
   }
-  // add piece to square
-  if (piece) {
-    square.appendChild(piece.getElement());
-  }
   square.id = column + row;
 
   // add click event listener
-  square.onclick = () => {
-    if(getSelectedItem()) {
-      console.log('ahihi');
-      move(square.id);
-    } else {
-      select(square.id);
-    }
-  }
+  // square.onclick = () => {
+  //   if(getSelectedItem()) {
+  //     move(square.id);
+  //   } else {
+  //     select(square.id);
+  //   }
+  // }
   return square;
 }
 
-debugger
 const board = new Board();
-board.render();
+board.initializeBoard();

@@ -1,8 +1,8 @@
-import { COLUMNS, ROWS, Side, PieceName } from '../variables.js';
+import {Side, PieceName } from '../variables.js';
 import {Piece} from './piece.js';
 
-export const Queen = function (color, square = null, isKilled = false) {
+export const Queen = function (color, column, row, isKilled = false) {
   const backgroundUrl = color === Side.BLACK ? '/nhom_1/assets/img/queen_black.png' : '/nhom_1/assets/img/queen_white.png'
-  Piece.call(this, PieceName.QUEEN, color, square, isKilled, backgroundUrl);
+  Piece.call(this, PieceName.QUEEN,color, column, row, isKilled, backgroundUrl);
 }
 

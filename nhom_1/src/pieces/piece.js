@@ -1,15 +1,23 @@
-export const Piece = function (name, color, square, isKilled = false, backgroundUrl) {
+export function createPieceElement(name, color, backgroundUrl) {
+  const piece = document.createElement('img');
+  piece.classList.add(color,name, 'piece');
+  piece.src = backgroundUrl;
+  return piece;
+}
+
+export const Piece = function (name, color, column, row, isKilled = false, backgroundUrl) {
   this.name = name;
   this.color = color;
   this.isKilled = isKilled;
   this.backgroundUrl = backgroundUrl;
-  this.square = square;
+  this.column = column;
+  this.row = row;
+  this.element = Piece.prototype.createPieceElement(name, color, backgroundUrl);
+}
 
-  //return HTML
-  this.getElement = () => {
-    const piece = document.createElement('img');
-    piece.classList.add(name, 'piece');
-    piece.src = this.backgroundUrl;
-    return piece;
-  }
+Piece.prototype.createPieceElement = (name, color, backgroundUrl) => {
+  const piece = document.createElement('img');
+  piece.classList.add(color,name, 'piece');
+  piece.src = backgroundUrl;
+  return piece;  
 }

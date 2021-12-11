@@ -1,6 +1,6 @@
 function ChessBoard() {
     let state = GAME_STATE.NEWGAME;
-    this.selectedSquare = null;
+    this.selectedcol, row;
     let secondClick = false;
     let turn;
     

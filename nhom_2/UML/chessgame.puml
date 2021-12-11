@@ -17,21 +17,25 @@ enum ColorType{
 
 class Chessboard{
     ..property..
-    + table
-    + chessmap[]
+    + boardHTML
+    + chessmap : Array
     + state
     + selectedSquare
     + turn
-    ..
+    + secondClick
+    + possibleMoves:Array
+    ..method..
+    + moveChess()
+    + hightLightPossibleSquare()
+    + isValidSquare()
+    + isAbleToCastling()
+    + castle()
+    + findSquare()
+    + render()
     + setNewChessMap()
     + setNewChessBoard()
-    + moveChess()
-    + render()
+    
 }
-note right of Chessboard
-    table: chess board in HTML
-    chessmap: an array contain rows having squares
-end note
 
 class Square{
     + isHighlighted
@@ -48,6 +52,8 @@ class Chessman{
     + position_X
     + position_Y
     + image
+    + color
+    + type
     ..setter..
     + setPosition()
     + setImage()
@@ -68,8 +74,9 @@ class Bishop{
 }
 
 class King{
-    + hasMoved
-    +castle()
+    + statusMoved
+    + hasMoved()
+    + moved()
 }
 
 class Queen{
@@ -77,7 +84,9 @@ class Queen{
 }
 
 class Rook{
-
+    + statusMoved
+    + hasMoved()
+    + moved()
 }
 
 class Knight{

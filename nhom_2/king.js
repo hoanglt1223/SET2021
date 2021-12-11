@@ -43,31 +43,4 @@ function King(color) {
 		return possibleMovesList;
 	}
 
-	// this.isAbleToCastling = (chessmap, source, destination) =>{
-    //     if (source.getChessman().getColor() !== destination.getChessman().getColor()) {
-    //         return false;
-    //     }
-    //     let sourceType = source.getChessman().type;
-    //     let desType = destination.getChessman().type;
-
-    //     if ((sourceType === ChessmanType.KING && desType === ChessmanType.ROOK) || (desType === ChessmanType.KING && sourceType === ChessmanType.ROOK)) {
-    //         if (source.getChessman().hasMoved() || destination.getChessman().hasMoved()) {
-    //             return false;
-    //         }
-    //         let direct = source.getPosition().x > destination.getPosition().x ? - 1 : 1;
-
-    //         for (let x = source.getPosition().x + direct; x < destination.getPosition().x; x += 1 * direct) {
-    //             if (chessmap[source.getPosition().y][x].havingChessman()) {
-    //                 return false;
-    //             }
-    //         }
-    //         return true;
-    //     }
-    //     return false;
-    // }
-
-	this.castle = () => {
-
-	}
-
 }

@@ -6,35 +6,6 @@ function Knight(color) {
     let possibleMoves = [];
     let x = this.position_X;
     let y = this.position_Y;
-    // function calculatatePossibleMoves(possibleMoves, destinationY, destinationX){
-    //   if (!chessmap[destinationY][destinationX].havingChessman() || chessmap[destinationY][destinationX].getChessman().getColor() !== this.color) {
-    //     possibleMoves.push({
-    //         x: destinationX,
-    //         y: destinationY,
-    //         opponent: chessmap[destinationY][destinationX].havingChessman(),
-    //     });
-    //   }
-    //   console.log(destinationX);
-    //   console.log(chessmap);
-    //   return possibleMoves;
-    // }
-
-    // calculatatePossibleMoves = (possibleMoves, y - 1, x + 2);
-    // calculatatePossibleMoves = (possibleMoves, chessmap, y - 2, x + 1);
-    // this.calculatatePossibleMoves = (chessmap, y, x);
-    // this.calculatatePossibleMoves = (chessmap, y, x);
-    // this.calculatatePossibleMoves = (chessmap, y, x);
-    // this.calculatatePossibleMoves = (chessmap, y, x);
-    // this.calculatatePossibleMoves = (chessmap, y, x);
-    // this.calculatatePossibleMoves = (chessmap, y, x);
-    // if (!chessmap[y][x].havingChessman() || chessmap[y][x].getChessman().getColor() !== this.color) {
-    //   possibleMoves.push({
-    //       x: x,
-    //       y: y,
-    //       opponent: chessmap[y][x].havingChessman(),
-    //   });
-
-    // }
 
     // x + 2, y - 1
     if (x < NUMBER_SQUARE - 2 && y != 0){

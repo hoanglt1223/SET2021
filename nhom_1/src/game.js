@@ -14,22 +14,19 @@ export const Game = function (playerOneName, playerTwoName) {
         //get a square of click
         const squareElement = e.target.tagName == 'BUTTON' ? e.target : e.target.parentElement;
         const squareId = squareElement.id;
-        console.log(squareId)
-
 
         // if there 2 selected square -> move piece from square 1 to 2
         const selectedPiece = this.getSelectedPiece();
         if(selectedPiece) {
             const pieceTo = this.getPieceBySquareId(squareId);
             if(pieceTo){
-                selectedPiece.kill(pieceTo);
+                if(pieceTo.color !== selectedPiece.color){
+                    selectedPiece.kill(pieceTo);
+                } 
             }
-
             selectedPiece.move(squareId);
-
         } else {
             const piece = this.getPieceBySquareId(squareId);
-            console.log(piece);
             piece?.setSelected();
         }
     }
@@ -67,11 +64,11 @@ export const Game = function (playerOneName, playerTwoName) {
     this.getSquareBySquareId = squareId => this.squares.filter(square => square.column === squareId[0] && square.row === Number(squareId[1]))[0];
 
     this.getPieceBySquareId = (squareId) => {
-        const pieces = this.playerOne.pieces.concat(this.playerTwo.pieces).filter(piece => piece.column === squareId[0] && piece.row === Number(squareId[1]));
+        const pieces = this.playerOne.pieces.concat(this.playerTwo.pieces).filter(piece => piece.column === squareId[0] && piece.row === Number(squareId[1]) && !piece.isKilled);
         return pieces.length === 0 ? null : pieces[0];
     }
     this.getSelectedPiece = () => {
-        const pieces = this.playerOne.pieces.concat(this.playerTwo.pieces).filter(piece => piece.isSelected);
+        const pieces = this.playerOne.pieces.concat(this.playerTwo.pieces).filter(piece => piece.isSelected && !piece.isKilled);
         return pieces.length === 0 ? null : pieces[0];
     }
 }

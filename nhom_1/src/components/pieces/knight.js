@@ -9,12 +9,12 @@ export const Knight = function (color, column, row, isSelected = false, isKilled
     const indexOfCol = COLUMNS.indexOf(this.column);
     const indexOfRow = ROWS.indexOf(this.row);
     let res = [];
-    let matrixMovesY = [1, -1, 2, 2, -1, 1, -2, -2]
-    let matrixMovesX = [2, 2, 1, -1, -2, -2, 1, -1];
+    let movesYMatrix = [1, -1, 2, 2, -1, 1, -2, -2]
+    let movesXMatrix = [2, 2, 1, -1, -2, -2, 1, -1];
     for(let i = 0; i<8; i++) {
 
       
-      const squareId = COLUMNS[indexOfCol + matrixMovesX[i]] + ROWS[indexOfRow + matrixMovesY[i]];
+      const squareId = COLUMNS[indexOfCol + movesXMatrix[i]] + ROWS[indexOfRow + movesYMatrix[i]];
             if(document.getElementById(squareId)?.getElementsByClassName(this.color).length > 0){
         continue;
       }

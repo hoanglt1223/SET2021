@@ -10,15 +10,15 @@ export const Pawn = function (color, column, row, isSelected = false, isKilled =
     const indexOfCol = COLUMNS.indexOf(this.column);
     const indexOfRow = ROWS.indexOf(this.row);
     let res = [];
-    let matrixMovesY;
+    let movesYMatrix;
     if(this.color === Side.WHITE) {
-      matrixMovesY = [1, 2, 1, 1];
+      movesYMatrix = [1, 2, 1, 1];
     } else {
-      matrixMovesY = [-1, -2, -1, -1];
+      movesYMatrix = [-1, -2, -1, -1];
     }
-    let matrixMovesX = [0, 0, 1, -1];
+    let movesXMatrix = [0, 0, 1, -1];
     for(let i = 0; i<4; i++) {
-      const squareId = COLUMNS[indexOfCol + matrixMovesX[i]] + ROWS[indexOfRow + matrixMovesY[i]];
+      const squareId = COLUMNS[indexOfCol + movesXMatrix[i]] + ROWS[indexOfRow + movesYMatrix[i]];
 
       if(i == 1){
         if(!this.isFirstMove){

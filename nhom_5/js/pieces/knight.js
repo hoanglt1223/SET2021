@@ -5,25 +5,27 @@ function Knight(isWhite, isKilled = false) {
 
   this.getSpotsCanMove = function (startX, startY, board) {
     let spots = [];
-  
-      
-      spots.push({ x: startX - 2, y: startY - 1});
-      spots.push({ x: startX + 2, y: startY - 1});
-      spots.push({ x: startX - 2, y: startY + 1});
-      spots.push({ x: startX + 2, y: startY + 1});
-      spots.push({ x: startX - 1, y: startY - 2});
-      spots.push({ x: startX + 1, y: startY - 2});
-      spots.push({ x: startX - 1, y: startY + 2});
-      spots.push({ x: startX + 1, y: startY + 2});
-      
-      const filterInValidSpots = spots.filter((spot) => {
-        return (spot.x >= 0 && spot.x < ROWS)
-          && (spot.y >= 0 && spot.y < COLS)
-      })
-  
-      const filterSpots = filterInValidSpots.filter((spot)=>{
-        return !board.checkHasPieceOnSpot(spot.x, spot.y)
-      })
-      return filterSpots
-    }
+
+    // get spots
+    spots.push({ x: startX - 2, y: startY - 1 });
+    spots.push({ x: startX + 2, y: startY - 1 });
+    spots.push({ x: startX - 2, y: startY + 1 });
+    spots.push({ x: startX + 2, y: startY + 1 });
+    spots.push({ x: startX - 1, y: startY - 2 });
+    spots.push({ x: startX + 1, y: startY - 2 });
+    spots.push({ x: startX - 1, y: startY + 2 });
+    spots.push({ x: startX + 1, y: startY + 2 });
+
+    // filter inValid spots
+    const filterInValidSpots = spots.filter((spot) => {
+      return (spot.x >= 0 && spot.x < ROWS)
+        && (spot.y >= 0 && spot.y < COLS)
+    })
+
+    // return potential spots
+    const filterSpots = filterInValidSpots.filter((spot) => {
+      return !board.checkHasPieceOnSpot(spot.x, spot.y)
+    })
+    return filterSpots
+  }
 }

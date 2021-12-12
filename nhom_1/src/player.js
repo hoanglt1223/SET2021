@@ -1,4 +1,4 @@
-import {COLUMNS, ROWS, Side} from "./variables.js";
+import {COLUMNS, ROWS, Side} from "./constants.js";
 import {Pawn} from "./components/pieces/pawn.js";
 import {Rook} from "./components/pieces/rook.js";
 import {Knight} from "./components/pieces/knight.js";

@@ -1,4 +1,4 @@
-import {Side, PieceName } from '../../variables.js';
+import {Side, PieceName } from '../../constants.js';
 import {Piece} from './piece.js';
 
 export const Bishop = function (color, column, row, isSelected = false, isKilled = false) {

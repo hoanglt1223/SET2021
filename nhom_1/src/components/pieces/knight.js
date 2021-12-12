@@ -1,4 +1,4 @@
-import {Side, PieceName, COLUMNS, ROWS } from '../../variables.js';
+import {Side, PieceName, COLUMNS, ROWS } from '../../constants.js';
 import {Piece} from './piece.js';
 
 export const Knight = function (color, column, row, isSelected = false, isKilled = false) {

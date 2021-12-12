@@ -1,4 +1,4 @@
-import {COLUMNS, ROWS} from "../variables.js";
+import {COLUMNS, ROWS} from "../constants.js";
 
 export const Square = function (column, row) {
     this.column = column;

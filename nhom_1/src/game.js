@@ -1,5 +1,5 @@
 import {Player} from "./player.js";
-import {COLUMNS, ROWS, Side} from "./variables.js";
+import {COLUMNS, ROWS, Side} from "./constants.js";
 import {Square} from "./components/square.js";
 
 export const Game = function (playerOneName, playerTwoName) {
@@ -23,17 +23,11 @@ export const Game = function (playerOneName, playerTwoName) {
             if(selectedPiece === pieceTo){
                 pieceTo.toggleSelected();
                 this.toggleHighlightPossibleMoves(selectedPiece.possibleMoves());
-                console.log('eee')
                 return;
             }
 
             if(selectedPiece.possibleMoves().includes(squareId)){
                 if(pieceTo){
-                    if(pieceTo === selectedPiece){
-                        pieceTo.toggleSelected();
-                        console.log('eee')
-                        return;
-                    }
                     if(pieceTo.color !== selectedPiece.color){
                         selectedPiece.kill(pieceTo);
                     } 

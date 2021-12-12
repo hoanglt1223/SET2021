@@ -1,6 +1,7 @@
 // main
 let chessboard = new ChessBoard();
 chessboard.render();
+let chessmap = chessboard.chessmap;
 let resultBoard = document.getElementById("resultBoard");
 
 
@@ -29,3 +30,6 @@ function gameOver(colorWin){
     document.body.appendChild(resultBoard);
 }
 
+function isbeingCheckmated(){
+    chessmap
+}

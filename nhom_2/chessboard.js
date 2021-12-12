@@ -42,10 +42,10 @@ function ChessBoard() {
             for (let x = 0; x < NUMBER_SQUARE; x++) {
                 let chessman = null;
                 if (y == 6) {
-                    chessman = new Pawn(ColorType.TEAM.WHITE);
+                    // chessman = new Pawn(ColorType.TEAM.WHITE);
                 }
                 if (y == 1) {
-                    chessman = new Pawn(ColorType.TEAM.BLACK);
+                    // chessman = new Pawn(ColorType.TEAM.BLACK);
                 }
                 if (y == 0 || y == 7) {
                     let color = (y == 7) ? ColorType.TEAM.WHITE : ColorType.TEAM.BLACK;
@@ -128,8 +128,17 @@ function ChessBoard() {
         if (chessman.type === ChessmanType.KING || chessman.type === ChessmanType.ROOK) {
             chessman.moved();
         }
-        
         destination.setChessman(chessman);
+        let kingSquares = this.findChessmanSquare(chessmap, ChessmanType.KING);
+        kingSquares.forEach((kingSquare) => {
+            let isCheckMated = kingSquare.getChessman().checkifIsCheckmated(chessmap);
+            let tile = chessmap[kingSquare.position_Y][kingSquare.position_X].getTile();
+            if(isCheckMated){
+                tile.style.backgroundColor = ColorType.CHECKMATED;
+            } else {
+                tile.style.backgroundColor = kingSquare.color;
+            }
+        })
     }
 
     this.isAbleToCastling = (source, destination) => {
@@ -154,6 +163,7 @@ function ChessBoard() {
         }
         return false;
     }
+
 
     this.castle = (kingSquare, rookSquare) => {
         kingSquare.getChessman().hasMoved();
@@ -216,6 +226,18 @@ function ChessBoard() {
                 }
             }
         }
+    }
+
+    this.findChessmanSquare = (chessmap, chessman) => {
+        let chessmanSquare = [];
+        chessmap.forEach((row) => {
+            row.forEach((square) => {
+                if (square.havingChessman() && square.getChessman().type == chessman) {
+                    chessmanSquare.push(square)
+                }
+            })
+        })
+        return chessmanSquare;
     }
 
     // render

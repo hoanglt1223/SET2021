@@ -15,7 +15,8 @@ class Board{
   +void renderBoard()
   +Spot getSpotFromBoxes(x: number, y: number)
   +void setCurrentSpotSelected(spot:Spot)
-  +void setPieceForSpot(pice:Piece, x: number, y: number)
+  +void setPieceForSpot(piece:Piece, x: number, y: number)
+  +boolean checkHasPieceOnSpot(x, y)
 
 }
 
@@ -25,7 +26,7 @@ class Piece{
   + isWhite: Boolean
   + isKilled: Boolean
   + Boolean canMove(Board board,Spot start, Spot end)
-  + {x:number, y:number}[] getSpotsCanMove(startX: number, startY: number)
+  + {x:number, y:number}[] getSpotsCanMove(startX: number, startY: number, board:Board)
 }
 
 class Move{

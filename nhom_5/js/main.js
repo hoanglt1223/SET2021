@@ -1,3 +1,3 @@
-const game = new Game()
-game.initialize()
-game.showChessBoard()
+const game = new Game();
+game.initialize();
+game.showChessBoard();

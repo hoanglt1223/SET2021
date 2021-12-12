@@ -4,7 +4,8 @@ function Pawn(isWhite, isKilled = false) {
   Piece.call(this, isWhite, isKilled, PieceName.PAWN, pawnImgUrl);
   this.isFirstStep = true;
 
-  this.getSpotsCanMove = function (startX, startY, boxes) {
+  this.getSpotsCanMove = function (startX, startY, board) {
+    const boxes = board.boxes;
     let spots = [];
 
     if (this.isWhite) {

@@ -64,4 +64,13 @@ function Board() {
   this.setCurrentSpotSelected = function (spot) {
     this.currentSpotSelected = spot;
   };
+  this.checkHasPieceOnSpot = function (x, y) {
+    const spot = this.boxes[x][y];
+
+    if (spot && spot.piece) {
+      return true;
+    }
+
+    return false;
+  };
 }

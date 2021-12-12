@@ -69,7 +69,7 @@ function onClickPieceElement(self, spot) {
   const spotPositions = currentPiece.getSpotsCanMove(
     spot.x,
     spot.y,
-    self.board.boxes
+    self.board
   );
   spotPositions.forEach((position) => {
     //update Spot style

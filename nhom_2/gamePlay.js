@@ -10,6 +10,8 @@ function gameOver(colorWin){
     let congratulation = document.getElementById("congratulation");
 
     congratulation.innerHTML = "Congratulation !";
+    let teamwin = document.getElementById("teamwin");
+    teamwin.innerHTML = colorWin;
     newgameButton.addEventListener("click", () => {
         chessboard.render();
         resultBoard.style.display = "none";

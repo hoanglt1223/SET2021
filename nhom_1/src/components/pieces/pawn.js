@@ -23,6 +23,10 @@ export const Pawn = function (color, column, row, isSelected = false, isKilled =
       }
       const squareId = COLUMNS[indexOfCol + matrixMovesX[i]] + ROWS[indexOfRow + matrixMovesY[i]];
 
+      if(i === 0 && document.getElementById(squareId)?.getElementsByClassName(this.color === Side.BLACK ? Side.WHITE : Side.BLACK).length > 0){
+        continue;
+      }
+
       if(i == 2 || i == 3){
 
         //if square does not have any opponents-> dont add

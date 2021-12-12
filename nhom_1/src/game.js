@@ -20,6 +20,9 @@ export const Game = function (playerOneName, playerTwoName) {
         if(selectedPiece) {
             const pieceTo = this.getPieceBySquareId(squareId);
             if(pieceTo){
+                if(pieceTo == selectedPiece){
+                    pieceTo.toggleSelected();
+                }
                 if(pieceTo.color !== selectedPiece.color){
                     selectedPiece.kill(pieceTo);
                 } 
@@ -29,7 +32,7 @@ export const Game = function (playerOneName, playerTwoName) {
         } else {
             const piece = this.getPieceBySquareId(squareId);
             this.toggleHighlightPossibleMoves(piece.possibleMoves());
-            piece?.setSelected();            
+            piece?.toggleSelected();            
         }
     }
     this.element = boardElement;

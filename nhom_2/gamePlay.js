@@ -2,18 +2,16 @@
 let chessboard = new ChessBoard();
 chessboard.render();
 let resultBoard = document.getElementById("resultBoard");
-resultBoard.style.display = "none";
 
 
 function gameOver(colorWin){
-    resultBoard.style.display ="inline";
+    resultBoard.style.visibility = "visible";
     let newgameButton = document.getElementById("newgame_button");
     let congratulation = document.getElementById("congratulation");
 
     congratulation.innerHTML = "Congratulation !";
-    debugger;
-    let teamWin = congratulation.lastChild
-    teamWin.innerHTML = colorWin;
+    let teamwin = document.getElementById("teamwin");
+    teamwin.innerHTML = colorWin;
     newgameButton.addEventListener("click", () => {
         chessboard.render();
         resultBoard.style.display = "none";

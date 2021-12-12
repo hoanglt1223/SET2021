@@ -1,60 +1,42 @@
-function Pawn(isWhite, position, key) {
+function Pawn(isWhite, id, key) {
   const pawnUrl = isWhite ? "asset/pawn_white.png" : "asset/pawn_black.png";
   this.isWhite = isWhite;
-  ChessPiece.call(this, "pawn", position, pawnUrl, key);
-  this.recommendMoves = function (position) {
-    // console.log(id);
-    let x = position.charAt(0);
-    let y = parseInt(position.charAt(1));
+  ChessPiece.call(this, "pawn", id, pawnUrl, key);
+  this.recommendMoves = function (id) {
+    let x = id.charAt(0);
+    let y = parseInt(id.charAt(1));
     x = column.findIndex((value) => value === x);
     // console.log(x, y);
+    let recommend = [];
     board.resetSquareColor();
     if (this.isWhite === true) {
       if (y === 2) {
         for (i = y + 1; i <= y + 2; i++) {
           board.changeSquareColor(x, i, this);
           const id = `${column[x]}${i}`;
-          // document.getElementById(id).addEventListener("click", () => {
-          //   // board.movePiece(id);
-          //   // this.setPosition(id);
-          //   // this.relocatePiece(id);
-          //   // board.resetSquareColor();
-          // });
+          recommend.push(id);
         }
       } else {
         board.changeSquareColor(x, y + 1, this); //1
         const id = `${column[x]}${y + 1}`;
-        // document.getElementById(id).addEventListener("click", () => {
-        //   // board.movePiece(id);
-        //   // this.setPosition(id);
-        //   this.relocatePiece(id);
-        //   board.resetSquareColor();
-        // });
+        recommend.push(id);
       }
     } else {
       if (y === 7) {
         for (i = y - 1; i >= y - 2; i--) {
           board.changeSquareColor(x, i, this);
           const id = `${column[x]}${i}`;
-          // document.getElementById(id).addEventListener("click", () => {
-          //   // board.movePiece(id);
-          //   // this.setPosition(id);
-          //   this.relocatePiece(id);
-          //   board.resetSquareColor();
-          // });
+          recommend.push(id);
         }
       } else {
         board.changeSquareColor(x, y - 1, this); //2
         const id = `${column[x]}${y - 1}`;
-        // document.getElementById(id).addEventListener("click", () => {
-        //   // board.movePiece(id);
-        //   // this.setPosition(id);
-        //   this.relocatePiece(id);
-        //   board.resetSquareColor();
-        // });
+        recommend.push(id);
       }
     }
+    setDataToLocal("recommend", recommend);
   };
   this.oldId = function () {};
   this.currentId = function () {};
 }
+//fk chess :D

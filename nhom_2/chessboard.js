@@ -129,16 +129,7 @@ function ChessBoard() {
             chessman.moved();
         }
         destination.setChessman(chessman);
-        let kingSquares = this.findChessmanSquare(this.chessmap, ChessmanType.KING);
-        kingSquares.forEach((kingSquare) => {
-            let isCheckMated = kingSquare.getChessman().checkCheckmated(this.chessmap);
-            let tile = this.chessmap[kingSquare.position_Y][kingSquare.position_X].getTile();
-            if (isCheckMated) {
-                tile.style.backgroundColor = ColorType.CHECKMATED;
-            } else {
-                tile.style.backgroundColor = kingSquare.color;
-            }
-        })
+        this.isCheckMated();
     }
 
     this.isAbleToCastling = (source, destination) => {
@@ -163,7 +154,6 @@ function ChessBoard() {
         }
         return false;
     }
-
 
     this.castle = (kingSquare, rookSquare) => {
         kingSquare.getChessman().hasMoved();
@@ -238,6 +228,19 @@ function ChessBoard() {
             })
         })
         return chessmanSquare;
+    }
+
+    this.isCheckMated = () => {
+        let kingSquares = this.findChessmanSquare(this.chessmap, ChessmanType.KING);
+        kingSquares.forEach((kingSquare) => {
+            let isCheckMated = kingSquare.getChessman().checkCheckmated(this.chessmap);
+            let tile = this.chessmap[kingSquare.position_Y][kingSquare.position_X].getTile();
+            if (isCheckMated) {
+                tile.style.backgroundColor = ColorType.CHECKMATED;
+            } else {
+                tile.style.backgroundColor = kingSquare.color;
+            }
+        })
     }
 
     // render

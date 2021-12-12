@@ -25,18 +25,11 @@ export const Game = function (playerOneName, playerTwoName) {
                 } 
             }
             selectedPiece.move(squareId);
+            this.unhighlightPossibleMoves();
         } else {
             const piece = this.getPieceBySquareId(squareId);
-<<<<<<< HEAD
-            console.log(piece);
-            
-            //show available possition
-            piece.showPossibleMove(squareId);
-
+            this.highlightPossibleMoves(piece.possibleMoves(squareId));
             piece?.setSelected();            
-=======
-            piece?.setSelected();
->>>>>>> b0a493a42309c33bc9210ca6abc5499599d93515
         }
     }
     this.element = boardElement;
@@ -58,6 +51,7 @@ export const Game = function (playerOneName, playerTwoName) {
         const squareId = piece.column + piece.row;
         const squareElement = document.getElementById(squareId);
         squareElement.appendChild(piece.element);
+        console.log(piece)
     }
 
     this.initializeBoard = () => {
@@ -79,5 +73,18 @@ export const Game = function (playerOneName, playerTwoName) {
     this.getSelectedPiece = () => {
         const pieces = this.playerOne.pieces.concat(this.playerTwo.pieces).filter(piece => piece.isSelected && !piece.isKilled);
         return pieces.length === 0 ? null : pieces[0];
+    }
+    this.highlightPossibleMoves = (squareIds) =>{
+        squareIds.map(squareId => {
+            document.getElementById(squareId)?.classList.toggle('c-board__square--possible')
+        })
+    }
+    this.unhighlightPossibleMoves = () =>{
+        let elements = document.getElementsByClassName('c-board__square--possible')
+        console.log(elements)
+        for(let i = 0; i< elements.length; i++){
+            console.log(elements[i])
+            elements[i].classList.toggle('c-board__square--possible')
+        }
     }
 }

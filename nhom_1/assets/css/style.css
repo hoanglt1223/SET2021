@@ -35,6 +35,10 @@
   background-color: rgba(155,199,0,0.41);
   color: red;
 }
+.c-board__square--possible{
+  background-color: rgba(86, 255, 204, 0.41);
+  color: red;
+}
 .c-row-letter {
   padding: 0;
   margin: 0;

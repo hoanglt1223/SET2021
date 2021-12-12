@@ -18,6 +18,7 @@ const ColorType = {
     },
     POSSIBLE_MOVE : "#2B933E",
     POSSIBLE_MOVE_OPPONENT : "#CCB717",
+    CHECKMATE : "#9B2335",
 }
 
 const ChessmanType = {

@@ -28,7 +28,15 @@ function Pawn(color) {
                 }
             }
     
-            
+
+            if (((direct === -1 && y === 6) || (direct === 1 && y === 1)) && !chessmap[y + 2 * direct][x].havingChessman() && !chessmap[y + direct][x].havingChessman()) {
+                possibleMovesList.push({
+                    x: x,
+                    y: y + 2 * direct,
+                    opponent: false,
+    
+                });
+            }
     
             // pawn from x = 1 to x = 6 
             switch (x) {

@@ -83,11 +83,19 @@ function ChessBoard() {
 
     this.hightLightPossibleSquare = (status) => {
         if (possibleMoves) {
+            let checkmate = false;
             possibleMoves.forEach((move) => {
                 let x = move.x;
                 let y = move.y;
                 let opponent = move.opponent;
-                this.chessmap[y][x].hightlight(status, opponent);
+                if (this.chessmap[y][x].havingChessman()){
+                    if (this.chessmap[y][x].getChessman().type == ChessmanType.KING){
+                        checkmate = true
+                    } else {
+                        checkmate = false;
+                    }
+                } 
+                this.chessmap[y][x].hightlight(status, opponent, checkmate);
             })
         }
     }
@@ -221,6 +229,7 @@ function ChessBoard() {
             document.body.removeChild(this.boardHTML);
             this.setNewchessmap();
             this.setNewChessBoard();
+            state = GAME_STATE.PLAYING;         
         }
         document.body.appendChild(this.boardHTML);
     }

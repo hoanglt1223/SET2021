@@ -47,6 +47,7 @@ body{
   justify-content: center;
   font-size: 30px;
   align-items: center;
+  flex-direction: column;
 }
 
 #newgame{

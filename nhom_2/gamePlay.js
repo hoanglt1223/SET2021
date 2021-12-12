@@ -7,11 +7,11 @@ let resultBoard = document.getElementById("resultBoard");
 function gameOver(colorWin){
     resultBoard.style.visibility = "visible";
     let newgameButton = document.getElementById("newgame_button");
-    let congratulation = document.getElementById("congratulation");
+    let congratulation = document.getElementById("congratulation__text");
 
     congratulation.innerHTML = "Congratulation !";
     let teamwin = document.getElementById("teamwin");
-    teamwin.innerHTML = colorWin;
+    teamwin.innerHTML = colorWin.toUpperCase();
     newgameButton.addEventListener("click", () => {
         chessboard.render();
         resultBoard.style.display = "none";

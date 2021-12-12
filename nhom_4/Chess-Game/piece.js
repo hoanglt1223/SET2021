@@ -10,6 +10,8 @@ function Piece(game, name, alias, color, position, index) {
   this.element = null; //store piece element
   this.square = null; // store square of piece
 
+  this.isMove = false;
+
   // methods
   // init piece method
   this.create = function () {
@@ -35,6 +37,16 @@ function Piece(game, name, alias, color, position, index) {
     this.moveElementTo(square);
     // trigger, finished moved
 		this.game.moved(old, square);
+    
+    if (!this.isMove) {
+      this.isMove = true;
+    }
+
+
+    // check promote if it is pawn
+    if (this.name === 'Pawn') {
+      this.checkPromote();
+    }
   };
 
   // append this piece to square

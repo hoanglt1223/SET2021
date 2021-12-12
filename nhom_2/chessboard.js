@@ -14,7 +14,6 @@ function ChessBoard() {
 
     // set
     this.setNewchessmap = () => {
-        debugger;
         this.chessmap = [];
         this.turn = ColorType.TEAM.WHITE;
         for (let y = 0; y < NUMBER_SQUARE; y++) {
@@ -107,18 +106,21 @@ function ChessBoard() {
         let chessman = source.getChessman();
         source.select(false);
         source.removeChessman();
+        if (destination.havingChessman() && destination.getChessman().type == ChessmanType.KING) {
+            this.state = GAME_STATE.GAMEOVER;
+            this.turn = (this.turn === ColorType.TEAM.WHITE) ? ColorType.TEAM.BLACK : ColorType.TEAM.WHITE;
+            this.boardHTML.style.display = "none";
+            gameOver(chessman.getColor());
+        }
         // promote
         if (chessman.type === ChessmanType.PAWN && (destination.position_Y === 0 || destination.position_Y === 7)) {
             chessman = chessman.promotePawn();
         }
+        //
         if (chessman.type === ChessmanType.KING || chessman.type === ChessmanType.ROOK) {
             chessman.moved();
         }
-        if (destination.havingChessman() && destination.getChessman().type == ChessmanType.KING) {
-            this.state = GAME_STATE.GAMEOVER;
-            this.render();
-            this.turn = (this.turn === ColorType.TEAM.WHITE) ? ColorType.TEAM.BLACK : ColorType.TEAM.WHITE;
-        }
+        
         destination.setChessman(chessman);
     }
 
@@ -170,7 +172,6 @@ function ChessBoard() {
     }
 
     this.handleClickChessman = (square) => {
-        debugger;
         if (!secondClick) {
             // select the chess - first CLICK
             if (square.havingChessman() && square.getChessman().getColor() === this.turn) {

@@ -1,69 +1,30 @@
 function ChessBoard() {
-    let state = GAME_STATE.NEWGAME;
+    this.state = GAME_STATE.NEWGAME;
     this.selectedSquare = null;
     let secondClick = false;
-    let turn;
+    this.turn;
     let possibleMoves = [];
 
     // board - chessboard in HTML
     this.boardHTML = document.createElement("div");
-    Object.assign(this.boardHTML, {
-        id: 'chessboard__board',
-        style: `width : ${SQUARE_SIZE * NUMBER_SQUARE + "px"};
-              height : ${SQUARE_SIZE * NUMBER_SQUARE + "px"};`
-    });
+
 
     // map - chessboard in JS
     this.chessmap = [];
 
     // set
     this.setNewchessmap = () => {
+        debugger;
         this.chessmap = [];
-        turn = ColorType.TEAM.WHITE;
+        this.turn = ColorType.TEAM.WHITE;
         for (let y = 0; y < NUMBER_SQUARE; y++) {
             let row = [];
             for (let x = 0; x < NUMBER_SQUARE; x++) {
                 let square = new Square(x, y, SQUARE_SIZE);
                 let tile = square.getTile();
-                // select chessman
                 tile.addEventListener('click', () => {
-                    if (!secondClick) {
-                        // select the chess - first CLICK
-                        if (square.havingChessman() && square.getChessman().getColor() === turn) {
-                            secondClick = true;
-                            square.select(true);
-                            this.selectedSquare = square;
-                            possibleMoves = square.getChessman().getPossibleMoves(this.chessmap);
-                            this.hightLightPossibleSquare(true);
-                        }
-                    }
-                    else {
-                        // select the target - second CLICK
-                        this.hightLightPossibleSquare(false);
-                        secondClick = false;
-                        // castle
-                        if (square.havingChessman() && this.isAbleToCastling(this.selectedSquare, square)) {
-                            if (this.selectedSquare.getChessman().type == ChessmanType.KING) {
-                                this.castle(this.selectedSquare, square);
-                            }
-                            else {
-                                this.castle(square, this.selectedSquare);
-                            }
-                            turn = (turn === ColorType.TEAM.WHITE) ? ColorType.TEAM.BLACK : ColorType.TEAM.WHITE;
-
-                        }
-                        else {
-                            // move the chess
-                            if (this.isValidSquare(square)) {
-                                moveChess(this.selectedSquare, square);
-                                turn = (turn === ColorType.TEAM.WHITE) ? ColorType.TEAM.BLACK : ColorType.TEAM.WHITE;
-                            }
-                            else {
-                                this.selectedSquare.select(false);
-                            }
-                        }
-                    }
-                })
+                    this.handleClickChessman(square);
+                });
                 row.push(square);
             }
             this.chessmap.push(row);
@@ -71,6 +32,13 @@ function ChessBoard() {
     }
 
     this.setNewChessBoard = () => {
+        this.boardHTML = document.createElement("div");
+
+        Object.assign(this.boardHTML, {
+            id: 'chessboard__board',
+            style: `width : ${SQUARE_SIZE * NUMBER_SQUARE + "px"};
+                  height : ${SQUARE_SIZE * NUMBER_SQUARE + "px"};`
+        });
         for (let y = 0; y < NUMBER_SQUARE; y++) {
             for (let x = 0; x < NUMBER_SQUARE; x++) {
                 let chessman = null;
@@ -135,7 +103,7 @@ function ChessBoard() {
     }
 
     //method
-    function moveChess(source, destination) {
+    this.moveChess = (source, destination) => {
         let chessman = source.getChessman();
         source.select(false);
         source.removeChessman();
@@ -145,6 +113,11 @@ function ChessBoard() {
         }
         if (chessman.type === ChessmanType.KING || chessman.type === ChessmanType.ROOK) {
             chessman.moved();
+        }
+        if (destination.havingChessman() && destination.getChessman().type == ChessmanType.KING) {
+            this.state = GAME_STATE.GAMEOVER;
+            this.render();
+            this.turn = (this.turn === ColorType.TEAM.WHITE) ? ColorType.TEAM.BLACK : ColorType.TEAM.WHITE;
         }
         destination.setChessman(chessman);
     }
@@ -180,8 +153,8 @@ function ChessBoard() {
         let position_Y = kingSquare.getPosition().y;
         let target_of_King = this.findSquare(position_X + 2 * direct, position_Y);
         let target_of_Rook = this.findSquare(position_X + direct, position_Y);
-        moveChess(kingSquare, target_of_King);
-        moveChess(rookSquare, target_of_Rook);
+        this.moveChess(kingSquare, target_of_King);
+        this.moveChess(rookSquare, target_of_Rook);
     }
 
     this.findSquare = (x, y) => {
@@ -196,12 +169,57 @@ function ChessBoard() {
         return result;
     }
 
+    this.handleClickChessman = (square) => {
+        debugger;
+        if (!secondClick) {
+            // select the chess - first CLICK
+            if (square.havingChessman() && square.getChessman().getColor() === this.turn) {
+                secondClick = true;
+                square.select(true);
+                this.selectedSquare = square;
+                possibleMoves = square.getChessman().getPossibleMoves(this.chessmap);
+                this.hightLightPossibleSquare(true);
+            }
+        }
+        else {
+            // select the target - second CLICK
+            this.hightLightPossibleSquare(false);
+            secondClick = false;
+            // castle
+            if (square.havingChessman() && this.isAbleToCastling(this.selectedSquare, square)) {
+                if (this.selectedSquare.getChessman().type == ChessmanType.KING) {
+                    this.castle(this.selectedSquare, square);
+                }
+                else {
+                    this.castle(square, this.selectedSquare);
+                }
+                this.turn = (this.turn === ColorType.TEAM.WHITE) ? ColorType.TEAM.BLACK : ColorType.TEAM.WHITE;
+
+            }
+            else {
+                // move the chess
+                if (this.isValidSquare(square)) {
+                    this.moveChess(this.selectedSquare, square);
+                    this.turn = (this.turn === ColorType.TEAM.WHITE) ? ColorType.TEAM.BLACK : ColorType.TEAM.WHITE;
+                }
+                else {
+                    this.selectedSquare.select(false);
+                }
+            }
+        }
+    }
+
     // render
     this.render = () => {
-        if (state == GAME_STATE.NEWGAME) {
+        if (this.state == GAME_STATE.NEWGAME) {
             this.setNewchessmap();
             this.setNewChessBoard();
-            state = GAME_STATE.PLAYING;
+            this.state = GAME_STATE.PLAYING;
+        }
+        if (this.state == GAME_STATE.GAMEOVER) {
+            document.body.removeChild(this.boardHTML);
+            this.setNewchessmap();
+            this.setNewChessBoard();
         }
         document.body.appendChild(this.boardHTML);
     }

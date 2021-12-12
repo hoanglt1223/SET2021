@@ -58,12 +58,11 @@ function Square(x, y, square__Size) {
         this.isHighLighted = status;
     }
 
-    this.hightlight = (status, opponent = false) => {
+    this.hightlight = (status, opponent = false, checkmate = false) => {
         if (status) {
             tile.style.backgroundColor = ColorType.POSSIBLE_MOVE;
             if (opponent) {
             tile.style.backgroundColor = ColorType.POSSIBLE_MOVE_OPPONENT;
-
             }
             tile.style.borderColor = "black";
             this.isSuggested = true;

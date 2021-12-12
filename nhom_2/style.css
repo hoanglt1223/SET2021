@@ -42,7 +42,7 @@ body{
 
 #congratulation{
   display: flex;
-  height: 300px;
+  height: 100px;
   justify-content: center;
   font-size: 30px;
   align-items: center;

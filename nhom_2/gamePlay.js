@@ -6,13 +6,13 @@ resultBoard.style.display = "none";
 
 
 function gameOver(colorWin){
-    resultBoard.style.display ="flex"
+    resultBoard.style.display ="inline";
     let newgameButton = document.getElementById("newgame_button");
     let congratulation = document.getElementById("congratulation");
 
     congratulation.innerHTML = "Congratulation !";
     debugger;
-    let teamWin = document.getElementById("teamwin");
+    let teamWin = congratulation.lastChild
     teamWin.innerHTML = colorWin;
     newgameButton.addEventListener("click", () => {
         chessboard.render();

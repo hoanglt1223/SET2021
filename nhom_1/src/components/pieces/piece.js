@@ -24,7 +24,11 @@ export const Piece = function (name, color, column, row, isSelected = false, isK
 
   }
 
-  this.move = (squareId) => {
+  this.callbackMove = () => {
+
+  }
+
+  this.move = (squareId, callbackMove) => {
     if(!this.possibleMoves().includes(squareId)){
       return;
     }
@@ -34,6 +38,8 @@ export const Piece = function (name, color, column, row, isSelected = false, isK
     const square = document.getElementById(squareId);
     square.appendChild(this.element);
     this.isSelected = false;
+
+    this.callbackMove();
   }
 
   this.kill = (piece) => {

@@ -42,19 +42,7 @@ export const Pawn = function (color, column, row, isSelected = false, isKilled =
   }
 
 
-  this.move = (squareId) => {
-    if(!this.possibleMoves().includes(squareId)){
-      return;
-    }
-    this.column = squareId[0];
-    this.row = Number(squareId[1]);
-    this.element.parentElement.classList.toggle('c-board__square--selected');
-    const square = document.getElementById(squareId);
-    square.appendChild(this.element);
-
-    this.isSelected = false;
-    
-
+  this.callbackMove = () => {
     this.isFirstMove = false;
   }
 }

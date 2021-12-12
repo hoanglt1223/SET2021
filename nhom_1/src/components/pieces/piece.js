@@ -29,9 +29,6 @@ export const Piece = function (name, color, column, row, isSelected = false, isK
   }
 
   this.move = (squareId, callbackMove) => {
-    if(!this.possibleMoves().includes(squareId)){
-      return;
-    }
     this.column = squareId[0];
     this.row = Number(squareId[1]);
     this.element.parentElement.classList.toggle('c-board__square--selected');
@@ -40,11 +37,13 @@ export const Piece = function (name, color, column, row, isSelected = false, isK
     this.isSelected = false;
 
     this.callbackMove();
+    console.log('move');
   }
 
   this.kill = (piece) => {
     piece.element.parentNode.removeChild(piece.element);
     piece.isKilled = true;
+    console.log('kill')
   }
 }
 

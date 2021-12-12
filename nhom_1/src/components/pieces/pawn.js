@@ -18,10 +18,16 @@ export const Pawn = function (color, column, row, isSelected = false, isKilled =
     }
     let matrixMovesX = [0, 0, 1, -1];
     for(let i = 0; i<4; i++) {
-      if(i == 1 && !this.isFirstMove){
-        continue;
-      }
       const squareId = COLUMNS[indexOfCol + matrixMovesX[i]] + ROWS[indexOfRow + matrixMovesY[i]];
+
+      if(i == 1){
+        if(!this.isFirstMove){
+          continue;
+        }
+        if(document.getElementById(squareId)?.getElementsByClassName(this.color === Side.BLACK ? Side.WHITE : Side.BLACK).length > 0){
+          continue;
+        }
+      }
 
       if(i === 0 && document.getElementById(squareId)?.getElementsByClassName(this.color === Side.BLACK ? Side.WHITE : Side.BLACK).length > 0){
         continue;

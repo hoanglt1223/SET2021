@@ -19,16 +19,28 @@ export const Game = function (playerOneName, playerTwoName) {
         const selectedPiece = this.getSelectedPiece();
         if(selectedPiece) {
             const pieceTo = this.getPieceBySquareId(squareId);
-            if(pieceTo){
-                if(pieceTo == selectedPiece){
-                    pieceTo.toggleSelected();
-                }
-                if(pieceTo.color !== selectedPiece.color){
-                    selectedPiece.kill(pieceTo);
-                } 
+
+            if(selectedPiece === pieceTo){
+                pieceTo.toggleSelected();
+                this.toggleHighlightPossibleMoves(selectedPiece.possibleMoves());
+                console.log('eee')
+                return;
             }
-            this.toggleHighlightPossibleMoves(selectedPiece.possibleMoves());
-            selectedPiece.move(squareId);
+
+            if(selectedPiece.possibleMoves().includes(squareId)){
+                if(pieceTo){
+                    if(pieceTo === selectedPiece){
+                        pieceTo.toggleSelected();
+                        console.log('eee')
+                        return;
+                    }
+                    if(pieceTo.color !== selectedPiece.color){
+                        selectedPiece.kill(pieceTo);
+                    } 
+                }
+                this.toggleHighlightPossibleMoves(selectedPiece.possibleMoves());
+                selectedPiece.move(squareId);
+            }
         } else {
             const piece = this.getPieceBySquareId(squareId);
             this.toggleHighlightPossibleMoves(piece.possibleMoves());

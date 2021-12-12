@@ -31,6 +31,7 @@ class Chessboard{
     + isAbleToCastling()
     + castle()
     + findSquare()
+    + handleClickChessman()
     + render()
     + setNewChessMap()
     + setNewChessBoard()

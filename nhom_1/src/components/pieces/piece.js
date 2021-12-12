@@ -42,6 +42,7 @@ export const Piece = function (name, color, column, row, isSelected = false, isK
   }
 }
 
+
 Piece.prototype.createPieceElement = (name, color, backgroundUrl) => {
   const piece = document.createElement('img');
   piece.classList.add(color,name, 'c-piece');

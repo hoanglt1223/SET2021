@@ -21,9 +21,40 @@ export const Pawn = function (color, column, row, isSelected = false, isKilled =
       if(i == 1 && !this.isFirstMove){
         continue;
       }
-      res.push(COLUMNS[indexOfCol + matrixMovesX[i]] + ROWS[indexOfRow + matrixMovesY[i]]);
+      const squareId = COLUMNS[indexOfCol + matrixMovesX[i]] + ROWS[indexOfRow + matrixMovesY[i]];
+
+      if(i == 2 || i == 3){
+
+        //if square does not have any opponents-> dont add
+        if(document.getElementById(squareId)?.getElementsByClassName(this.color === Side.BLACK ? Side.WHITE : Side.BLACK).length === 0){
+          continue;
+        }
+      }
+
+      // if square has same color piece -> dont add
+      if(document.getElementById(squareId)?.getElementsByClassName(this.color).length > 0){
+        continue;
+      }
+      res.push(squareId);
     }
     console.log(res); 
     return res;
+  }
+
+
+  this.move = (squareId) => {
+    if(!this.possibleMoves().includes(squareId)){
+      return;
+    }
+    this.column = squareId[0];
+    this.row = Number(squareId[1]);
+    this.element.parentElement.classList.toggle('c-board__square--selected');
+    const square = document.getElementById(squareId);
+    square.appendChild(this.element);
+
+    this.isSelected = false;
+    
+
+    this.isFirstMove = false;
   }
 }

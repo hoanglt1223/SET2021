@@ -12,9 +12,13 @@ export const Knight = function (color, column, row, isSelected = false, isKilled
     let matrixMovesY = [1, -1, 2, 2, -1, 1, -2, -2]
     let matrixMovesX = [2, 2, 1, -1, -2, -2, 1, -1];
     for(let i = 0; i<8; i++) {
-      res.push(COLUMNS[indexOfCol + matrixMovesX[i]] + ROWS[indexOfRow + matrixMovesY[i]]);
-    }
-    console.log(res); 
+
+      
+      const squareId = COLUMNS[indexOfCol + matrixMovesX[i]] + ROWS[indexOfRow + matrixMovesY[i]];
+            if(document.getElementById(squareId)?.getElementsByClassName(this.color).length > 0){
+        continue;
+      }
+      res.push(squareId);    }
     return res;
   }
 }

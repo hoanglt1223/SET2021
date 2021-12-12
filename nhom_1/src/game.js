@@ -24,11 +24,11 @@ export const Game = function (playerOneName, playerTwoName) {
                     selectedPiece.kill(pieceTo);
                 } 
             }
+            this.toggleHighlightPossibleMoves(selectedPiece.possibleMoves());
             selectedPiece.move(squareId);
-            this.unhighlightPossibleMoves();
         } else {
             const piece = this.getPieceBySquareId(squareId);
-            this.highlightPossibleMoves(piece.possibleMoves(squareId));
+            this.toggleHighlightPossibleMoves(piece.possibleMoves());
             piece?.setSelected();            
         }
     }
@@ -74,17 +74,9 @@ export const Game = function (playerOneName, playerTwoName) {
         const pieces = this.playerOne.pieces.concat(this.playerTwo.pieces).filter(piece => piece.isSelected && !piece.isKilled);
         return pieces.length === 0 ? null : pieces[0];
     }
-    this.highlightPossibleMoves = (squareIds) =>{
+    this.toggleHighlightPossibleMoves = (squareIds) =>{
         squareIds.map(squareId => {
             document.getElementById(squareId)?.classList.toggle('c-board__square--possible')
         })
-    }
-    this.unhighlightPossibleMoves = () =>{
-        let elements = document.getElementsByClassName('c-board__square--possible')
-        console.log(elements)
-        for(let i = 0; i< elements.length; i++){
-            console.log(elements[i])
-            elements[i].classList.toggle('c-board__square--possible')
-        }
     }
 }

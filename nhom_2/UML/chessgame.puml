@@ -35,7 +35,8 @@ class Chessboard{
     + render()
     + setNewChessMap()
     + setNewChessBoard()
-    
+    + findChessmanSquare()
+    + isCheckMated()
 }
 
 class Square{
@@ -78,6 +79,7 @@ class King{
     + statusMoved
     + hasMoved()
     + moved()
+    + checkCheckmated()
 }
 
 class Queen{

@@ -9,7 +9,7 @@ function ChessMan() {
 	this.type;
 	// set
 	this.setImage = (type, color) => {
-		this.image.src = `/assets/chess-${type}-${color}.png`;
+		this.image.src = `./assets/chess-${type}-${color}.png`;
 		this.color = color;
 		this.type = type;
 	}

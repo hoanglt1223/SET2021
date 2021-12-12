@@ -42,10 +42,10 @@ function ChessBoard() {
             for (let x = 0; x < NUMBER_SQUARE; x++) {
                 let chessman = null;
                 if (y == 6) {
-                    // chessman = new Pawn(ColorType.TEAM.WHITE);
+                    chessman = new Pawn(ColorType.TEAM.WHITE);
                 }
                 if (y == 1) {
-                    // chessman = new Pawn(ColorType.TEAM.BLACK);
+                    chessman = new Pawn(ColorType.TEAM.BLACK);
                 }
                 if (y == 0 || y == 7) {
                     let color = (y == 7) ? ColorType.TEAM.WHITE : ColorType.TEAM.BLACK;
@@ -131,7 +131,7 @@ function ChessBoard() {
         destination.setChessman(chessman);
         let kingSquares = this.findChessmanSquare(chessmap, ChessmanType.KING);
         kingSquares.forEach((kingSquare) => {
-            let isCheckMated = kingSquare.getChessman().checkifIsCheckmated(chessmap);
+            let isCheckMated = kingSquare.getChessman().checkCheckmated(chessmap);
             let tile = chessmap[kingSquare.position_Y][kingSquare.position_X].getTile();
             if(isCheckMated){
                 tile.style.backgroundColor = ColorType.CHECKMATED;

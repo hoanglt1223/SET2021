@@ -30,6 +30,6 @@ function gameOver(colorWin){
     document.body.appendChild(resultBoard);
 }
 
-function isbeingCheckmated(){
-    chessmap
-}
+// function isbeingCheckmated(){
+//     chessmap
+// }

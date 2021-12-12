@@ -21,15 +21,25 @@ function Square(x, y, square__Size) {
     tile.addEventListener("mouseover", () => {
         if (this.chessman != null) {
             if (!this.isSuggested) {
-                tile.style.backgroundColor = ColorType.HOVER;
+                // debugger;
+                if (this.chessman.type == ChessmanType.KING && this.chessman.isCheckmated){
+                    tile.style.backgroundColor = ColorType.CHECKMATED;
+                } else {
+                    tile.style.backgroundColor = ColorType.HOVER;
+                }
             }
             tile.style.cursor = "pointer";
         }
     })
 
     tile.addEventListener("mouseout", () => {
-        if (!this.isSuggested)
-            tile.style.backgroundColor = this.color;
+        if (!this.isSuggested){
+            if (this.chessman !== null &&  this.chessman.type == ChessmanType.KING && this.chessman.isCheckmated){
+                tile.style.backgroundColor = ColorType.CHECKMATED;
+            } else {
+                tile.style.backgroundColor = this.color;
+            }
+        }
     })
 
 
@@ -46,6 +56,7 @@ function Square(x, y, square__Size) {
     this.removeChessman = () => {
         tile.removeChild(this.chessman.getImage());
         this.chessman = null;
+        tile.style.backgroundColor = this.color;
     }
 
     this.select = (status) => {

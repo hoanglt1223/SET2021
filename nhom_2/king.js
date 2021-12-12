@@ -12,7 +12,7 @@ function King(color) {
 		return this.statusMoved;
 	}
 
-	this.isCheckMated;
+	this.isCheckmated = false;
 
 	this.getPossibleMoves = (chessmap) => {
 		let x_left = this.position_X - 1;
@@ -45,13 +45,12 @@ function King(color) {
 		return possibleMovesList;
 	}
 
-	this.checkifIsCheckmated = (chessmap) => {
+	this.checkCheckmated = (chessmap) => {
 		// debugger;
 		let x = this.position_X;
 		let y = this.position_Y;
 		let color = this.color;
 		let isCheckmated = false;
-		let allPossibleMoves = [];
 		chessmap.forEach(function (row){
 			let possibleMoves = [];
 			row.forEach(function (square){
@@ -70,7 +69,7 @@ function King(color) {
 				}
 			});
 		});
-		this.isCheckMated = isCheckmated;
+		this.isCheckmated = isCheckmated;
 		return isCheckmated
 	}
 

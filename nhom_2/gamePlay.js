@@ -29,7 +29,3 @@ function gameOver(colorWin){
     resultBoard.appendChild(newgameButton);
     document.body.appendChild(resultBoard);
 }
-
-// function isbeingCheckmated(){
-//     chessmap
-// }

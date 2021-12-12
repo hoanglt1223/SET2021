@@ -88,13 +88,13 @@ function ChessBoard() {
                 let x = move.x;
                 let y = move.y;
                 let opponent = move.opponent;
-                if (this.chessmap[y][x].havingChessman()){
-                    if (this.chessmap[y][x].getChessman().type == ChessmanType.KING){
+                if (this.chessmap[y][x].havingChessman()) {
+                    if (this.chessmap[y][x].getChessman().type == ChessmanType.KING) {
                         checkmate = true
                     } else {
                         checkmate = false;
                     }
-                } 
+                }
                 this.chessmap[y][x].hightlight(status, opponent, checkmate);
             })
         }
@@ -129,11 +129,11 @@ function ChessBoard() {
             chessman.moved();
         }
         destination.setChessman(chessman);
-        let kingSquares = this.findChessmanSquare(chessmap, ChessmanType.KING);
+        let kingSquares = this.findChessmanSquare(this.chessmap, ChessmanType.KING);
         kingSquares.forEach((kingSquare) => {
-            let isCheckMated = kingSquare.getChessman().checkCheckmated(chessmap);
-            let tile = chessmap[kingSquare.position_Y][kingSquare.position_X].getTile();
-            if(isCheckMated){
+            let isCheckMated = kingSquare.getChessman().checkCheckmated(this.chessmap);
+            let tile = this.chessmap[kingSquare.position_Y][kingSquare.position_X].getTile();
+            if (isCheckMated) {
                 tile.style.backgroundColor = ColorType.CHECKMATED;
             } else {
                 tile.style.backgroundColor = kingSquare.color;
@@ -243,16 +243,12 @@ function ChessBoard() {
     // render
     this.render = () => {
         if (this.state == GAME_STATE.NEWGAME) {
-            this.setNewchessmap();
-            this.setNewChessBoard();
-            this.state = GAME_STATE.PLAYING;
         }
         if (this.state == GAME_STATE.GAMEOVER) {
             document.body.removeChild(this.boardHTML);
-            this.setNewchessmap();
-            this.setNewChessBoard();
-            state = GAME_STATE.PLAYING;         
         }
+        this.setNewchessmap();
+        this.setNewChessBoard();
         document.body.appendChild(this.boardHTML);
     }
 

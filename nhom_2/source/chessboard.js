@@ -201,6 +201,7 @@ function ChessBoard() {
                     this.castle(square, this.selectedSquare);
                 }
                 this.turn = (this.turn === ColorType.TEAM.WHITE) ? ColorType.TEAM.BLACK : ColorType.TEAM.WHITE;
+                this.checkCheckmated(this.chessmap);
             }
             else {
                 // move the chess
@@ -210,6 +211,7 @@ function ChessBoard() {
                 }
                 else {
                     this.selectedSquare.select(false);
+                    this.checkCheckmated(this.chessmap);
                 }
             }
         }

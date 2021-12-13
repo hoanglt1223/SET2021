@@ -20,9 +20,6 @@ body{
   margin:0;
 }
 
-.square:focus{
-  border: 4px solid #B45927  ;
-}
 
 *{
   font-family:Georgia, 'Times New Roman', Times, serif;
@@ -74,4 +71,7 @@ body{
   align-items: center;
 }
 
+#congratulation__text{
+  margin-bottom: 10px;
+}
 

@@ -46,7 +46,6 @@ function King(color) {
 	}
 
 	this.checkCheckmated = (chessmap) => {
-		// debugger;
 		let x = this.position_X;
 		let y = this.position_Y;
 		let color = this.color;
@@ -55,13 +54,11 @@ function King(color) {
 			let possibleMoves = [];
 			row.forEach(function (square){
 				let chessman = square.getChessman();
-				// debugger;
 				if(chessman !== null){
-					// debugger;
 					if (chessman.color !== color){
 						possibleMoves = chessman.getPossibleMoves(chessmap);
 						possibleMoves.forEach( (move) => {
-							if(move.x == x && move.y == y){
+							if(move.x === x && move.y === y){
 								isCheckmated = true;
 							}
 						})

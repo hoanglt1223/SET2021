@@ -8,7 +8,6 @@ function ChessBoard() {
     // board - chessboard in HTML
     this.boardHTML = document.createElement("div");
 
-
     // map - chessboard in JS
     this.chessmap = [];
 
@@ -80,7 +79,6 @@ function ChessBoard() {
     }
 
     // event handler
-
     this.hightLightPossibleSquare = (status) => {
         if (possibleMoves) {
             let checkmate = false;
@@ -129,7 +127,7 @@ function ChessBoard() {
             chessman.moved();
         }
         destination.setChessman(chessman);
-        this.isCheckMated();
+        this.checkCheckmated(this.chessmap);
     }
 
     this.isAbleToCastling = (source, destination) => {
@@ -203,7 +201,6 @@ function ChessBoard() {
                     this.castle(square, this.selectedSquare);
                 }
                 this.turn = (this.turn === ColorType.TEAM.WHITE) ? ColorType.TEAM.BLACK : ColorType.TEAM.WHITE;
-
             }
             else {
                 // move the chess
@@ -218,28 +215,18 @@ function ChessBoard() {
         }
     }
 
-    this.findChessmanSquare = (chessmap, chessman) => {
-        let chessmanSquare = [];
+    this.checkCheckmated = (chessmap) => {
         chessmap.forEach((row) => {
             row.forEach((square) => {
-                if (square.havingChessman() && square.getChessman().type == chessman) {
-                    chessmanSquare.push(square)
+                if (square.havingChessman() && square.getChessman().type == ChessmanType.KING) {
+                    if (square.getChessman().checkCheckmated(chessmap)){
+                        square.getTile().style.backgroundColor = ColorType.CHECKMATED;
+                    }
+                    else {
+                        square.getTile().style.backgroundColor = square.color;
+                    }
                 }
             })
-        })
-        return chessmanSquare;
-    }
-
-    this.isCheckMated = () => {
-        let kingSquares = this.findChessmanSquare(this.chessmap, ChessmanType.KING);
-        kingSquares.forEach((kingSquare) => {
-            let isCheckMated = kingSquare.getChessman().checkCheckmated(this.chessmap);
-            let tile = this.chessmap[kingSquare.position_Y][kingSquare.position_X].getTile();
-            if (isCheckMated) {
-                tile.style.backgroundColor = ColorType.CHECKMATED;
-            } else {
-                tile.style.backgroundColor = kingSquare.color;
-            }
         })
     }
 
@@ -254,6 +241,4 @@ function ChessBoard() {
         this.setNewChessBoard();
         document.body.appendChild(this.boardHTML);
     }
-
 }
-

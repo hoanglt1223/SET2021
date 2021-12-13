@@ -10,16 +10,14 @@ function gameOver(colorWin){
     let newgameButton = document.getElementById("newgame_button");
     let congratulation = document.getElementById("congratulation__text");
 
-    congratulation.innerHTML = "Congratulation !";
+    congratulation.innerHTML = "CONGRATULATIONS !";
     let teamwin = document.getElementById("teamwin");
-    let colorTeam = teamwin.getElementsByClassName("colorTeam")[0];
     let imageTeam = teamwin.getElementsByClassName("imageTeam")[0];
 
-    colorTeam.innerHTML = colorWin.toUpperCase();
     Object.assign(imageTeam, {
         src: `./assets/chess-pawn-${colorWin}.png`,
-        style: `width: 80px;
-                height: 80px;`
+        style: `width: ${SQUARE_SIZE + 20}px;
+                height: ${SQUARE_SIZE + 20}px;`
     })
     newgameButton.addEventListener("click", () => {
         chessboard.render();

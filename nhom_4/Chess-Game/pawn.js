@@ -131,7 +131,7 @@ function Pawn(game, name, alias, color, position, index) {
             testLoopSquare(true, true, true, true);
         };
 
-        // call pattern
+        // call pattern.
         if (!piece.isPromote) {
             movePattern();
         } else {
@@ -147,8 +147,7 @@ function Pawn(game, name, alias, color, position, index) {
         const game = this.game;
 
         game.board.resetSquares();
-        return moves.length || enemies.length ?
-            { moves, enemies } :
+        return moves.length || enemies.length ? { moves, enemies } :
             false;
     };
 

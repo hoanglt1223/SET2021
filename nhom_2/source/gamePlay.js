@@ -21,7 +21,7 @@ function gameOver(colorWin){
     })
     newgameButton.addEventListener("click", () => {
         chessboard.render();
-        resultBoard.style.display = "none";
+        resultBoard.style.visibility = "hidden";
     })
 
     resultBoard.appendChild(newgameButton);

@@ -3,7 +3,7 @@ skinparam groupInheritance 2
 class ChessBoard {
     + create()
     + addSquareToRow()
-    + changeSquareColor()
+    + changeColorRecommend()
 }
 class ChessPiece {
     + id
@@ -17,19 +17,24 @@ class ChessPiece {
     + movePiece()
 }
 class Pawn {
+    + recommendMovesForPawn()
     + promote()
 }
 class Knight {
-    
+    + recommendMovesForKnight()
 }
 class Rook {
     + isMoved
+    + recommendMovesForRook()
 }
 class Bishop {
+    + recommendMovesForBishop()
 }
 class Queen {
+    + recommendMovesForQueen()
 }
 class King {
+    + recommendMovesForKing()
     + isChecked()
     + isCheckmate()
     + castle()

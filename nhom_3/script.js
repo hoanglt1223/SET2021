@@ -29,52 +29,70 @@ function Board() {
     }
   };
 
-  this.changeSquareColor = function (x, y, chess) {
+  this.changeColorRecommend = function (x, y, chess) {
     const id = `${column[x]}${y}`;
     const square = document.getElementById(id);
     square.classList.add("recommend");
-    square.addEventListener("click", () => this.movePiece(id, chess));
+    square.addEventListener("click", () => {
+      this.movePiece(id, chess);
+    });
+  };
+
+  this.changeColorKill = function (x, y, chess, key) {
+    const id = `${column[x]}${y}`;
+    const square = document.getElementById(id);
+    square.classList.add("kill");
+    square.addEventListener("click", () => {
+      this.killChess(id, chess, key);
+    });
   };
 
   this.resetSquareColor = () => {
     const squares = document.querySelectorAll(`.square`);
     squares.forEach((square) => {
       square.classList.remove("recommend");
+      square.classList.remove("kill");
     });
+    this.notifyTurn();
   };
 
-  this.movePiece = function (id, chess) {
-    setDataToLocal("isMove", true);
+  this.movePiece = function (id, chessMove) {
+    console.log("move");
+    setDataToLocal("isWhite", chessMove.isWhite);
+    const position = getDataFromLocal("position");
     const moveToSquare = document.getElementById(id);
     const chosenSquare = document.querySelector(".chosen");
-    const position = getDataFromLocal("position");
+    const cloneMoveToSquare = moveToSquare.cloneNode(true);
+    chessMove.position = id;
     if (moveToSquare.classList.contains("recommend")) {
-      chess.position = id;
       position.forEach((chess) => {
         if (chess.key === chosenSquare.getAttribute("key")) {
           chess.position = id;
         }
       });
-      setDataToLocal("position", position);
-      board.defaultPosition();
-      const cloneMoveToSquare = moveToSquare.cloneNode(true);
+
       moveToSquare.parentNode.replaceChild(cloneMoveToSquare, moveToSquare);
       const cloneChosenSquare = chosenSquare.cloneNode(true);
       chosenSquare.parentNode.replaceChild(cloneChosenSquare, chosenSquare);
+
       moveToSquare.firstChild.src = document.querySelector(".chosen img").src;
       moveToSquare.setAttribute("name", chosenSquare.getAttribute("name"));
-      cloneChosenSquare.setAttribute("name", "");
       moveToSquare.setAttribute("key", chosenSquare.getAttribute("key"));
+      cloneChosenSquare.setAttribute("name", "");
       cloneChosenSquare.setAttribute("key", "");
       cloneChosenSquare.firstChild.src = "";
+
       cloneChosenSquare.classList.remove("chosen");
+      setDataToLocal("position", position);
+      board.renderPosition();
       this.resetSquareColor();
-      this.removeEvent();
-      chess.setPiece();
+      this.removeEventMove();
+      this.removeEventKill();
+      chessMove.setPiece();
     }
   };
 
-  this.removeEvent = function () {
+  this.removeEventMove = function () {
     const recommend = getDataFromLocal("recommend");
     recommend.forEach((id) => {
       const oldEl = document.getElementById(id);
@@ -83,7 +101,17 @@ function Board() {
     });
   };
 
-  this.defaultPosition = function () {
+  this.removeEventKill = function () {
+    const kill = getDataFromLocal("kill");
+    kill.forEach((id) => {
+      const oldEl = document.getElementById(id);
+      const newEl = oldEl.cloneNode(true);
+      oldEl.parentNode.replaceChild(newEl, oldEl);
+      board.addEvenChosen();
+    });
+  };
+
+  this.renderPosition = function () {
     const position = getDataFromLocal("position");
     position.forEach((chess) => {
       const square = document.getElementById(chess.position);
@@ -93,16 +121,100 @@ function Board() {
     });
   };
 
-  this.isOutside = function (x , y) {
+  this.isOutside = function (x, y) {
     if (x > 8 || x < 1 || y > 8 || y < 1) {
       return true;
     } else {
-      return false
+      return false;
     }
-  }
+  };
+
+  this.killChess = function (id, chessKill, key) {
+    console.log("kill");
+    setDataToLocal("isWhite", chessKill.isWhite);
+    const position = getDataFromLocal("position");
+    const isKilledSquare = document.getElementById(id);
+    const chosenSquare = document.querySelector(".chosen");
+    const cloneIsKillSquare = isKilledSquare.cloneNode(true);
+    if (isKilledSquare.classList.contains("kill")) {
+      isKilledSquare.parentNode.replaceChild(cloneIsKillSquare, isKilledSquare);
+      const cloneChosenSquare = chosenSquare.cloneNode(true);
+      chosenSquare.parentNode.replaceChild(cloneChosenSquare, chosenSquare);
+      position.forEach((chess) => {
+        if (chess.key === key) {
+          chess.position = "0";
+        }
+        if (chess.key === chessKill.key) {
+          chess.position = id;
+        }
+      });
+      isKilledSquare.firstChild.src = document.querySelector(".chosen img").src;
+      isKilledSquare.setAttribute("name", chosenSquare.getAttribute("name"));
+      isKilledSquare.setAttribute("key", chosenSquare.getAttribute("key"));
+      console.log(isKilledSquare);
+      cloneChosenSquare.setAttribute("name", "");
+      cloneChosenSquare.setAttribute("key", "");
+      cloneChosenSquare.firstChild.src = "";
+
+      setDataToLocal("position", position);
+      chessKill.position = id;
+      board.renderPosition();
+      chessKill.setPiece();
+      cloneChosenSquare.classList.remove("chosen");
+      this.resetSquareColor();
+      this.removeEventKill();
+      this.removeEventMove();
+    }
+  };
+
+  this.addEvenChosen = function () {
+    whiteRook1.setPiece();
+    whiteRook2.setPiece();
+    whiteKnight1.setPiece();
+    whiteKnight2.setPiece();
+    whiteBishop1.setPiece();
+    whiteBishop2.setPiece();
+    whitePawn1.setPiece();
+    whitePawn2.setPiece();
+    whitePawn3.setPiece();
+    whitePawn4.setPiece();
+    whitePawn5.setPiece();
+    whitePawn6.setPiece();
+    whitePawn7.setPiece();
+    whitePawn8.setPiece();
+    whiteQueen.setPiece();
+    whiteKing.setPiece();
+    blackRook1.setPiece();
+    blackRook2.setPiece();
+    blackKnight1.setPiece();
+    blackKnight2.setPiece();
+    blackBishop1.setPiece();
+    blackBishop2.setPiece();
+    blackPawn1.setPiece();
+    blackPawn2.setPiece();
+    blackPawn3.setPiece();
+    blackPawn4.setPiece();
+    blackPawn5.setPiece();
+    blackPawn6.setPiece();
+    blackPawn7.setPiece();
+    blackPawn8.setPiece();
+    blackQueen.setPiece();
+    blackKing.setPiece();
+  };
+  this.notifyTurn = function () {
+    const noti = !getDataFromLocal("isWhite")
+      ? `Turn of White`
+      : `Turn of Black`;
+    document.getElementById("notification").innerHTML = noti;
+  };
 }
 
 //jesus
 const board = new Board();
 board.create();
-board.defaultPosition();
+board.renderPosition();
+board.addEvenChosen();
+
+setDataToLocal("isWhite", false);
+setDataToLocal("recommend", []);
+setDataToLocal("kill", []);

@@ -6,16 +6,17 @@ function ChessPiece(name, position, url, key) {
   this.setPiece = function () {
     const square = document.getElementById(this.position);
     square.addEventListener("click", () => {
-      if (!this.isEmpty(this.position)) {
+      if (
+        !this.isEmpty(this.position) &&
+        getDataFromLocal("isWhite") !== this.isWhite
+      ) {
         this.isChosen(this.position);
         this.recommendMoves(this.position);
-        console.log("khi click", this);
+        this.inSight(this.position);
       }
     });
   };
   this.isChosen = function (position) {
-    console.log("chosen");
-    setDataToLocal("isMove", false);
     this.isNotChosen();
     document.getElementById(position).classList.add("chosen");
   };
@@ -25,13 +26,10 @@ function ChessPiece(name, position, url, key) {
     squares.forEach((square) => square.classList.remove("recommend"));
   };
   this.recommendMoves = function () {};
+  this.inSight = function () {};
   this.isEmpty = function (position) {
-    if (document.getElementById(position).firstChild.src === link) return true;
+    const imgLink = document.getElementById(position).firstChild.src;
+    return imgLink === link;
   };
 
-  this.setPosition = function (position) {
-    this.position = position;
-    console.log(this.position);
-    console.log(this);
-  };
 }

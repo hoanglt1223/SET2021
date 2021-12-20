@@ -49,7 +49,17 @@ const server = http.createServer((req, res) => {
           res.end(data); // Send the file data to the browser.
         });
         break;
+      default:
+        res.statusCode = 404;
+        res.setHeader("Content-Type", "text/plain");
+        res.end("Invalid URL");
+        break;
     }
+  } else {
+    //root path
+    res.statusCode = 200;
+    res.setHeader("Content-Type", "text/plain");
+    res.end('hello world');
   }
 });
 

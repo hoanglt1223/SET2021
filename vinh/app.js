@@ -7,18 +7,26 @@ const task = [
     {
         id: '1',
         taskName: 'Học Javascript',
-        isComplete: false
+        isComplete: false,
+        isDelete: false
     },
     {
         id: '2',
         taskName: 'Học HTML',
-        isComplete: false
+        isComplete: false,
+        isDelete: false
     },
     {
         id: '3',
         taskName: 'Học Node JS',
-        isComplete: false
+        isComplete: false,
+        isDelete: false
     }
+]
+const image = [
+  {
+    imagePath : '/img1.jpg'
+  }
 ]
 const server = http.createServer((req, res) => {
   res.statusCode = 200;
@@ -33,6 +41,14 @@ const server = http.createServer((req, res) => {
       return task.id == queryString.id;
     })
     res.write(JSON.stringify(taskList));
+  }else if(typeof queryString.id !== "undefined" && req.method =='DELETE'){//delete task
+    task.forEach((item)=>{
+      if(item.id == queryString.id){
+        item.isDelete = true;
+      }
+    })
+  } else if(req.url =="task" && req.method == "POST"){
+        
   }else{//nothing
     console.log('nothing')
   }

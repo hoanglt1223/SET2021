@@ -1,25 +1,14 @@
 const http = require("http");
 let {tasks} = require("./tasks.json");
-const {getRequestBody} = require('./utilities');
+const {getRequestBody, getPathAndQuery} = require('./utilities');
 
 const hostname = "127.0.0.1";
 const port = 3000;
 
 const server = http.createServer(async (req, res) => {
 
-  let [path, query] = req.url.split("?");
-  path = path.replace(/^\//g, "").split("/");
-  if (query) {
-    query = query.split("&").reduce(
-      (previousValue, currentValue) => ({
-        ...previousValue,
-        [currentValue.split("=")[0]]: currentValue.split("=")[1],
-      }),
-      {}
-    );
-  } else {
-    query = {};
-  }
+  const {path, query} = getPathAndQuery(req);
+
   switch(req.method){
     case 'GET':
       if (path[0]) {

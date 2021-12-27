@@ -9,77 +9,98 @@ const DATA_FILE_PATH = "./mock-data.json";
 const server = http.createServer((req, res) => {
   res.statusCode = 200;
   res.setHeader("Content-Type", "text/plain");
+  const routeUrl = req.url.split("?")[0];
+  const route = getRoute(routeUrl);
 
-  switch (req.method) {
-    case "GET":
-      return handleGETMethods(req, res);
-    case "DELETE":
-      return handleDELETEMethods(req, res);
-    case "POST":
-      return handlePOSTMethods(req, res);
-    case "PATCH":
-      return handlePATCHMethods(req, res);
-    case "PUT":
-      return handlePUTMethods(req, res);
-    default:
-      break;
-  }
+  return route[req.method](req, res);
 });
 
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
 
-function handleGETMethods(req, res) {
-  const routeUrl = req.url.split("?")[0];
+function getRoute(routeUrl) {
+  switch (routeUrl) {
+    case "/tasks":
+      return {
+        GET: getTasks,
+        DELETE: deleteTask,
+        POST: createTask,
+        PATCH: updateTask,
+        PUT: replaceAndUpdateTask,
+      };
+    case "/image":
+      return {
+        GET: getImage,
+      };
+    default:
+      break;
+  }
+}
 
-  if (routeUrl === "/tasks") {
-    const tasks = getTasksData();
-    const taskId = getParameterByName("id", req.url);
+function getTasks(req, res) {
+  const tasks = getTasksData();
+  const taskId = getParameterByName("id", req.url);
+  res.writeHead(200, { "Content-Type": "application/json" });
+  if (taskId) {
+    return res.end(JSON.stringify(tasks.find((task) => task.id === taskId)));
+  }
+  return res.end(JSON.stringify(tasks));
+}
+
+function getImage(_, res) {
+  return serveStaticFile(res, "/images/demo.jpeg", "image/jpeg");
+}
+
+function deleteTask(req, res) {
+  const tasks = getTasksData();
+  const taskId = getParameterByName("id", req.url);
+  if (taskId) {
+    const filterTasks = tasks.filter((task) => task.id !== taskId);
+    updateTasksData(filterTasks);
+
     res.writeHead(200, { "Content-Type": "application/json" });
-    if (taskId) {
-      return res.end(JSON.stringify(tasks.find((task) => task.id === taskId)));
-    }
-    return res.end(JSON.stringify(tasks));
-  }
-
-  if (routeUrl === "/image") {
-    return serveStaticFile(res, "/images/demo.jpeg", "image/jpeg");
+    return res.end("Delete task success");
   }
 }
 
-function handleDELETEMethods(req, res) {
-  const routeUrl = req.url.split("?")[0];
+function createTask(req, res) {
+  const tasks = getTasksData();
+  let body = "";
+  req.on("data", (chunk) => {
+    body += chunk.toString(); // convert Buffer to string
+  });
 
-  if (routeUrl === "/tasks") {
-    const tasks = getTasksData();
-    const taskId = getParameterByName("id", req.url);
-    if (taskId) {
-      const filterTasks = tasks.filter((task) => task.id !== taskId);
-      updateTasksData(filterTasks);
+  req.on("end", () => {
+    const newTask = JSON.parse(body);
+    const newTasks = [...tasks, { id: uuidv4(), ...newTask, isDeleted: false }];
+    updateTasksData(newTasks);
 
-      res.writeHead(200, { "Content-Type": "application/json" });
-      return res.end("Delete task success");
-    }
-  }
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify(newTasks));
+  });
 }
 
-function handlePOSTMethods(req, res) {
-  const routeUrl = req.url.split("?")[0];
+function updateTask(req, res) {
+  const tasks = getTasksData();
+  const taskId = getParameterByName("id", req.url);
 
-  if (routeUrl === "/tasks") {
-    const tasks = getTasksData();
+  if (taskId) {
     let body = "";
     req.on("data", (chunk) => {
       body += chunk.toString(); // convert Buffer to string
     });
 
     req.on("end", () => {
-      const newTask = JSON.parse(body);
-      const newTasks = [
-        ...tasks,
-        { id: uuidv4(), ...newTask, isDeleted: false },
-      ];
+      const taskBody = JSON.parse(body);
+      const newTasks = tasks.map((task) => {
+        if (task.id === taskId) {
+          return { ...task, ...taskBody };
+        }
+
+        return task;
+      });
+
       updateTasksData(newTasks);
 
       res.writeHead(200, { "Content-Type": "application/json" });
@@ -88,74 +109,38 @@ function handlePOSTMethods(req, res) {
   }
 }
 
-function handlePATCHMethods(req, res) {
-  const routeUrl = req.url.split("?")[0];
+function replaceAndUpdateTask(req, res) {
+  const tasks = getTasksData();
+  const taskId = getParameterByName("id", req.url);
 
-  if (routeUrl === "/tasks") {
-    const tasks = getTasksData();
-    const taskId = getParameterByName("id", req.url);
+  if (taskId) {
+    let body = "";
+    req.on("data", (chunk) => {
+      body += chunk.toString(); // convert Buffer to string
+    });
 
-    if (taskId) {
-      let body = "";
-      req.on("data", (chunk) => {
-        body += chunk.toString(); // convert Buffer to string
+    req.on("end", () => {
+      const taskBody = JSON.parse(body);
+      const newTasks = tasks.map((task) => {
+        if (task.id === taskId) {
+          return {
+            id: task.id,
+            title: null,
+            status: null,
+            isAdminCreated: null,
+            isDeleted: null,
+            ...taskBody,
+          };
+        }
+
+        return task;
       });
 
-      req.on("end", () => {
-        const taskBody = JSON.parse(body);
-        const newTasks = tasks.map((task) => {
-          if (task.id === taskId) {
-            return { ...task, ...taskBody };
-          }
+      updateTasksData(newTasks);
 
-          return task;
-        });
-
-        updateTasksData(newTasks);
-
-        res.writeHead(200, { "Content-Type": "application/json" });
-        res.end(JSON.stringify(newTasks));
-      });
-    }
-  }
-}
-
-function handlePUTMethods(req, res) {
-  const routeUrl = req.url.split("?")[0];
-
-  if (routeUrl === "/tasks") {
-    const tasks = getTasksData();
-    const taskId = getParameterByName("id", req.url);
-
-    if (taskId) {
-      let body = "";
-      req.on("data", (chunk) => {
-        body += chunk.toString(); // convert Buffer to string
-      });
-
-      req.on("end", () => {
-        const taskBody = JSON.parse(body);
-        const newTasks = tasks.map((task) => {
-          if (task.id === taskId) {
-            return {
-              id: task.id,
-              title: null,
-              status: null,
-              isAdminCreated: null,
-              isDeleted: null,
-              ...taskBody,
-            };
-          }
-
-          return task;
-        });
-
-        updateTasksData(newTasks);
-
-        res.writeHead(200, { "Content-Type": "application/json" });
-        res.end(JSON.stringify(newTasks));
-      });
-    }
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(JSON.stringify(newTasks));
+    });
   }
 }
 

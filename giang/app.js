@@ -9,33 +9,39 @@ const DATA_FILE_PATH = "./mock-data.json";
 const server = http.createServer((req, res) => {
   res.statusCode = 200;
   res.setHeader("Content-Type", "text/plain");
-  const routeUrl = req.url.split("?")[0];
-  const route = getRoute(routeUrl);
 
-  return route[req.method](req, res);
+  return routing(req, res);
 });
 
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
 
-function getRoute(routeUrl) {
+function routing(req, res) {
+  const routeUrl = req.url.split("?")[0];
+  let routeMap;
+
   switch (routeUrl) {
     case "/tasks":
-      return {
+      routeMap = {
         GET: getTasks,
         DELETE: deleteTask,
         POST: createTask,
         PATCH: updateTask,
         PUT: replaceAndUpdateTask,
       };
+      break;
     case "/image":
-      return {
+      routeMap = {
         GET: getImage,
       };
+      break;
     default:
+      routeMap = {};
       break;
   }
+
+  routeMap[req.method](req, res);
 }
 
 function getTasks(req, res) {

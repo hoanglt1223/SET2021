@@ -1,8 +1,7 @@
 const http = require("http");
 let {tasks} = require("./repositories/tasks.json");
-const {getRequestBody, getPathAndQuery} = require('./utilities');
-const taskRouter = require('./routers/taskRouter');
-const {router} = require("./routers");
+const {routerFactory, Router} = require("./routers");
+const {getPathAndQuery} = require("./utilities");
 
 const hostname = "127.0.0.1";
 const port = 3000;
@@ -10,11 +9,9 @@ const port = 3000;
 const server = http.createServer(async (req, res) => {
 
   const {path, query} = getPathAndQuery(req);
-  console.log(router.getInstance(req, res));
-  router.getInstance(req, res).handle(req, res);
-  //console.log(taskRouter[req.method]['/' + path[0] + (path[1] ? '/{id}' : '')]);
-  //await taskRouter[req.method]['/' + path[0] + (path[1] ? '/{id}' : '')](req, res);
 
+  const router = routerFactory.getRouter(req, res);
+  await router.handle(req, res);
 
 
   // switch(req.method){

@@ -1,4 +1,5 @@
 const BaseController = function () {
+
   this.getHomePage = (req, res) => {
     res.statusCode = 200;
     res.setHeader("Content-Type", "text/plain");
@@ -10,5 +11,4 @@ const BaseController = function () {
     res.end('Error 404');
   }
 }
-const baseController = new BaseController();
-module.exports = baseController;
+module.exports = BaseController;

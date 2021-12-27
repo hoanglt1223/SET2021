@@ -1,12 +1,14 @@
-const baseController = require("../controllers/baseController");
-const {Router} = require("./index");
+const {baseController} = require('../controllers/index');
+const Router = require("./router");
+
 const BaseRouter = function () {
   this.GET = {
     '/': baseController.getHomePage,
     '/_error': baseController.getErrorPage,
-  }
-  Router.call(this);
-
+  };
+  //Router.call(this);
 }
 
-module.exports = BaseRouter;
+const baseRouter = new BaseRouter();
+
+module.exports = baseRouter;

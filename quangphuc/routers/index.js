@@ -1,53 +1,37 @@
 const {getPathAndQuery} = require("../utilities");
-const BaseRouter = require("./baseRouter");
 const taskRouter = require("./taskRouter");
+const baseRouter = require("./baseRouter");
+const imageRouter = require("./imageRouter");
 
-const Router = function(GET, POST, DELETE, PATCH) {
-  this.GET = GET;
-  this.POST = POST;
-  this.DELETE = DELETE;
-  this.PATCH = PATCH;
-  this.instance;
-
+const RouterFactory = function() {
+  this.router;
 
   //singleton
-  this.getInstance = (req, res) => {
+  this.getRouter = (req, res) => {
     const { path, query } = getPathAndQuery(req);
+    console.log('patj', path[0])
 
     switch (path[0]) {
       case undefined:
-        this.instance = new BaseRouter();
+        console.log('base');
+        this.router = baseRouter;
         break;
       case 'tasks':
-        this.instance = taskRouter;
-        console.log(taskRouter);
+        this.router = taskRouter;
         break;
       case 'image':
-        //this.instance = new ImageRouter();
+        this.router = imageRouter;
         break;
       default:
-        this.instance = new BaseRouter();
+        this.router = baseRouter;
         break;
     }
-    return this.instance;
-  }
-
-  this.handle = async (req, res) => {
-    console.log('handle')
-    const { path, query } = getPathAndQuery(req);
-    const handler = this[req.method]['/' + path[0] + (path[1] ? '/{id}' : '')];
-    if(handler){
-      await handler(req, res);
-    }
-    else {
-      const baseRouter = new BaseRouter();
-      await baseRouter['GET']['/_error'](req, res);
-    }
+    return this.router;
   }
 }
 
-const router = new Router();
-module.exports = {
-  Router,
-  router
-}
+
+
+const routerFactory = new RouterFactory();
+
+module.exports = {routerFactory};

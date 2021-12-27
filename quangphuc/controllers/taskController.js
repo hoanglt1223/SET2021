@@ -73,6 +73,4 @@ const TaskController = function () {
   };
 };
 
-const taskController = new TaskController();
-
-module.exports = taskController;
+module.exports = TaskController;

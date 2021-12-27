@@ -1,23 +1,23 @@
-const taskController = require('../controllers/taskController');
-const {Router} = require("./index");
+const {taskController} = require('../controllers/index');
+const Router = require("./router");
+
 const TaskRouter = function () {
-    const GET = {
+    this.GET = {
         '/tasks': taskController.getAllTasks,
         '/tasks/{id}': taskController.getTaskById,
     };
-    const POST = {
+    this.POST = {
         '/tasks': taskController.addTask
     };
-    const DELETE = {
+    this.DELETE = {
         '/tasks/{id}': taskController.deleteTaskById
     };
-    const PATCH = {
+    this.PATCH = {
         '/tasks/{id}': taskController.updateTaskById
     };
-    Router.call(this, GET, POST, DELETE, PATCH);
-    this.print = () => {
-        console.log('haha');
-    }
+    Router.call(this);
 }
+
 const taskRouter = new TaskRouter();
+
 module.exports = taskRouter;

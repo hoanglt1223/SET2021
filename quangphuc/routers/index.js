@@ -6,7 +6,6 @@ const imageRouter = require("./imageRouter");
 const RouterFactory = function() {
   this.router;
 
-  //singleton
   this.getRouter = (req, res) => {
     const { path, query } = getPathAndQuery(req);
     console.log('patj', path[0])

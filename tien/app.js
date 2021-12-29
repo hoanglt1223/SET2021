@@ -81,7 +81,7 @@ function handleDelete(url, res, req) {
 }
 
 function handlePost(url, res, req) {
-  if (url = "/tasks") {
+  if (url == "/tasks") {
     axios
       .post('http://127.0.0.1:3001/tasks', {
         todo: 'Buy the milk'
@@ -115,11 +115,25 @@ function handlePut(url, res, req) {
   }
 }
 
-const routers = {
-    GET: handleGet,
-    POST: handlePost,
-    PUT: handlePut,
-    DELETE: handleDelete
+function routing(res, req) {
+    const routeUrl = req.url;
+    const routers = {
+        GET: {
+            '/task': getTask,
+            '/image': getImage
+        },
+        POST: {
+            '/task': postTask,
+        },
+        PUT: {
+            '/task': putTask,
+        },
+        DELETE: {
+            'task': deleteTask,
+        }
+    };
+
+    routers[req.method](res, req);
 }
 
 // define server  
@@ -127,7 +141,7 @@ const server = http.createServer((req, res) => {
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
   
-
+  return routing(res, req);
 });
 
 server.listen(port, hostname, () => {

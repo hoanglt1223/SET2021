@@ -1,6 +1,8 @@
 const http = require('http');
 require('dotenv').config();
 const axios = require('axios');
+const fs = require("fs");
+const { resourceLimits } = require('worker_threads');
 
 
 
@@ -31,6 +33,43 @@ let tasks = [
     isDeleted: false
   }
 ]
+
+const routes = {
+  GET: {
+    "/tasks" : getTasks,
+    "/image" : getImage
+  },
+  DELETE: {
+    "/tasks" : deleteTasks,
+  },
+  POST: {
+    "/tasks" : postTasks,
+  },
+  PUT: {
+    "/tasks" : putTasks,
+  },
+}
+
+// define server  
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { "Content-Type": "text/plain" });
+  let routeUrl = req.url.split("?")[0]
+  let unhandledRouteUrl = routeUrl;
+  if (routeUrl.search("/tasks") == -1){
+    routeUrl = "/image"
+  } else {
+    routeUrl = "/tasks"
+  }
+  routes[req.method][routeUrl](unhandledRouteUrl, res, req);
+});
+
+server.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
+});
+
+
+
+
 function findIds() {
   let ids = [];
   tasks.forEach((task) => {
@@ -41,26 +80,39 @@ function findIds() {
   return ids;
 }
 
-function handleGet(url, res, req) {
-  let ids = findIds();
-  let getStarted = false;
-  if (url === "/people") {
-    return res.end(JSON.stringify(tasks));
+function getTasks(url, res, req) {
+  if (url == "/tasks"){
+    res.end(JSON.stringify(tasks));
   } else {
-    ids.forEach((id) => {
-      if (url == "/people/:" + id) {
-        let taskUpload = tasks.filter((task) => {
-          return task.id === id;
-        })
-        res.end(JSON.stringify(taskUpload));
-      } else if (url !== "/people" && url !== "/people/:" + id) {
-        getStarted = true;
-      }
-    })
+    getTask(url, res, req);
   }
 }
 
-function handleDelete(url, res, req) {
+function getTask(url, res, req) {
+  let ids = findIds();
+  let noTaskFound = true;
+  ids.forEach((id) =>{
+    if(url == "/tasks/:" + id){
+      let taskUpload = tasks.filter((task) => task.id == id)
+      res.end(JSON.stringify(taskUpload))
+      noTaskFound = false;
+    }
+  })
+  if (noTaskFound){
+    res.end("No task found")
+  }
+}
+
+function getImage(url, res, req){
+        fs.readFile("images/cat.png", function (err, data) {
+          if (err) throw err; // Fail if the file can't be read.
+          res.writeHead(200, { "Content-Type": "image/png" });
+          res.end(data); // Send the file data to the browser.
+        });
+}
+
+function deleteTasks
+(url, res, req) {
   let ids = findIds();
   let isDeleted = false;
   ids.forEach((id) => {
@@ -80,26 +132,25 @@ function handleDelete(url, res, req) {
   }
 }
 
-function handlePost(url, res, req) {
+function postTasks(url) {
   if (url = "/tasks") {
-    axios
-      .post('http://127.0.0.1:3001/tasks', {
-        todo: 'Buy the milk'
-      })
-      .then(res => {
-        console.log(`statusCode: ${res.status}`)
-        console.log(res)
-      })
-      .catch(error => {
-        console.error(error)
-      })
-
+    axios.post('/http://127.0.0.1:3001/tasks', {
+      firstName: 'Fred',
+      lastName: 'Flintstone'
+    })
+    .then(function (response) {
+      console.log(response);
+      res.end("nah")
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   } else {
     res.end("Run http://127.0.0.1:3001/tasks with post to save task data on server");
   }
 }
 
-function handlePut(url, res, req) {
+function putTasks(url, res, req) {
   let ids = findIds();
   let success = false;
   ids.forEach((id) => {
@@ -114,33 +165,6 @@ function handlePut(url, res, req) {
     res.end("Run http://127.0.0.1:3001/tasks/: + id of task to put task ");
   }
 }
-
-// define server  
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  console.log(req);
-  switch (req.method) {
-    case "GET":
-      handleGet(req.url, res, req);
-      break;
-    case "DELETE":
-      handleDelete(req.url, res, req);
-      break;
-    case "POST":
-      handlePost(req.url, res, req);
-      break;
-    case "PUT":
-      handlePut(req, url, res, req);
-      break;
-  }
-});
-
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
-
-
 
 
 

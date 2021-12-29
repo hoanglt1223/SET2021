@@ -5,9 +5,9 @@ const imageController = {
 
 function getImage(url, res, req){
   fs.readFile("images/cat.png", function (err, data) {
-    if (err) throw err; // Fail if the file can't be read.
+    if (err) throw err;
     res.writeHead(200, { "Content-Type": "image/png" });
-    res.end(data); // Send the file data to the browser.
+    res.end(data); 
   });
 }
 

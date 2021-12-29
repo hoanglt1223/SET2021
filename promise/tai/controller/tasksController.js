@@ -1,7 +1,30 @@
 const axios = require('axios');
 const http = require('http');
 
-const taskController = {
+let tasks = [
+  {
+    id: process.env.ID1,
+    name: process.env.NAME1,
+    isDeleted: false
+  },
+  {
+    id: process.env.ID2,
+    name: process.env.NAME2,
+    isDeleted: false
+  },
+  {
+    id: process.env.ID3,
+    name: process.env.NAME3,
+    isDeleted: false
+  },
+  {
+    id: process.env.ID4,
+    name: process.env.NAME4,
+    isDeleted: false
+  }
+]
+
+const tasksController = {
   getTasks,
   postTasks,
   putTasks,
@@ -19,7 +42,7 @@ function findIds() {
   return ids;
 }
 
-function getTasks(url, res, req) {
+function getTasks(url, res) {
   if (url == "/tasks"){
     res.end(JSON.stringify(tasks));
   } else {
@@ -27,7 +50,7 @@ function getTasks(url, res, req) {
   }
 }
 
-function getTask(url, res, req) {
+function getTask(url, res) {
   let ids = findIds();
   let noTaskFound = true;
   ids.forEach((id) =>{
@@ -43,7 +66,7 @@ function getTask(url, res, req) {
 }
 
 function deleteTasks
-(url, res, req) {
+(url, res) {
   let ids = findIds();
   let isDeleted = false;
   ids.forEach((id) => {
@@ -59,29 +82,38 @@ function deleteTasks
   if (isDeleted) {
     res.end("Delete task successfully");
   } else {
-    res.end("Run http://127.0.0.1:3001/tasks/: + id of task to delete task ");
+    res.end("Invalid task");
   }
 }
 
-function postTasks(url) {
+function postTasks(url, res, req) {
   if (url = "/tasks") {
-    axios.post('/http://127.0.0.1:3001/tasks', {
-      firstName: 'Fred',
-      lastName: 'Flintstone'
-    })
-    .then(function (response) {
-      console.log(response);
-      res.end("nah")
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+    // axios.post('/http://127.0.0.1:3001/tasks', {
+    //   firstName: 'Fred',
+    //   lastName: 'Flintstone'
+    // })
+    // .then(function (response) {
+    //   console.log(response);
+    //   res.end("nah")
+    // })
+    // .catch(function (error) {
+    //   console.log(error);
+    // });
+  let data = "";
+  req.on('data', chunk => {
+    data += chunk;
+  })
+  req.on('end', () => {
+    tasks.push(JSON.parse(data));
+
+    return "Post successfully"
+  })
   } else {
     res.end("Run http://127.0.0.1:3001/tasks with post to save task data on server");
   }
 }
 
-function putTasks(url, res, req) {
+function putTasks(url, res) {
   let ids = findIds();
   let success = false;
   ids.forEach((id) => {
@@ -97,8 +129,8 @@ function putTasks(url, res, req) {
   }
 }
 
-function patchTasks(url, res, req){
+function patchTasks(url, res){
 
 }
 
-module.exports = taskController;
+module.exports = tasksController;

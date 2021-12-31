@@ -1,8 +1,6 @@
 const fs = require("fs");
 const path = require("path");
 
-const DATA_FILE_PATH = "../database";
-
 const dataSource = {
   get: getAllDataFromDB,
   update: updateDataFromDB,

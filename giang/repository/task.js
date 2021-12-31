@@ -1,19 +1,8 @@
+const BaseRepository = require("./index");
 const { DBCollection } = require("../constants");
-const dataSource = require("../datasource");
 
-const dbCollection = DBCollection.TASK;
-
-const taskRepository = {
-  create,
-};
-
-function create(newTask) {
-  const tasks = dataSource.get(dbCollection);
-  const updatedTasks = [...tasks, newTask];
-
-  dataSource.update(dbCollection, updatedTasks);
-
-  return updatedTasks;
+function TaskRepository() {
+  BaseRepository.call(this, DBCollection.TASK);
 }
 
-module.exports = taskRepository;
+module.exports = TaskRepository;

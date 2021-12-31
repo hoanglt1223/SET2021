@@ -1,5 +1,6 @@
 const { v4: uuidv4 } = require("uuid");
 const { getParameterByName } = require("../utils");
+const taskRepository = require("../repository/task");
 const jsonDB = require("../service/jsonDB");
 
 const taskController = {
@@ -33,7 +34,6 @@ function deleteTask(req, res) {
 }
 
 function createTask(req, res) {
-  const tasks = jsonDB.getTasksData();
   let body = "";
   req.on("data", (chunk) => {
     body += chunk.toString(); // convert Buffer to string
@@ -41,11 +41,10 @@ function createTask(req, res) {
 
   req.on("end", () => {
     const newTask = JSON.parse(body);
-    const newTasks = [...tasks, { id: uuidv4(), ...newTask, isDeleted: false }];
-    jsonDB.updateTasksData(newTasks);
+    const updatedTasks = taskRepository.create({ id: uuidv4(), ...newTask });
 
     res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(JSON.stringify(newTasks));
+    res.end(JSON.stringify(updatedTasks));
   });
 }
 

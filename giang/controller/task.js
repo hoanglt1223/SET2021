@@ -1,6 +1,7 @@
 const { v4: uuidv4 } = require("uuid");
 const { getParameterByName } = require("../utils");
 const TaskRepository = require("../repository/task");
+const getBodyData = require("../middlewares/getBodyData");
 
 const taskRepository = new TaskRepository();
 const taskController = {
@@ -34,13 +35,7 @@ function deleteTask(req, res) {
 }
 
 function createTask(req, res) {
-  let body = "";
-  req.on("data", (chunk) => {
-    body += chunk.toString(); // convert Buffer to string
-  });
-
-  req.on("end", () => {
-    const newTask = JSON.parse(body);
+  getBodyData(req, (newTask) => {
     const updatedTasks = taskRepository.create({ id: uuidv4(), ...newTask });
 
     res.writeHead(200, { "Content-Type": "application/json" });
@@ -52,13 +47,7 @@ function updateTask(req, res) {
   const taskId = getParameterByName("id", req.url);
 
   if (taskId) {
-    let body = "";
-    req.on("data", (chunk) => {
-      body += chunk.toString(); // convert Buffer to string
-    });
-
-    req.on("end", () => {
-      const taskBody = JSON.parse(body);
+    getBodyData(req, (taskBody) => {
       const newTasks = taskRepository.update(taskId, taskBody);
 
       res.writeHead(200, { "Content-Type": "application/json" });
@@ -71,13 +60,7 @@ function replaceAndUpdateTask(req, res) {
   const taskId = getParameterByName("id", req.url);
 
   if (taskId) {
-    let body = "";
-    req.on("data", (chunk) => {
-      body += chunk.toString(); // convert Buffer to string
-    });
-
-    req.on("end", () => {
-      const taskBody = JSON.parse(body);
+    getBodyData(req, (taskBody) => {
       const newTasks = taskRepository.replaceAndUpdate(taskId, taskBody);
 
       res.writeHead(200, { "Content-Type": "application/json" });

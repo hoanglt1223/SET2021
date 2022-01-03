@@ -1,16 +1,21 @@
-let { tasks } = require("../repositories/tasks.json");
-const { getRequestBody, getPathAndQuery } = require("../utilities");
+const { getPathAndQuery } = require("../utilities");
+const getRequestBody = require('../interceptors/getRequestBody')
+const fs = require("fs");
+const path = require('path')
+const {loadData} = require("../datasource");
+const tasksRepository = require("../repositories/tasksRepository");
+let tasks = loadData('tasks');
 
 const TaskController = function () {
   this.getAllTasks = (req, res) => {
     res.statusCode = 200;
     res.setHeader("Content-Type", "application/json");
-    res.end(JSON.stringify(tasks));
+    res.end(JSON.stringify(tasksRepository.getAll()));
   };
 
   this.getTaskById = (req, res) => {
     const { path, query } = getPathAndQuery(req);
-    const task = tasks.find((task) => task.id === path[1]);
+    const task = tasksRepository.getById(path[1]);
     if (task) {
       res.statusCode = 200;
       res.setHeader("Content-Type", "application/json");
@@ -24,13 +29,12 @@ const TaskController = function () {
 
   this.addTask = async (req, res) => {
     const body = await getRequestBody(req);
-    const task = tasks.find((task) => task.id === body.id);
-    if (task) {
+    const createTask = tasksRepository.create(body);
+    if (!createTask) {
       res.statusCode = 404;
       res.setHeader("Content-Type", "text/plain");
       res.end("Invalid request");
     } else {
-      tasks.push(body);
       res.statusCode = 204;
       res.end();
     }
@@ -38,10 +42,8 @@ const TaskController = function () {
 
   this.deleteTaskById = (req, res) => {
     const { path, query } = getPathAndQuery(req);
-    const taskId = path[1];
-    const task = tasks.find((task) => task.id === taskId);
-    if (task) {
-      tasks = tasks.filter((task) => task.id !== taskId);
+    const deleteTask = tasksRepository.deleteById(path[1]);
+    if (deleteTask) {
       res.statusCode = 204;
       res.end();
     } else {
@@ -54,15 +56,8 @@ const TaskController = function () {
   this.updateTaskById = async (req, res) => {
     const { path, query } = getPathAndQuery(req);
     const body = await getRequestBody(req);
-    let task = tasks.find((task) => task.id === path[1]);
-    if (task) {
-      const index = tasks.findIndex((task) => task.id === path[1]);
-      tasks[index] = { ...task, ...body };
-      tasks.forEach((item) => {
-        if (item.id === task.id) {
-          item = task;
-        }
-      });
+    let updateTask = tasksRepository.updateById(path[1], body);
+    if (updateTask) {
       res.statusCode = 204;
       res.end();
     } else {

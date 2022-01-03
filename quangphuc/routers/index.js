@@ -8,11 +8,9 @@ const RouterFactory = function() {
 
   this.getRouter = (req, res) => {
     const { path, query } = getPathAndQuery(req);
-    console.log('patj', path[0])
 
     switch (path[0]) {
       case undefined:
-        console.log('base');
         this.router = baseRouter;
         break;
       case 'tasks':

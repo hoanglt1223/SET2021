@@ -1,10 +1,6 @@
 const { getPathAndQuery } = require("../utilities");
 const getRequestBody = require('../interceptors/getRequestBody')
-const fs = require("fs");
-const path = require('path')
-const {loadData} = require("../datasource");
 const tasksRepository = require("../repositories/tasksRepository");
-let tasks = loadData('tasks');
 
 const TaskController = function () {
   this.getAllTasks = (req, res) => {

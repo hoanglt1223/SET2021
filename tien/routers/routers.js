@@ -1,11 +1,6 @@
-/* ======== ROUTERS ======== */
-const tasksController = require("../controller/tasksController");
-const imageController = require("../controller/imageController");
+const tasksController = require("../controller/tasks");
+const imageController = require("../controller/image");
 
-const routers = {
-    tasks: tasksRouter,
-    image: imageRouter
-};
 /* ======== TASKS ROUTER ======== */
 const tasksRouter = {
     GET: {
@@ -29,6 +24,12 @@ const imageRouter = {
     GET: {
         '/image': imageController.getImage,
     }
+};
+
+/* ======== ROUTERS ======== */
+const routers = {
+    tasks: tasksRouter,
+    image: imageRouter
 };
 
 module.exports = routers;

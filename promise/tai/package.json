@@ -4,7 +4,10 @@
     "chalk": "^4.1.2",
     "dotenv": "^10.0.0",
     "http": "0.0.1-security",
-    "inquirer": "^8.2.0"
+    "inquirer": "^8.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.1.5",
+    "url": "^0.11.0"
   },
   "name": "tai3",
   "version": "1.0.0",

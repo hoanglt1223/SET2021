@@ -1,5 +1,5 @@
 const tasksController = require("../controller/tasksController.js");
-const imageController = require("../controller/imageController.js");
+const usersController = require("../controller/usersController.js");
 
 
 /* ======== TASKS ROUTER ======== */
@@ -8,28 +8,29 @@ const tasksRouter = {
         '/tasks': tasksController.getTasks,
     },
     POST: {
-        '/tasks': tasksController.postTasks,
+        '/tasks': tasksController.addTask,
     },
     PUT: {
-        '/tasks': tasksController.putTasks,
+        '/tasks': tasksController.editTask,
     },
     DELETE: {
-        '/tasks': tasksController.deleteTasks,
+        '/tasks': tasksController.deleteTask,
     },
-    PATCH: {
-        '/tasks': tasksController.patchTasks,
-    }
 };
 /* ======== IMAGE ROUTER ======== */
-const imageRouter = {
-    GET: {
-        '/image': imageController.getImage,
-    }
-};
+const usersRouter = {
+    
+};  
 
 const routers = {
     "/tasks": tasksRouter,
-    "image": imageRouter
+    "/users": usersRouter,
+    "/error": errorNotify
 };
+
+function errorNotify(response){
+    response.end("error");
+}
+
 
 module.exports = routers;

@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
-const { userRepository } = require('../repositories')
+// const { userRepository } = require('../repositories')
 const { handleError } = require('../helpers')
-
+const {userModel, taskModel} = require('../models')
 function authenticate(req, res) {
   try {
     if (!req.headers.authorization) {
@@ -11,7 +11,7 @@ function authenticate(req, res) {
     const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
     const { userId } = decodedToken;
 
-    return userRepository.findById(userId).then(foundUser => {
+    return userModel.findById(userId).then(foundUser => {
       if (!foundUser) {
         throw new Error('Invalid token.')
       }

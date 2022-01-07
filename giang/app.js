@@ -1,4 +1,6 @@
 const http = require("http");
+const mongoose = require("mongoose");
+require("dotenv").config();
 
 const hostname = "127.0.0.1";
 const port = 3003;
@@ -15,6 +17,11 @@ const server = http.createServer((req, res) => {
   return controller(req, res);
 });
 
+async function main() {
+  await mongoose.connect(process.env.DB_URL);
+}
+
+main().catch((err) => console.log(err));
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });

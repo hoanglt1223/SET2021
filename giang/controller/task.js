@@ -1,9 +1,10 @@
-const { v4: uuidv4 } = require("uuid");
-const { getParameterByName } = require("../utils");
-const TaskRepository = require("../repository/task");
-const getBodyData = require("../middlewares/getBodyData");
+const mongoose = require("mongoose");
 
-const taskRepository = new TaskRepository();
+const { getParameterByName } = require("../utils");
+const getBodyData = require("../middlewares/getBodyData");
+const { Task } = require("../model");
+const { TaskStatus, DEFAULT_TASK } = require("../constants");
+
 const taskController = {
   getTasks,
   createTask,
@@ -12,22 +13,28 @@ const taskController = {
   replaceAndUpdateTask,
 };
 
-function getTasks(req, res) {
-  const tasks = taskRepository.findAll();
+async function getTasks(req, res) {
+  const tasks = await Task.find();
   const taskId = getParameterByName("id", req.url);
 
   res.writeHead(200, { "Content-Type": "application/json" });
 
   if (taskId) {
-    return res.end(JSON.stringify(taskRepository.findOne(taskId)));
+    const taskObjectId = mongoose.Types.ObjectId(taskId);
+    const currentTask = await Task.findById(taskObjectId);
+    return res.end(JSON.stringify(currentTask));
   }
   return res.end(JSON.stringify(tasks));
 }
 
-function deleteTask(req, res) {
+async function deleteTask(req, res) {
   const taskId = getParameterByName("id", req.url);
+  const taskObjectId = mongoose.Types.ObjectId(taskId);
+
   if (taskId) {
-    taskRepository.delete(taskId);
+    await Task.deleteOne({
+      _id: taskObjectId,
+    });
 
     res.writeHead(200, { "Content-Type": "application/json" });
     return res.end("Delete task success");
@@ -35,36 +42,50 @@ function deleteTask(req, res) {
 }
 
 function createTask(req, res) {
-  getBodyData(req, (newTask) => {
-    const updatedTasks = taskRepository.create({ id: uuidv4(), ...newTask });
+  getBodyData(req, async (newTask) => {
+    await Task.create({ ...newTask, status: TaskStatus.DOING });
+    const tasks = await Task.find();
 
     res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(JSON.stringify(updatedTasks));
+    res.end(JSON.stringify(tasks));
   });
 }
 
 function updateTask(req, res) {
   const taskId = getParameterByName("id", req.url);
+  const taskObjectId = mongoose.Types.ObjectId(taskId);
 
   if (taskId) {
-    getBodyData(req, (taskBody) => {
-      const newTasks = taskRepository.update(taskId, taskBody);
+    getBodyData(req, async (taskBody) => {
+      await Task.updateOne(
+        {
+          _id: taskObjectId,
+        },
+        taskBody
+      );
 
       res.writeHead(200, { "Content-Type": "application/json" });
-      res.end(JSON.stringify(newTasks));
+      return res.end("Update task success");
     });
   }
 }
 
 function replaceAndUpdateTask(req, res) {
   const taskId = getParameterByName("id", req.url);
+  const taskObjectId = mongoose.Types.ObjectId(taskId);
 
   if (taskId) {
-    getBodyData(req, (taskBody) => {
-      const newTasks = taskRepository.replaceAndUpdate(taskId, taskBody);
+    getBodyData(req, async (taskBody) => {
+      const newTask = { ...DEFAULT_TASK, ...taskBody };
+      await Task.updateOne(
+        {
+          _id: taskObjectId,
+        },
+        newTask
+      );
 
       res.writeHead(200, { "Content-Type": "application/json" });
-      res.end(JSON.stringify(newTasks));
+      return res.end("Update task success");
     });
   }
 }

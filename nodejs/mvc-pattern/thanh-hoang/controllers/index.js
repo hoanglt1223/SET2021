@@ -16,17 +16,16 @@ function getTasks(request, response) {
             chunks.push(chunk)
         })
         .on('end', () => {
-            const userId = JSON.parse(chunks.toString())
-            response.setHeader('Content-Type', 'application/json');
-            findTask(userId)
-                .then(data => {
-                    response.end(JSON.stringify(data))
-                })
-                .catch(err => {
-                    handleError(err, 'controllers/index.js', 'addTask')
-                    handleAuthResponse(response, false)
-                })
-
+          // const userId = JSON.parse(chunks.toString())
+          response.setHeader("Content-Type", "application/json");
+          findTask()
+            .then((data) => {
+              response.end(JSON.stringify(data));
+            })
+            .catch((err) => {
+              handleError(err, "controllers/index.js", "addTask");
+              handleAuthResponse(response, false);
+            });
         })
 }
 

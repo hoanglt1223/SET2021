@@ -14,8 +14,8 @@ function insertUser(user) {
     return userRepository.createOne(newUser)
 }
 
-function findTask(id) {
-    return taskRepository.filterById(id)
+function findTask() {
+  return taskRepository.find();
 }
 
 function insertTask(task) {

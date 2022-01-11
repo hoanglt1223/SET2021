@@ -1,6 +1,6 @@
 const url = require('url')
 const jwt = require('jsonwebtoken')
-const { insertUser, verifyUser, handleAuthResponse, findTask, insertTask, updateTask, removeTask } = require('./helpers')
+const { insertUser, verifyUser, handleAuthResponse, findTask, findUser, insertTask, updateTask, removeTask } = require('./helpers')
 const { handleError } = require('../helpers')
 
 function handleNotFound(req, res) {
@@ -23,7 +23,7 @@ function getTasks(request, response) {
                     response.end(JSON.stringify(data))
                 })
                 .catch(err => {
-                    handleError(err, 'controllers/index.js', 'addTask')
+                    handleError(err, 'controllers/index.js', 'getTasks')
                     handleAuthResponse(response, false)
                 })
 
@@ -134,6 +134,27 @@ function signIn(request, response) {
         })
 }
 
+function getUsers(request, response) {
+    const chunks = []
+    request
+        .on('data', (chunk) => {
+            chunks.push(chunk)
+        })
+        .on('end', () => {
+    
+            response.setHeader('Content-Type', 'application/json');
+            findUser()
+                .then(data => {
+                    response.end(JSON.stringify(data))
+                })
+                .catch(err => {
+                    handleError(err, 'controllers/index.js', 'getUsers')
+                    handleAuthResponse(response, false)
+                })
+
+        })
+}
+
 function pingWithAuth(req, res) {
     res.end('Success')
 }
@@ -146,5 +167,6 @@ module.exports = {
     deleteTask,
     signUp,
     signIn,
+    getUsers,
     pingWithAuth
 }

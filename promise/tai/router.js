@@ -1,5 +1,5 @@
 const url = require('url')
-const { handleNotFound, getTasks, addTask, editTask, deleteTask, signUp, signIn, pingWithAuth } = require('./controllers')
+const { handleNotFound, getTasks, addTask, editTask, deleteTask, signUp, signIn, getUsers, pingWithAuth } = require('./controllers')
 const { authenticate } = require('./middlewares')
 const { handleError } = require('./helpers')
 const { updateTask } = require('./controllers/helpers')
@@ -10,7 +10,8 @@ const routes = {
     '/add-task': { 'POST': { controller: addTask } },
     '/update-task': { 'POST': { controller: editTask } },
     '/delete-task': { 'POST': { controller: deleteTask } },
-    '/get-task': { 'GET': { controller: getTasks } },
+    '/get-tasks': { 'GET': { controller: getTasks } },
+    '/get-users': {'GET': {controller: getUsers}},
     '/ping-with-auth': {
         'GET': {
             controller: pingWithAuth,

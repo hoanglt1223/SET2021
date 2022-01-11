@@ -19,6 +19,10 @@ function findTask() {
     return taskModel.find();
 }
 
+function findUser() {
+    return userModel.find();
+}
+
 function insertTask(task) {
     const newTask = {
         taskName: task.taskName,
@@ -58,4 +62,4 @@ function handleAuthResponse(response, isSuccessful = false) {
     response.end(JSON.stringify(data));
 }
 
-module.exports = { insertUser, verifyUser, handleAuthResponse, findTask, insertTask, updateTask, removeTask }
+module.exports = { insertUser, verifyUser, handleAuthResponse, findTask, findUser, insertTask, updateTask, removeTask }

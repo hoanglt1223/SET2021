@@ -1,7 +1,7 @@
 const url = require('url')
-const { handleNotFound, signUp, signIn, pingWithAuth } = require('./controllers')
-const { authenticate, parseRequestBody } = require('./middlewares')
-const { handleError } = require('./helpers')
+const { handleNotFound, signUp, signIn, pingWithAuth, findAllUsers } = require('../controllers')
+const { authenticate, parseRequestBody } = require('../middlewares')
+const { handleError } = require('../helpers')
 
 const routes = {
   'POST': {
@@ -17,7 +17,11 @@ const routes = {
   'GET': {
     '/ping-with-auth': {
       controller: pingWithAuth,
-      middlewares: [authenticate]
+      middlewares: [parseRequestBody]
+    },
+    '/find-all': {
+      controller : findAllUsers,
+      middleware: [parseRequestBody]
     }
   }
 }
@@ -38,7 +42,8 @@ function route(req) {
           // Call controller after all interceptor (middlewares)
           promise.then(() => currentRouteData.controller(req, res))
           return promise
-        } catch (error) {
+        }
+        catch (error) {
           handleError(error, 'router.js', 'route() -> controller()')
           res.statusCode = 500
           res.end()

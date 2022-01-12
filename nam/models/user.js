@@ -10,6 +10,18 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true
+  },
+  tasks:{
+    type : [{type: String}],
+    required: false
+  },
+  isAdmin:{
+    type: Boolean,
+    required: true
+  },
+  isDeleted:{
+    type: Boolean,
+    default: false,
   }
 })
 

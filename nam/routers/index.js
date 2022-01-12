@@ -1,30 +1,7 @@
 const url = require('url')
-const { handleNotFound, signUp, signIn, pingWithAuth, findAllUsers } = require('../controllers')
-const { authenticate, parseRequestBody } = require('../middlewares')
 const { handleError } = require('../helpers')
+const routes = require('./routes');
 
-const routes = {
-  'POST': {
-    '/sign-up': {
-      controller: signUp,
-      middlewares: [parseRequestBody]
-    },
-    '/sign-in': {
-      controller: signIn,
-      middlewares: [parseRequestBody]
-    },
-  },
-  'GET': {
-    '/ping-with-auth': {
-      controller: pingWithAuth,
-      middlewares: [parseRequestBody]
-    },
-    '/find-all': {
-      controller : findAllUsers,
-      middleware: [parseRequestBody]
-    }
-  }
-}
 
 function route(req) {
   const parsedUrl = url.parse(req.url, true)
@@ -54,7 +31,7 @@ function route(req) {
     return routes[req.method][parsedUrl.pathname].controller
   }
 
-  return handleNotFound
+  return routes['FAIL'].handleFail;
 }
 
 module.exports = { route }

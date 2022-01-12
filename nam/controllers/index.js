@@ -1,8 +1,6 @@
 const url = require('url')
-const jwt = require('jsonwebtoken')
-const { insertUser, verifyUser, handleAuthResponse, findUsers } = require('./helpers.users')
+const { insertUser, validateUser, handleAuthResponse, findUsers, updateUser, findUserByID, verifyUser } = require('./users.helpers')
 const { handleError } = require('../helpers')
-const { rejects } = require('assert')
 
 function handleNotFound(req, res) {
     const parsedUrl = url.parse(req.url, true)
@@ -11,7 +9,9 @@ function handleNotFound(req, res) {
 }
 
 function signUp(request, response) {
-    const user = request.body
+    debugger;
+    const user = verifyUser(request.body);
+
     insertUser(user)
         .then(() => {
             handleAuthResponse(response, true)
@@ -25,15 +25,15 @@ function signUp(request, response) {
 function signIn(request, response) {
     const user = request.body
     response.setHeader('Content-Type', 'application/json');
-    verifyUser(user)
+    validateUser(user)
         .then(foundUser => {
-            debugger;
             if (foundUser && foundUser.length > 0) {
                 response.statusCode = 200
                 response.end(JSON.stringify(foundUser));
             }
             else {
-                throw new Error('Unknown user');
+                response.statusCode = 404;
+                handleAuthResponse(response, false);
             }
         }).catch(error => {
             handleError(error, 'controllers/helpers.users.js', 'signIn');
@@ -57,6 +57,80 @@ function findAllUsers(req, res) {
         })
 }
 
+function findOneUser(request, response) {
+    response.setHeader('Content-Type', 'application/json');
+    const user = request.body;
+    findUsers(user)
+        .then(foundUser => {
+            if (foundUser && foundUser.length > 0) {
+                let info = {
+                    username: foundUser[0].username,
+                    tasks: foundUser[0].tasks
+                }
+                response.statusCode = 200
+                response.end(JSON.stringify(info));
+            }
+            else {
+                throw new Error('Unknown user');
+            }
+        }).catch(error => {
+            handleError(error, 'controllers/helpers.users.js', 'findOneUser');
+            handleAuthResponse(response, false);
+        })
+
+}
+
+function updateUserByID(request, response) {
+    const user = request.body;
+    const userID = user._id;
+    updateUser(userID, user).then(() => {
+        handleAuthResponse(response, true)
+    }).catch(error => {
+        handleError(error, 'controllers/helpers.users.js', 'updateUserByID');
+        handleAuthResponse(response, false);
+    })
+}
+
+function addTasks(request, response) {
+    let user = request.body;
+    const userID = user._id;
+    const newTasks = user.tasks;
+    findUserByID(userID).then(foundUser => {
+        let oldTasks = foundUser.tasks;
+        newTasks.forEach(task => {
+            oldTasks.push(task);
+        })
+        user.tasks = oldTasks;
+    }).then(() => {
+        updateUser(userID, user).then(() => {
+            handleAuthResponse(response, true);
+        }).catch(error => {
+            handleError(error, 'controllers/helpers.users.js', 'addTasks');
+            handleAuthResponse(response, false);
+        })
+    })
+}
+
+
+function deleteUserByID(request, response) {
+    let user = request.body;
+    const userID = user._id;
+    findUserByID(userID).then(foundUser => {
+        debugger;
+        if (foundUser) {
+            foundUser.isDeleted = true;
+            updateUser(userID, foundUser).then(() => {
+                handleAuthResponse(response, true);
+            })
+        }
+        else {
+            handleAuthResponse(response, false)
+        }
+    }).catch(error => {
+        handleError(error, 'controllers/helpers.users.js', 'deleteUserByID');
+        handleAuthResponse(response, false);
+    })
+}
 
 module.exports = {
     handleNotFound,
@@ -64,4 +138,8 @@ module.exports = {
     signIn,
     pingWithAuth,
     findAllUsers,
+    findOneUser,
+    updateUserByID,
+    addTasks,
+    deleteUserByID
 }

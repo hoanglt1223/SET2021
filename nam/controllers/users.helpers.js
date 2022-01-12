@@ -2,15 +2,25 @@ const crypto = require('crypto')
 const { userRepository } = require('../models');
 
 
-
 /*=====Insert User======*/
 function insertUser(user) {
     const password = user.password ? hashPassword(user.password) : undefined
     const newUser = {
         username: user.username,
         password: password,
+        tasks : user.tasks,
+        isAdmin: user.isAdmin,
     }
     return userRepository.create(newUser);
+}
+
+function verifyUser(user){
+    return {
+        username: user.username,
+        password: user.password,
+        isAdmin: (user.isAdmin === 'true') ? true : false,
+        isDeleted: (user.isDeleted === 'true') ? true: false,
+    }
 }
 
 /*======Hash Password=========*/
@@ -20,12 +30,10 @@ function hashPassword(password) {
     return hash.update(password).digest('hex')
 }
 
-/*======Verify=========*/
-function verifyUser(checkingUser) {
+function validateUser(checkingUser) {
     return userRepository.find({username: checkingUser.username, password: hashPassword(checkingUser.password)});
 }
 
-/*======Handle=========*/
 function handleAuthResponse(response, isSuccessful = false) {
     const data = {
         status: isSuccessful ? 'success' : 'fail'
@@ -38,5 +46,13 @@ function findUsers(user = {}){
     return userRepository.find(user);
 }
 
+function updateUser(userID, user){
+    return userRepository.findByIdAndUpdate(userID, user);
+}
 
-module.exports = { insertUser, verifyUser, handleAuthResponse, findUsers }
+function findUserByID(userID){
+    return userRepository.findById(userID);
+}
+
+
+module.exports = { insertUser, validateUser, handleAuthResponse, findUsers, updateUser, findUserByID, verifyUser }

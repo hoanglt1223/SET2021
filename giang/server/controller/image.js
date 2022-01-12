@@ -20,7 +20,11 @@ function serveStaticFile(res, path, contentType, responseCode) {
 
       return res.end("500 - Internal Error");
     } else {
-      res.writeHead(responseCode, { "Content-Type": contentType });
+      console.log({ contentType });
+      res.writeHead(responseCode, {
+        "Content-Type": contentType,
+        "Content-Length": data.buffer.byteLength,
+      });
       return res.end(data);
     }
   });

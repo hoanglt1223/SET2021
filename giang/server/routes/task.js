@@ -1,20 +1,36 @@
 const taskController = require("../controller/task");
+const { getBodyData } = require("../middlewares");
 
 const taskRouter = {
   GET: {
-    "/tasks": taskController.getTasks,
+    "/tasks": {
+      controller: taskController.getTasks,
+      middlewares: [],
+    },
   },
   POST: {
-    "/tasks": taskController.createTask,
+    "/tasks": {
+      controller: taskController.createTask,
+      middlewares: [getBodyData],
+    },
   },
   DELETE: {
-    "/tasks": taskController.deleteTask,
+    "/tasks": {
+      controller: taskController.deleteTask,
+      middlewares: [],
+    },
   },
   PUT: {
-    "/tasks": taskController.replaceAndUpdateTask,
+    "/tasks": {
+      controller: taskController.replaceAndUpdateTask,
+      middlewares: [getBodyData],
+    },
   },
   PATCH: {
-    "/tasks": taskController.updateTask,
+    "/tasks": {
+      controller: taskController.updateTask,
+      middlewares: [getBodyData],
+    },
   },
 };
 

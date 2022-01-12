@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
 const { getParameterByName } = require("../utils");
-const getBodyData = require("../middlewares/getBodyData");
 const { Task } = require("../model");
 const { TaskStatus, DEFAULT_TASK } = require("../constants");
 
@@ -41,52 +40,49 @@ async function deleteTask(req, res) {
   }
 }
 
-function createTask(req, res) {
-  getBodyData(req, async (newTask) => {
-    await Task.create({ ...newTask, status: TaskStatus.DOING });
-    const tasks = await Task.find();
+async function createTask(req, res) {
+  const newTask = req.body;
+  await Task.create({ ...newTask, status: TaskStatus.DOING });
+  const tasks = await Task.find();
 
-    res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(JSON.stringify(tasks));
-  });
+  res.writeHead(200, { "Content-Type": "application/json" });
+  res.end(JSON.stringify(tasks));
 }
 
-function updateTask(req, res) {
+async function updateTask(req, res) {
   const taskId = getParameterByName("id", req.url);
   const taskObjectId = mongoose.Types.ObjectId(taskId);
 
   if (taskId) {
-    getBodyData(req, async (taskBody) => {
-      await Task.updateOne(
-        {
-          _id: taskObjectId,
-        },
-        taskBody
-      );
+    const taskBody = req.body;
+    await Task.updateOne(
+      {
+        _id: taskObjectId,
+      },
+      taskBody
+    );
 
-      res.writeHead(200, { "Content-Type": "application/json" });
-      return res.end("Update task success");
-    });
+    res.writeHead(200, { "Content-Type": "application/json" });
+    return res.end("Update task success");
   }
 }
 
-function replaceAndUpdateTask(req, res) {
+async function replaceAndUpdateTask(req, res) {
   const taskId = getParameterByName("id", req.url);
   const taskObjectId = mongoose.Types.ObjectId(taskId);
 
   if (taskId) {
-    getBodyData(req, async (taskBody) => {
-      const newTask = { ...DEFAULT_TASK, ...taskBody };
-      await Task.updateOne(
-        {
-          _id: taskObjectId,
-        },
-        newTask
-      );
+    const taskBody = req.body;
+    const newTask = { ...DEFAULT_TASK, ...taskBody };
+    await Task.updateOne(
+      {
+        _id: taskObjectId,
+      },
+      newTask
+    );
 
-      res.writeHead(200, { "Content-Type": "application/json" });
-      return res.end("Update task success");
-    });
+    res.writeHead(200, { "Content-Type": "application/json" });
+    return res.end("Update task success");
   }
 }
 

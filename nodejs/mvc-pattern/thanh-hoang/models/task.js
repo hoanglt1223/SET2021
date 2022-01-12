@@ -1,12 +1,10 @@
-const task = {
-    id: {
-        type: 'number',
-        required: true
-    },
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const taskSchema = new Schema({
     taskName: {
         type: 'string',
         required: true,
-        unique: true
     },
     isDone: {
         type: 'string',
@@ -16,6 +14,8 @@ const task = {
         type: 'number',
         required: true
     },
-}
+});
 
-module.exports = task
+const Task = mongoose.model('Task', taskSchema);
+
+module.exports = Task

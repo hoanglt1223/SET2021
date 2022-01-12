@@ -1,7 +1,5 @@
 const crypto = require('crypto')
-const {
-  userRepository
-} = require('../repositories')
+const { User } = require('../models')
 
 function insertUser(user) {
   const password = user.password ? hashPassword(user.password) : undefined
@@ -9,7 +7,7 @@ function insertUser(user) {
     username: user.username,
     password
   }
-  return userRepository.createOne(newUser)
+  return User.create(newUser)
 }
 
 function hashPassword(password) {
@@ -19,11 +17,11 @@ function hashPassword(password) {
 }
 
 function verifyUser(checkingUser) {
-  return userRepository.find()
-    .then(users => (users || []).find(user =>
-      user.username === checkingUser.username &&
-      user.password === hashPassword(checkingUser.password)
-    ))
+  const signingInUser = {
+    ...checkingUser,
+    password: hashPassword(checkingUser.password)
+  }
+  return User.findOne(signingInUser)
 }
 
 function handleAuthResponse(response, isSuccessful = false) {

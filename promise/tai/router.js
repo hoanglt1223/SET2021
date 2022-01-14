@@ -1,17 +1,49 @@
 const url = require('url')
-const { handleNotFound, getTasks, addTask, editTask, deleteTask, signUp, signIn, getUsers, pingWithAuth } = require('./controllers')
-const { authenticate } = require('./middlewares')
+const { handleNotFound, getTasks, getTask, addTask, editTask, deleteTask, signUp, signIn, getUsers, getUser, deleteUser, editUser, pingWithAuth } = require('./controllers')
+const { authenticate, parseRequestBody } = require('./middlewares')
 const { handleError } = require('./helpers')
 const { updateTask } = require('./controllers/helpers')
 
 const routes = {
-    '/sign-up': { 'POST': { controller: signUp } },
-    '/sign-in': { 'POST': { controller: signIn } },
-    '/add-task': { 'POST': { controller: addTask } },
-    '/update-task': { 'POST': { controller: editTask } },
-    '/delete-task': { 'POST': { controller: deleteTask } },
+    '/sign-up': { 'POST': { 
+        controller: signUp,
+        middlewares: [parseRequestBody] }
+    },
+    '/sign-in': { 'POST': { 
+        controller: signIn }
+    },
+    '/add-task': { 'POST': { 
+        controller: addTask,
+        middlewares: [parseRequestBody] }
+    },
+    '/update-task': { 'POST':
+    { 
+        controller: editTask,
+        middlewares: [parseRequestBody] }
+    },
+    '/delete-task': { 'POST':{ 
+        controller: deleteTask,
+        middlewares: [parseRequestBody] }
+    },
     '/get-tasks': { 'GET': { controller: getTasks } },
+    '/get-task': { 'POST': { 
+        controller: getTask,
+        
+        middlewares: [parseRequestBody] }
+    }, // lag
     '/get-users': {'GET': {controller: getUsers}},
+    '/get-user': { 'POST': { 
+        controller: getUser,
+        middlewares: [parseRequestBody] }
+    },
+    '/delete-user' : {'POST': { 
+        controller: deleteUser,
+        middlewares: [parseRequestBody] }
+    },
+    '/update-user' : {'POST' : { 
+        controller: editUser,
+        middlewares: [parseRequestBody] }
+    },
     '/ping-with-auth': {
         'GET': {
             controller: pingWithAuth,

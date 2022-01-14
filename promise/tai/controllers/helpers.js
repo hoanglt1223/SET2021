@@ -15,12 +15,20 @@ function insertUser(user) {
     return userModel.create(newUser)
 }
 
-function findTask() {
-    return taskModel.find();
+function findTasks() {
+    return taskModel.find({});
+}
+// cai nao a
+function findTaskById(id){
+    return taskModel.findById(id);
 }
 
-function findUser() {
+function findUsers() {
     return userModel.find();
+}
+
+function findUserById(id){
+    return userModel.find({_id: id});
 }
 
 function insertTask(task) {
@@ -32,12 +40,20 @@ function insertTask(task) {
     return taskModel.create(newTask)
 }
 
-function updateTask(task) {
-    return taskModel.updateOne(task)
+function updateTask(id, taskUpdate) {
+    return taskModel.findByIdAndUpdate(id, taskUpdate)
 }
 
-function removeTask(task) {
-    return taskModel.removeOne(task)    
+function removeTask(id) {
+    return taskModel.findByIdAndRemove(id)    
+}
+
+function removeUser(id) {
+    return userModel.findByIdAndRemove(id)
+}
+
+function updateUser(id, userUpdate) {
+    return taskModel.findByIdAndUpdate(id, userUpdate)
 }
 
 function hashPassword(password) {
@@ -54,6 +70,7 @@ function verifyUser(checkingUser) {
         ))
 }
 
+
 function handleAuthResponse(response, isSuccessful = false) {
     const data = {
         status: isSuccessful ? 'success' : 'fail'
@@ -62,4 +79,4 @@ function handleAuthResponse(response, isSuccessful = false) {
     response.end(JSON.stringify(data));
 }
 
-module.exports = { insertUser, verifyUser, handleAuthResponse, findTask, findUser, insertTask, updateTask, removeTask }
+module.exports = { insertUser, verifyUser, removeUser, updateUser, handleAuthResponse, findTasks, findTaskById, findUsers, findUserById, insertTask, updateTask, removeTask }

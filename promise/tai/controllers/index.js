@@ -1,6 +1,6 @@
 const url = require('url')
 const jwt = require('jsonwebtoken')
-const { insertUser, verifyUser, handleAuthResponse, findTask, findUser, insertTask, updateTask, removeTask } = require('./helpers')
+const { insertUser, verifyUser, removeUser, updateUser, handleAuthResponse, findTasks, findTaskById, findUsers, findUserById, insertTask, updateTask, removeTask } = require('./helpers')
 const { handleError } = require('../helpers')
 
 function handleNotFound(req, res) {
@@ -18,7 +18,7 @@ function getTasks(request, response) {
         .on('end', () => {
     
             response.setHeader('Content-Type', 'application/json');
-            findTask()
+            findTasks()
                 .then(data => {
                     response.end(JSON.stringify(data))
                 })
@@ -30,79 +30,68 @@ function getTasks(request, response) {
         })
 }
 
-function editTask(request, response) {
-    const chunks = []
-    request
-        .on('data', (chunk) => {
-            chunks.push(chunk)
+function getTask(request, response) {
+    const id = request.body;
+    response.setHeader('Content-Type', 'application/json');
+    findTaskById(id._id)
+        .then((data) => {
+            response.end(JSON.stringify(data))
         })
-        .on('end', () => {
-            const task = JSON.parse(chunks.length > 0 ? chunks : '{}')
-            updateTask(task)
-                .then(() => {
-                    handleAuthResponse(response, true)
-                })
-                .catch(err => {
-                    handleError(err, 'controllers/index.js', 'editTask')
-                    handleAuthResponse(response, false)
-                })
+        .catch(err => {
+            handleError(err, 'controllers/index.js', 'getTask')
+            handleAuthResponse(response, false)
+        })
+        
+
+}
+
+function editTask(request, response) {
+    const task = request.body;
+    updateTask(task._id, task)
+        .then(() => {
+            handleAuthResponse(response, true)
+        })
+        .catch(err => {
+            handleError(err, 'controllers/index.js', 'editTask')
+            handleAuthResponse(response, false)
         })
 }
 
 function deleteTask(request, response) {
-    const chunks = []
-    request
-        .on('data', (chunk) => {
-            chunks.push(chunk)
+    const task = request.body;
+    removeTask(task._id)
+        .then(() => {
+            handleAuthResponse(response, true)
         })
-        .on('end', () => {
-            const task = JSON.parse(chunks.length > 0 ? chunks : '{}')
-            removeTask(task)
-                .then(() => {
-                    handleAuthResponse(response, true)
-                })
-                .catch(err => {
-                    handleError(err, 'controllers/index.js', 'deleteTask')
-                    handleAuthResponse(response, false)
-                })
+        .catch(err => {
+            handleError(err, 'controllers/index.js', 'deleteTask')
+            handleAuthResponse(response, false)
         })
 }
 
 function addTask(request, response) {
-    const chunks = []
-    request
-        .on('data', (chunk) => {
-            chunks.push(chunk)
+    const task = request.body;
+    insertTask(task)
+        .then(() => {
+            handleAuthResponse(response, true)
         })
-        .on('end', () => {
-            const task = JSON.parse(chunks.length > 0 ? chunks : '{}')
-            insertTask(task)
-                .then(() => {
-                    handleAuthResponse(response, true)
-                })
-                .catch(err => {
-                    handleError(err, 'controllers/index.js', 'addTask')
-                    handleAuthResponse(response, false)
-                })
+        .catch(err => {
+            handleError(err, 'controllers/index.js', 'addTask')
+            handleAuthResponse(response, false)
         })
 }
 
+/////////////////////////////USER/////////////////////
+
 function signUp(request, response) {
-    const chunks = []
-    request
-        .on('data', (chunk) => {
-            chunks.push(chunk)
+    const user = request.body;
+    insertUser(user)
+        .then(() => {
+            handleAuthResponse(response, true)
         })
-        .on('end', () => {
-            const user = JSON.parse(chunks.length > 0 ? chunks : '{}')
-            insertUser(user)
-                .then(() => {
-                    handleAuthResponse(response, true)
-                })
-                .catch(err => {
-                    handleError(err, 'controllers/index.js', 'signUp')
-                    handleAuthResponse(response, false)
-                })
+        .catch(err => {
+            handleError(err, 'controllers/index.js', 'signUp')
+            handleAuthResponse(response, false)
         })
 }
 
@@ -143,7 +132,7 @@ function getUsers(request, response) {
         .on('end', () => {
     
             response.setHeader('Content-Type', 'application/json');
-            findUser()
+            findUsers()
                 .then(data => {
                     response.end(JSON.stringify(data))
                 })
@@ -155,6 +144,43 @@ function getUsers(request, response) {
         })
 }
 
+function getUser(request, response) {
+    const id = request.body;
+    response.setHeader('Content-Type', 'application/json');
+    findUserById(id)
+        .then((data) => {
+            response.end(JSON.stringify(data))
+        })
+        .catch(err => {
+            handleError(err, 'controllers/index.js', 'getTask')
+            handleAuthResponse(response, false)
+        })
+}
+
+function deleteUser(request, response) {
+    const user = request.body;
+    removeUser(user._id)
+        .then(() => {
+            handleAuthResponse(response, true)
+        })
+        .catch(err => {
+            handleError(err, 'controllers/index.js', 'deleteUser')
+            handleAuthResponse(response, false)
+        })
+}
+
+function editUser(request, response) {
+    const user = request.body;
+    updateUser(user._id, user)
+        .then(() => {
+            handleAuthResponse(response, true)
+        })
+        .catch(err => {
+            handleError(err, 'controllers/index.js', 'editUser')
+            handleAuthResponse(response, false)
+        })
+}
+
 function pingWithAuth(req, res) {
     res.end('Success')
 }
@@ -162,11 +188,15 @@ function pingWithAuth(req, res) {
 module.exports = {
     handleNotFound,
     getTasks,
+    getTask,
     addTask,
     editTask,
     deleteTask,
     signUp,
     signIn,
     getUsers,
+    getUser,
+    deleteUser,
+    editUser,
     pingWithAuth
 }

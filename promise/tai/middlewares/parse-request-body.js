@@ -11,6 +11,7 @@ function parseRequestBody(request, response) {
         .on('end', () => {
           const data = JSON.parse(chunks.length > 0 ? chunks : '{}')
           request.body = data
+          // console.log(request.body)
           resolve()
         })
     })

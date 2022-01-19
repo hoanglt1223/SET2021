@@ -16,8 +16,6 @@ async function getTasks(req, res) {
   const tasks = await Task.find();
   const taskId = getParameterByName("id", req.url);
 
-  res.writeHead(200, { "Content-Type": "application/json" });
-
   if (taskId) {
     const taskObjectId = mongoose.Types.ObjectId(taskId);
     const currentTask = await Task.findById(taskObjectId);
@@ -35,7 +33,6 @@ async function deleteTask(req, res) {
       _id: taskObjectId,
     });
 
-    res.writeHead(200, { "Content-Type": "application/json" });
     return res.end("Delete task success");
   }
 }
@@ -45,7 +42,6 @@ async function createTask(req, res) {
   await Task.create({ ...newTask, status: TaskStatus.DOING });
   const tasks = await Task.find();
 
-  res.writeHead(200, { "Content-Type": "application/json" });
   res.end(JSON.stringify(tasks));
 }
 
@@ -62,7 +58,6 @@ async function updateTask(req, res) {
       taskBody
     );
 
-    res.writeHead(200, { "Content-Type": "application/json" });
     return res.end("Update task success");
   }
 }
@@ -81,7 +76,6 @@ async function replaceAndUpdateTask(req, res) {
       newTask
     );
 
-    res.writeHead(200, { "Content-Type": "application/json" });
     return res.end("Update task success");
   }
 }

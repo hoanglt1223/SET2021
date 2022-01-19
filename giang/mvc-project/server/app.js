@@ -12,7 +12,7 @@ const headers = {
   "Access-Control-Allow-Methods": "OPTIONS, POST, GET",
   "Access-Control-Max-Age": 2592000, // 30 days
   /** add other headers as per requirement */
-  "Content-Type": "text/plain",
+  "Content-Type": "application/json",
 };
 
 const server = http.createServer((req, res) => {

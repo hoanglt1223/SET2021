@@ -1,0 +1,11 @@
+.task-container {
+  display: flex;
+}
+
+.task-container .title {
+  font-size: 20px;
+}
+
+.task-container .title:hover {
+  cursor: pointer;
+}

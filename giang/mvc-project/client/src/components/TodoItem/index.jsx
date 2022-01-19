@@ -1,11 +1,11 @@
 import "./styles.css";
 
 const TodoItem = (props) => {
-  const { title } = props;
+  const { todo } = props;
 
   return (
-    <div className="task-container">
-      <div className="title">{title}</div>
+    <div className="todo-container">
+      <div className="title">{todo?.title}</div>
     </div>
   );
 };

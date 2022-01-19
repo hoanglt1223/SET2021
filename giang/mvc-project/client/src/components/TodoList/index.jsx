@@ -2,15 +2,15 @@ import TodoItem from "../TodoItem";
 import "./styles.css";
 
 const TodoList = (props) => {
-  const { tasks } = props;
+  const { todos } = props;
 
   return (
     <ul className="todo-list">
-      {Array.isArray(tasks) &&
-        tasks.map((task, index) => {
+      {Array.isArray(todos) &&
+        todos.map((todo, index) => {
           return (
             <li key={index}>
-              <TodoItem title={task.title} />
+              <TodoItem todo={todo} />
             </li>
           );
         })}

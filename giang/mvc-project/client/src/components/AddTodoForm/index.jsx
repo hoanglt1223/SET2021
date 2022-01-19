@@ -2,42 +2,45 @@ import { useCallback, useState } from "react";
 import { toast } from "react-toastify";
 
 import apis from "../../apis";
-import { ETaskStatus } from "../../enums";
+import { ETodoStatus } from "../../enums";
 import "./styles.css";
 
 const AddTodoForm = (props) => {
   const { reFetchData } = props;
 
-  const [taskTitle, setTaskTitle] = useState("");
+  const [todoTitle, setTodoTitles] = useState("");
 
   const handleAfterCreateSuccess = useCallback(async () => {
     await reFetchData();
-    setTaskTitle("");
+    setTodoTitles("");
     toast.success("Add todo success");
   }, [reFetchData]);
 
   const onSubmit = useCallback(
     async (event) => {
       event.preventDefault();
+      if (!todoTitle) {
+        return;
+      }
 
       try {
         const newTask = {
-          title: taskTitle,
-          status: ETaskStatus.DOING,
+          title: todoTitle,
+          status: ETodoStatus.DOING,
         };
 
-        await apis.task.create(newTask);
+        await apis.todo.create(newTask);
         handleAfterCreateSuccess();
       } catch (error) {
         toast.error(error);
       }
     },
-    [taskTitle, handleAfterCreateSuccess]
+    [todoTitle, handleAfterCreateSuccess]
   );
 
   const onChange = useCallback((event) => {
     const title = event.target.value;
-    setTaskTitle(title);
+    setTodoTitles(title);
   }, []);
 
   return (
@@ -47,7 +50,7 @@ const AddTodoForm = (props) => {
         type="text"
         name="todo"
         id="add-todo-input"
-        value={taskTitle}
+        value={todoTitle}
         onChange={onChange}
       />
       <button type="submit">Add</button>

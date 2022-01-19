@@ -6,23 +6,23 @@ import apis from "../../apis";
 import "./styles.css";
 
 const HomePage = () => {
-  const [tasks, setTasks] = useState([]);
+  const [todos, setTodos] = useState([]);
 
-  const fetchTasks = useCallback(async () => {
-    const tasksData = await apis.task.findAll();
+  const fetchTodos = useCallback(async () => {
+    const todosData = await apis.todo.findAll();
 
-    setTasks(tasksData);
+    setTodos(todosData);
   }, []);
 
   useEffect(() => {
-    fetchTasks();
-  }, [fetchTasks]);
+    fetchTodos();
+  }, [fetchTodos]);
 
   return (
     <div className="home-page-container">
       <h1>Todo List</h1>
-      <AddTodoForm reFetchData={fetchTasks} />
-      <TodoList tasks={tasks} />
+      <AddTodoForm reFetchData={fetchTodos} />
+      <TodoList todos={todos} />
     </div>
   );
 };

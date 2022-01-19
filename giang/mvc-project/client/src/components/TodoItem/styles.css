@@ -1,11 +1,11 @@
-.task-container {
+.todo-container {
   display: flex;
 }
 
-.task-container .title {
+.todo-container .title {
   font-size: 20px;
 }
 
-.task-container .title:hover {
+.todo-container .title:hover {
   cursor: pointer;
 }

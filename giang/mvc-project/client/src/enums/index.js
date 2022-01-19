@@ -1,4 +1,4 @@
-export const ETaskStatus = {
+export const ETodoStatus = {
   DOING: "doing",
   DONE: "done",
 };

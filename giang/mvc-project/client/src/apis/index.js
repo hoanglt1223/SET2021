@@ -1,5 +1,5 @@
-import task from "./task";
+import todo from "./todo";
 
-const apis = { task };
+const apis = { todo };
 
 export default apis;

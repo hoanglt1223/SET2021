@@ -22,7 +22,7 @@ const HomePage = () => {
     <div className="home-page-container">
       <h1>Todo List</h1>
       <AddTodoForm reFetchData={fetchTodos} />
-      <TodoList todos={todos} />
+      <TodoList todos={todos} reFetchData={fetchTodos} />
     </div>
   );
 };

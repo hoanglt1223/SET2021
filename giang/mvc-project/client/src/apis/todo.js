@@ -13,6 +13,10 @@ async function create(newTodo) {
   await axios.post(TODO_ENDPOINT, newTodo);
 }
 
-const todoApis = { findAll, create };
+async function updateById(id, newTodo) {
+  await axios.patch(`${TODO_ENDPOINT}?id=${id}`, newTodo);
+}
+
+const todoApis = { findAll, create, updateById };
 
 export default todoApis;

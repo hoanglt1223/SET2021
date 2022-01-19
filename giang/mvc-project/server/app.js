@@ -9,10 +9,10 @@ const routes = require("./routes");
 
 const headers = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "OPTIONS, POST, GET",
+  "Access-Control-Allow-Methods": "*",
   "Access-Control-Max-Age": 2592000, // 30 days
   /** add other headers as per requirement */
-  "Content-Type": "application/json",
+  "Access-Control-Allow-Headers": "Content-Type",
 };
 
 const server = http.createServer((req, res) => {

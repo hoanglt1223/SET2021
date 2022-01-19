@@ -1,21 +1,8 @@
-import { useCallback, useEffect, useState } from "react";
-
 import TodoItem from "../TodoItem";
 import "./styles.css";
-import { getTasksData } from "../../apis/task";
 
-const TodoList = () => {
-  const [tasks, setTasks] = useState([]);
-
-  const fetchTasks = useCallback(async () => {
-    const tasksData = await getTasksData();
-
-    setTasks(tasksData);
-  }, []);
-
-  useEffect(() => {
-    fetchTasks();
-  }, [fetchTasks]);
+const TodoList = (props) => {
+  const { tasks } = props;
 
   return (
     <ul className="todo-list">

@@ -1,13 +1,14 @@
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import "./App.css";
-import AddTodoForm from "./components/AddTodoForm";
-import TodoList from "./components/TodoList";
+import HomePage from "./pages/Home";
 
 const App = () => {
   return (
     <div className="app-container">
-      <h1>Todo List</h1>
-      <AddTodoForm />
-      <TodoList />
+      <HomePage />
+      <ToastContainer />
     </div>
   );
 };

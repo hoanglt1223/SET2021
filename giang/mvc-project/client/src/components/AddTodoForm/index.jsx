@@ -1,26 +1,43 @@
 import { useCallback, useState } from "react";
+import { toast } from "react-toastify";
 
+import apis from "../../apis";
+import { ETaskStatus } from "../../enums";
 import "./styles.css";
 
-const AddTodoForm = () => {
+const AddTodoForm = (props) => {
+  const { reFetchData } = props;
+
   const [taskTitle, setTaskTitle] = useState("");
 
+  const handleAfterCreateSuccess = useCallback(async () => {
+    await reFetchData();
+    setTaskTitle("");
+    toast.success("Add todo success");
+  }, [reFetchData]);
+
   const onSubmit = useCallback(
-    (event) => {
+    async (event) => {
       event.preventDefault();
 
-      console.log({ taskTitle });
+      try {
+        const newTask = {
+          title: taskTitle,
+          status: ETaskStatus.DOING,
+        };
+
+        await apis.task.create(newTask);
+        handleAfterCreateSuccess();
+      } catch (error) {
+        toast.error(error);
+      }
     },
-    [taskTitle]
+    [taskTitle, handleAfterCreateSuccess]
   );
 
   const onChange = useCallback((event) => {
     const title = event.target.value;
-    console.log({ title });
-
-    if (title) {
-      setTaskTitle(title);
-    }
+    setTaskTitle(title);
   }, []);
 
   return (

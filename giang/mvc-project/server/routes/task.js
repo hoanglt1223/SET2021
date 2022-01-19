@@ -32,6 +32,12 @@ const taskRouter = {
       middlewares: [getBodyData],
     },
   },
+  OPTIONS: {
+    "/tasks": {
+      controller: () => {},
+      middlewares: [],
+    },
+  },
 };
 
 module.exports = taskRouter;

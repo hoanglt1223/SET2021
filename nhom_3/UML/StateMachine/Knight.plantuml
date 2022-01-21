@@ -1,8 +1,0 @@
-@startuml Knight
-[*] --> Wait : created
-Wait --> Chosen : clicked on
-Chosen --> Move : clicked on\n available square 
-Chosen --> Wait : cancel
-Move --> Wait
-Wait --> [*] : taken
-@enduml

@@ -1,0 +1,46 @@
+.l-container {
+  width: 600px;
+  margin: 0 auto;
+}
+.c-board {
+  width: 600px;
+  height: 600px;
+  display: flex;
+  flex-wrap: wrap-reverse;
+  align-content: flex-start;
+}
+
+.c-board__square {
+  width: 75px;
+  height: 75px;
+  position: relative;
+  border: none;
+  cursor: pointer;
+}
+.c-board__square--black {
+  background-color: #7fa650;
+  color: rgb(230, 240, 210);
+}
+.c-board__square--white {
+  background-color: rgb(230, 240, 210);
+  color: #7fa650;
+}
+.c-row-letter {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 10%;
+}
+
+.c-column-letter {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 70%;
+  left: 80%;
+}
+
+
+.c-board__piece {
+  width: 100%;
+}

@@ -26,6 +26,14 @@ connection
 
 const server = http.createServer((request, response) => {
     response.statusCode = 200;
-    response.setHeader('Content-Type', "text/plain")
+    // response.setHeader('Content-Type', 'application/x-www-form-urlencoded');
+    response.setHeader("Access-Control-Allow-Origin", "*");
+    response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH,  OPTIONS");
+    console.log(1);
     response.end('Server')
+})
+
+server.listen(port, () => {
+    console.log(`Server running at http://${hostname}:${port}`)
 })

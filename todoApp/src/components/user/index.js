@@ -2,9 +2,6 @@ import React, { useState, useEffect } from "react";
 import Button from "./button/button";
 import './user.css'
 
-const userList = [];
-
-
 
 function User(props) {
     const {
@@ -20,7 +17,7 @@ function User(props) {
     const [isEditting, setEditting] = useState('yellow');
     const [isSoftDeleted, setSoftDeleted] = useState('');
     const [isRemoved, setRemove] = useState(isDeleted);
-    const [user, setUserList] = useState(userList);
+    const [userList, setUserList] = useState([]);
 
     function handleRemove(){
         setRemove(true);

@@ -1,0 +1,48 @@
+body {
+  width: 100vw;
+  height: 100vh;
+}
+.chessboard {
+  width: fit-content;
+}
+.square {
+  height: 50px;
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.black {
+  outline: 1px solid black;
+  background: #37797D;
+}
+.white {
+  outline: 1px solid black;
+  background: white
+}
+.row {
+  display: flex;
+  justify-content: center;
+}
+.square.black:hover {
+  background: red;
+  transition: 0.5s;
+}
+.square.white:hover {
+  background: red;
+  transition: 0.5s;
+}
+.square.black.recommend {
+  background: yellow;
+}
+.square.white.recommend {
+  background: yellow;
+}
+.square.black.chosen {
+  background: red;
+  opacity: 0.7;
+}
+.square.white.chosen {
+  background: red;
+  opacity: 0.7;
+}

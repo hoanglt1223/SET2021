@@ -1,7 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import ProjectManager from "./components/projectManager/index.js";
+import UserManager from "./components/userManager/userManager.js";
 import './style.css'
-const axios = require('axios')
+import axios from "axios"
 
-ReactDOM.render(<ProjectManager/>, document.getElementById('root'));
+
+const uriServer = "http://localhost:5500";
+
+ReactDOM.render(<ProjectManager />, document.getElementById('root'));
+// ReactDOM.render(<UserManager/>, document.getElementById('root'));
+
+
+axios.get(uriServer)
+    .then((response) => {
+        console.log(response)
+    })
+    .catch(error => {
+        console.log(error)
+    })

@@ -10,6 +10,12 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.(js|jsx)$/,
+        exclude: /(node_modules|bower_components)/,
+        loader: "babel-loader",
+        options: { presets: ["@babel/env"] },
+      },
+      {
         test: /\.css$/i,
         use: ["style-loader", "css-loader"],
       },
@@ -24,20 +30,18 @@ module.exports = {
           "sass-loader",
         ],
       },
-    ]
+    ],
   },
   resolve: { extensions: ["*", ".js", ".jsx"] },
   output: {
     path: path.resolve(__dirname, "dist/"),
-    filename: "[name].js"
+    filename: "[name].js",
   },
   devServer: {
     contentBase: path.join(__dirname, "public/"),
     port: 3000,
     publicPath: "http://localhost:3000/dist/",
-    hotOnly: true
+    hotOnly: true,
   },
-  plugins: [new webpack.HotModuleReplacementPlugin(),
-
-  ]
+  plugins: [new webpack.HotModuleReplacementPlugin()],
 };

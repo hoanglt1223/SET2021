@@ -1,0 +1,26 @@
+{
+  "dependencies": {
+    "axios": "^0.24.0",
+    "chalk": "^4.1.2",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^10.0.0",
+    "http": "0.0.1-security",
+    "inquirer": "^8.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.1.5",
+    "url": "^0.11.0"
+  },
+  "name": "tai3",
+  "version": "1.0.0",
+  "description": "pro",
+  "main": "app.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ."
+  },
+  "author": "",
+  "license": "ISC",
+  "keywords": []
+}

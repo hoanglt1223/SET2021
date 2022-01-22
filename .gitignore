@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Logs
 logs
 *.log
@@ -90,3 +91,9 @@ typings/
 # webstorm
 .DS_Store
 .idea
+=======
+
+promise/tai/node_modules/
+
+node_modules/
+>>>>>>> tai/task_crud

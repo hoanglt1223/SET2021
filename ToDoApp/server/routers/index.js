@@ -4,12 +4,9 @@ const handleError = require('../helper')
 
 function route(request) {
     const parsedURL = url.parse(request.url, true);
-    if (Router[request.method]) {
-        console.log(1);
-    }
-    if (Router[request.method][parsedURL.pathname]){
-        console.log(2);
-    }
+    // console.log(request.method);
+    // console.log(Router[request.method] ? 'method' : 'no-method');
+    // console.log(Router[request.method][parsedURL.pathname] ? 'url' : 'no-url');
     if (Router[request.method] && Router[request.method][parsedURL.pathname]) {
         const currentRouter = Router[request.method][parsedURL.pathname];
         if (currentRouter.middlewares && currentRouter.middlewares.length > 0) {
@@ -31,8 +28,8 @@ function route(request) {
             }
         }
     }
-    return (request, response) => {
-        response.end('okeeoke');
+    return function controller (request, response) {
+        response.send('okeeoke');
     }
 }
 

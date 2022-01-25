@@ -1,0 +1,55 @@
+
+
+#toolbar {
+  margin-bottom: 20px;
+}
+
+#addProject__cancelButton {
+  background-color: #ff4c4d;
+  height: 40px;
+  width: 100px;
+}
+
+#addProject__field {
+  height: 40px;
+  padding: 5px;
+  border: 2px solid #333;
+  border-radius: 10px;
+}
+
+#addProject__addButton {
+  background-color: #2e9d42;
+  height: 40px;
+  width: 100px;
+}
+
+input[type="button"] {
+  cursor: pointer;
+}
+
+input[type="text"] {
+  padding-left: 10px;
+}
+
+input {
+  border: 1px solid #333;
+  border-radius: 5px;
+  margin: 5px 5px;
+  height: 40px;
+}
+
+#projectlist {
+  list-style-type: none;
+  background-color: #DCD538;
+  border: 2px solid #333;
+  min-width: 700px;
+  min-height: 500px;
+  padding:20px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  
+}
+
+

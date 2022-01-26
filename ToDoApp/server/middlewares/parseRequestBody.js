@@ -3,7 +3,6 @@ const { handleError } = require('../helper')
 
 function parseRequestBody(request, response) {
     try {
-        debugger;
         return new Promise((resolve, reject) => {
             let chunks = [];
             request
@@ -11,7 +10,10 @@ function parseRequestBody(request, response) {
                     chunks.push(chunk);
                 })
                 .on('end', () => {
-                    const dataBody = JSON.parse(chunks.length > 0 ? chunks : {});
+                    let dataBody = {};
+                    if (chunks.length > 0) {
+                        dataBody = JSON.parse(chunks);
+                    }
                     request.body = dataBody;
                     resolve();
                 })

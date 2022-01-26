@@ -1,11 +1,12 @@
 
 const {parseRequestBody} = require('../middlewares/')
-const {createProject} = require('../controllers')
+const {createProject, getProjects} = require('../controllers')
 
 const Router = {
     'GET' :{
         '/projects':{
-            middlewares : [parseRequestBody]
+            middlewares : [parseRequestBody],
+            controller: getProjects,
         }
     },
 

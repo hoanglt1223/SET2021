@@ -26,7 +26,6 @@ connection
 const server = express();
 server.use(cors())
 server.all('/*', (request, response) => {
-    response.statusCode = 200;
     response.setHeader("Access-Control-Allow-Origin", "*");
     response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH,  OPTIONS");

@@ -6,20 +6,22 @@ import './style.css'
 import axios from "axios"
 
 
-const uriServer = "http://localhost:5500/add-project";
+const uriServer = "http://localhost:5500/projects";
 
-ReactDOM.render(<ProjectManager />, document.getElementById('root'));
 // ReactDOM.render(<UserManager/>, document.getElementById('root'));
 
 
-axios.post(uriServer, JSON.stringify({
-    projectName : 'DEMO',
-    taskList : [{taskName: '1', isDone : false}, {taskName: '2', isDone : true}],
-    memberList: [{memberName: 'a', isKicked : false, isLeader: true},{memberName: 'b', isKicked : true,} ],
-    isDeleted: false
-}))
-.then((response) => {
-    console.log(response.body);
-})
+// axios.post(uriServer, JSON.stringify({
+//     projectName: 'DEMO',
+//     taskList: [{ taskName: '1', isDone: false }, { taskName: '2', isDone: true }],
+//     memberList: [{ memberName: 'a', isKicked: false, isLeader: true }, { memberName: 'b', isKicked: true, }],
+//     isDeleted: false
+// }))
 
+axios.get(uriServer, JSON.stringify({}))
+    .then((response) => {
+        ReactDOM.render(<ProjectManager
+            projectFetched = {response.data}
+        />, document.getElementById('root'));
+    })
 

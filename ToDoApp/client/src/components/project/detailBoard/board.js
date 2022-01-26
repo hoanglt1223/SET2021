@@ -5,6 +5,7 @@ import DetailTaskList from "./taskList"
 function DetailBoard(props) {
     const {
         projectName,
+        fetchedTaskList,
         isExpanded= 'none'
     } = props
 
@@ -12,7 +13,9 @@ function DetailBoard(props) {
     return (
         <div className="detailProject" style={{display : isExpanded }}>
             <DetailTaskList 
-            projectName = {projectName}/>
+            projectName = {projectName}
+            fetchedTaskList = {fetchedTaskList}
+            />
         </div>
     )
 }

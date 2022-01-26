@@ -50,10 +50,11 @@ function ToolbarTask(props) {
 function DetailTaskList(props) {
 
     const {
-        projectName
+        projectName,
+        fetchedTaskList
     } = props
 
-    const [taskList, setTaskList] = useState([]);
+    const [taskList, setTaskList] = useState(fetchedTaskList);
 
     return (
         <div className="detailTaskList">
@@ -65,7 +66,7 @@ function DetailTaskList(props) {
             <ul className="taskList">
                 {taskList.map((task, index) => (
                     <Task
-                        nameTask={task}
+                        nameTask={task.taskName}
                         project = {projectName}
                         key={index}
                     />

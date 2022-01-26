@@ -3,8 +3,11 @@ import Project from "../project";
 import Toolbar from "./toolbar.js";
 import './projectManager.css'
 
-function ProjectManager() {
-    const [projectList, setProjectList] = useState([])
+function ProjectManager(props) {
+    const {
+        projectFetched,
+    } = props
+    const [projectList, setProjectList] = useState(projectFetched);
 
     return (
         <React.Fragment>
@@ -16,10 +19,10 @@ function ProjectManager() {
             <ul id="projectlist">
                 {projectList.map((project, index) => (
                     <Project
-                        nameProject={project}
-                        taskList={[]}
-                        memberList={[]}
-                        isDeleted={false}
+                        nameProject={project.projectName}
+                        taskList_props={project.taskList}
+                        memberList={project.memberList}
+                        isDeleted={project.isDeleted}
                         key={index}
                     />
                 ))}

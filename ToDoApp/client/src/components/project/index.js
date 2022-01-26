@@ -62,6 +62,7 @@ function Project(props) {
 
             <DetailBoard
                 projectName={nameProject}
+                fetchedTaskList = {taskList_props}
                 isExpanded = {isExpanded}
             />
 

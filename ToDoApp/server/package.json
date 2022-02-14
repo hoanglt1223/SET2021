@@ -13,7 +13,9 @@
   "dependencies": {
     "axios": "^0.25.0",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "express": "^4.17.2",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.1.7",
     "url": "^0.11.0"
   }

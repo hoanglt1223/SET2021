@@ -23,7 +23,7 @@ const userSchema = new Schema({
     type: String,
     required: false,
   },
-  tasks:{
+  taskList:{
     type : [{type: String}],
     required: false
   },

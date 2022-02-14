@@ -16,7 +16,6 @@ function handleDataResponse(response, data){
     response.end(JSON.stringify(data));
 }
 
-
 function createProject(request, response){
     const project = verifyProject(request.body);
     addProject(project)
@@ -30,7 +29,8 @@ function createProject(request, response){
 }
 
 function getProjects(request, response){
-    const project = verifyProject(request.body);
+    let project = verifyProject(request.body);
+    if (project.projectName === undefined) project = {};
     findProjects(project)
     .then(foundProjects => {
         if (!foundProjects) {

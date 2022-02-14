@@ -18,18 +18,14 @@ function User(props) {
     const [isSoftDeleted, setSoftDeleted] = useState('');
     const [isRemoved, setRemove] = useState(isDeleted);
     const [userList, setUserList] = useState([]);
-  //   const {
-  //     projectFetched,
-  // } = props
-  // const [projectList, setProjectList] = useState(projectFetched);
 
     function handleRemove(){
         setRemove(true);
     }
 
     function createRadioId(username){
-      return username + "__radio"
-      
+      username = username + "__radio"
+      return username
     }
 
 
@@ -61,9 +57,10 @@ function User(props) {
           <td class = "checkbox">
             <Button
               type= "checkbox"
-              defaultValue= "Check to edit"
-              onClick={setEditting}
-          
+              defaultValue= "Check"
+              style={{ color: black }}
+              onClick={setEditting(true)}
+              id = {createRadioId(username)} 
             />
           </td>
           
@@ -74,4 +71,4 @@ function User(props) {
 }
 
 
-export default User
+export default Project

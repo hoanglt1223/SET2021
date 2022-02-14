@@ -7,11 +7,7 @@ function addProject(project) {
 }
 
 function verifyProject(project) {
-    debugger
-    if (project[0] === undefined ) {
-        return {};
-    }
-    else {
+   
         return {
             projectName: project.projectName,
             taskList: (project.taskList) ? project.taskList.map((task, index) => {
@@ -29,13 +25,12 @@ function verifyProject(project) {
             }) : {},
             isDeleted: (project.isDeleted === 'true') ? true : false
         }
-    }
+    
 }
 
 function findProjects(prpos = {}) {
     return Project.find(prpos)
 }
-
 
 
 function handleNotFound(req, res) {

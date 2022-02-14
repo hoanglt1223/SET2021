@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
-import User from "../user";
+import User from "../project";
 import Toolbar from "./toolbar.js";
 import Header from "./header.js";
-import UserList from "./userList.js";
+import UserManager from "./userManager.js";
 import Footer from "./footer.js";
 import './userManager.css'
 
 
 function UserManager() {
+    
+  
+  const
 
     return (
         <div id="main">
@@ -20,7 +23,7 @@ function UserManager() {
                 
             />
 
-            <UserList
+            <UserManager
 
             />
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
+import User from "../user";
 
-
-function UserManager(props) {
+function UserList(props) {
     // const {
         
     // } = props
@@ -38,4 +38,4 @@ function UserManager(props) {
 }
 
 
-export default UserManager
+export default UserList

@@ -1,27 +1,31 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import ProjectManager from "./components/projectManager/index.js";
-import UserManager from "./components/userManager/userManager.js";
+import UserManager from "./components/userManager/index.js";
 import './style.css'
-import axios from "axios"
+// import axios from "axios"
 
 
-const uriServer = "http://localhost:5500/projects";
-
-// ReactDOM.render(<UserManager/>, document.getElementById('root'));
+// const uriServer = "http://localhost:5500/projects";
 
 
-// axios.post(uriServer, JSON.stringify({
-//     projectName: 'DEMO',
-//     taskList: [{ taskName: '1', isDone: false }, { taskName: '2', isDone: true }],
-//     memberList: [{ memberName: 'a', isKicked: false, isLeader: true }, { memberName: 'b', isKicked: true, }],
-//     isDeleted: false
-// }))
+// axios.get(uriServer, JSON.stringify({}))
+//     .then((response) => {
+//         ReactDOM.render(<ProjectManager
+//             projectFetched = {response.data}
+//         />, document.getElementById('root'));
+//     })
 
-axios.get(uriServer, JSON.stringify({}))
-    .then((response) => {
-        ReactDOM.render(<ProjectManager
-            projectFetched = {response.data}
-        />, document.getElementById('root'));
-    })
 
+import { LogInContextProvider } from "./components/login/loginContext.js";
+
+import Login from "./components/login"
+
+
+
+ReactDOM.render(
+  // <LogInContextProvider>
+    <Login/>
+  // </LogInContextProvider>,
+  ,document.getElementById("root")
+);

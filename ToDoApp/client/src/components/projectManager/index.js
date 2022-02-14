@@ -13,21 +13,19 @@ function ProjectManager(props) {
         <React.Fragment>
 
             <Toolbar
-                setProjectList={setProjectList}
+                setProjectList = {setProjectList}
             />
 
             <ul id="projectlist">
-                {projectList.map((project, index) => {
-                    return (
-                        <Project
-                            nameProject={project.projectName}
-                            taskList_props={project.taskList}
-                            memberList={project.memberList}
-                            isDeleted={project.isDeleted}
-                            key={index}
-                        />
-                    )
-                })}
+                {projectList.map((project, index) => (
+                    <Project
+                        nameProject={project.projectName}
+                        taskList_props={project.taskList}
+                        memberList={project.memberList}
+                        isDeleted={project.isDeleted}
+                        key={index}
+                    />
+                ))}
             </ul>
 
 

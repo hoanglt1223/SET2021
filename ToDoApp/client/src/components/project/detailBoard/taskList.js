@@ -13,13 +13,7 @@ function ToolbarTask(props) {
 
     function handleAddTask() {
         if (taskInput) {
-            const newTask = {
-                taskName: taskInput,
-                isDone: false,
-                _id: 'Unknown'
-            }
-            // PATCH API
-            setTaskList(preTaskList => [...preTaskList, newTask])
+            setTaskList(preTaskList => [...preTaskList, taskInput])
             cancelTask();
         }
     }
@@ -70,14 +64,13 @@ function DetailTaskList(props) {
             />
 
             <ul className="taskList">
-                {taskList.map((task, index) => {
-                    return (
+                {taskList.map((task, index) => (
                     <Task
                         nameTask={task.taskName}
                         project = {projectName}
                         key={index}
                     />
-                )})}
+                ))}
             </ul>
         </div>
     )

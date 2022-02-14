@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Button from "../project/button/button";
-import axios from "axios";
 
 function Toolbar(props) {
     const {
@@ -14,23 +13,11 @@ function Toolbar(props) {
     }
 
     function handleSubmit() {
-        const uriServer = "http://localhost:5500/add-project";
-
         if (project) {
-            const newProject = {
-                projectName: project,
-                taskList: [],
-                memberList: [],
-                isDeleted: false
-            }
-            axios.post(uriServer, JSON.stringify(newProject))
-            setProjectList(prev => {
-                return [...prev, newProject]
-            });
+            setProjectList(prev => [...prev, project]);
             cancelTask();
         }
     }
-
 
 
     return (

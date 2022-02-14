@@ -31,6 +31,7 @@ function Project(props) {
         setRemove(true);
     }
 
+
     return (
         <div className="project"
             style = {{display : isRemoved ? 'none' : 'flex'}}

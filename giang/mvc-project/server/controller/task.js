@@ -46,6 +46,8 @@ async function createTask(req, res) {
 }
 
 async function updateTask(req, res) {
+  console.log("run here");
+
   const taskId = getParameterByName("id", req.url);
   const taskObjectId = mongoose.Types.ObjectId(taskId);
 

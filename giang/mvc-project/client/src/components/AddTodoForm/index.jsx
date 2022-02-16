@@ -10,38 +10,35 @@ const AddTodoForm = (props) => {
 
   const [todoTitle, setTodoTitles] = useState("");
 
-  const handleAfterCreateSuccess = useCallback(async () => {
+  async function handleAfterCreateSuccess() {
     await reFetchData();
     setTodoTitles("");
     toast.success("Add todo success");
-  }, [reFetchData]);
+  }
 
-  const onSubmit = useCallback(
-    async (event) => {
-      event.preventDefault();
-      if (!todoTitle) {
-        return;
-      }
+  async function onSubmit(event) {
+    event.preventDefault();
+    if (!todoTitle) {
+      return;
+    }
 
-      try {
-        const newTask = {
-          title: todoTitle,
-          status: ETodoStatus.DOING,
-        };
+    try {
+      const newTask = {
+        title: todoTitle,
+        status: ETodoStatus.DOING,
+      };
 
-        await apis.todo.create(newTask);
-        handleAfterCreateSuccess();
-      } catch (error) {
-        toast.error(error);
-      }
-    },
-    [todoTitle, handleAfterCreateSuccess]
-  );
+      await apis.todo.create(newTask);
+      handleAfterCreateSuccess();
+    } catch (error) {
+      toast.error(error);
+    }
+  }
 
-  const onChange = useCallback((event) => {
+  function onChange(event) {
     const title = event.target.value;
     setTodoTitles(title);
-  }, []);
+  }
 
   return (
     <form onSubmit={onSubmit} className="add-todo-form">

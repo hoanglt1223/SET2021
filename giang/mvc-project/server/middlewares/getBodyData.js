@@ -8,6 +8,9 @@ function getBodyData(req) {
     req.on("end", () => {
       const data = JSON.parse(rawData);
       req.body = data;
+
+      console.log({ data });
+
       resolve();
     });
   });

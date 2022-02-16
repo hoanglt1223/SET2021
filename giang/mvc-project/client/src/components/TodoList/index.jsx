@@ -9,12 +9,12 @@ import apis from "../../apis";
 const TodoList = (props) => {
   const { todos, reFetchData } = props;
 
-  const handleUpdateStatusSuccess = useCallback(async () => {
+  async function handleUpdateStatusSuccess() {
     await reFetchData();
     toast.success("Update todo success");
-  }, []);
+  }
 
-  const updateTodoStatus = useCallback(async (todo) => {
+  async function updateTodoStatus(todo) {
     try {
       let newStatus;
 
@@ -31,7 +31,7 @@ const TodoList = (props) => {
 
       handleUpdateStatusSuccess();
     } catch (error) {}
-  }, []);
+  }
 
   return (
     <ul className="todo-list">

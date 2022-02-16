@@ -8,11 +8,11 @@ import "./styles.css";
 const HomePage = () => {
   const [todos, setTodos] = useState([]);
 
-  const fetchTodos = useCallback(async () => {
+  async function fetchTodos() {
     const todosData = await apis.todo.findAll();
 
     setTodos(todosData);
-  }, []);
+  }
 
   useEffect(() => {
     fetchTodos();

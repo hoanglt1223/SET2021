@@ -1,49 +1,58 @@
-const {addProject, verifyProject, findProjects} = require('./projects.helpers')
-const {handleError} = require('../helper');
+const { addProject, verifyProject, findProjects, deleteByID, updateProjectByID } = require('./projects.helpers')
+const { handleError } = require('../helper');
 const { Project } = require('../models');
 
-function handleAuthResponse(response, isSuccessful = false) {
+function handleAuthResponse(response, isSuccessful = false, message = '#') {
     const data = {
-        status: isSuccessful ? 'success' : 'fail'
+        status: isSuccessful ? 'success' : 'fail',
+        message: message
     }
     response.setHeader('Content-Type', 'application/json');
     response.end(JSON.stringify(data));
 }
 
 
-function handleDataResponse(response, data){
+function handleDataResponse(response, data) {
     response.statusCode = 200;
     response.end(JSON.stringify(data));
 }
 
-function createProject(request, response){
+function createProject(request, response) {
     const project = verifyProject(request.body);
     addProject(project)
-    .then(() => {
-        handleAuthResponse(response, true);
-    })
-    .catch(err => {
-        handleError(err, 'controllers/index.js', 'createProject')
-        handleAuthResponse(response, false);
-    })
+        .then((projectAdded) => {
+            handleAuthResponse(response, true, JSON.stringify(projectAdded._id));
+        })
+        .catch(err => {
+            handleError(err, 'controllers/index.js', 'createProject')
+            handleAuthResponse(response, false);
+        })
 }
 
-function getProjects(request, response){
+function getProjects(request, response) {
     let project = verifyProject(request.body);
     if (project.projectName === undefined) project = {};
     findProjects(project)
-    .then(foundProjects => {
-        if (!foundProjects) {
-            throw new Error('Unknow Projects')
-        }
-        else {
-            handleDataResponse(response, foundProjects);
-        }
-    })
-    .catch ((error) => {
-        handleError(error, '../controllers/index.js', 'getProjects');
-        handleAuthResponse(response, false);
+        .then(foundProjects => {
+            if (!foundProjects) {
+                throw new Error('Unknow Projects')
+            }
+            else {
+                handleDataResponse(response, foundProjects);
+            }
+        })
+        .catch((error) => {
+            handleError(error, '../controllers/index.js', 'getProjects');
+            handleAuthResponse(response, false);
+        })
+}
+
+
+function deleteProject(request, response) {
+    const { _id } = request.body;
+    updateProjectByID(_id, { isDeleted: true }).then(() => {
+        handleAuthResponse(response, true)
     })
 }
 
-module.exports = {createProject, getProjects}
+module.exports = { createProject, getProjects, deleteProject }

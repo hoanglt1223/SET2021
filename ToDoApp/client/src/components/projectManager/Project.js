@@ -1,23 +1,27 @@
 import React, { useState, useEffect } from "react";
-import Button from "./button/button";
+import Button from "./Button";
 import './project.css'
-import DetailBoard from "./detailBoard/board";
+import DetailBoard from "./DetailBoard";
+import axios from 'axios'
+import { deleteMethod } from '../../api'
+
 
 function Project(props) {
     const {
         nameProject = "#",
         taskList_props = [],
         memberList = [],
-        isDeleted = false
+        isDeleted = false,
+        id,
     } = props
-    
+
     const [isExpanded, setExpanded] = useState('none');
-    const [valueExpandButton, setValueExpandButton] = useState ('Expand');
+    const [valueExpandButton, setValueExpandButton] = useState('Expand');
     const [isRemoved, setRemove] = useState(isDeleted)
     const [taskList, setTaskList] = useState(taskList_props);
 
-    function handleExpand(){
-        if (isExpanded == 'none'){
+    function handleExpand() {
+        if (isExpanded == 'none') {
             setExpanded('inline-block')
             setValueExpandButton('Shrink')
         }
@@ -27,13 +31,16 @@ function Project(props) {
         }
     }
 
-    function handleRemove(){
-        setRemove(true);
+    function handleRemove() {
+        deleteMethod('delete-project', { _id: id }).then(response => {
+            setRemove(true);
+
+        })
     }
 
     return (
         <div className="project"
-            style = {{display : isRemoved ? 'none' : 'flex'}}
+            style={{ display: isRemoved ? 'none' : 'flex' }}
         >
             <Button
                 element="input"
@@ -45,15 +52,15 @@ function Project(props) {
                 <Button
                     demo="input"
                     type="button"
-                    titleValue= {valueExpandButton}
-                    handleOnClick = {handleExpand}
+                    titleValue={valueExpandButton}
+                    handleOnClick={handleExpand}
                 />
 
                 <Button
                     element="input"
                     type="button"
                     titleValue="Remove"
-                    handleOnClick = {handleRemove}
+                    handleOnClick={handleRemove}
                     textColor="#AE6F54"
 
                 />
@@ -61,8 +68,8 @@ function Project(props) {
 
             <DetailBoard
                 projectName={nameProject}
-                fetchedTaskList = {taskList_props}
-                isExpanded = {isExpanded}
+                fetchedTaskList={taskList_props}
+                isExpanded={isExpanded}
             />
 
 

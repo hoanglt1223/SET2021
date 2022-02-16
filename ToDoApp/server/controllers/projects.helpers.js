@@ -39,5 +39,12 @@ function handleNotFound(req, res) {
     res.end(`Route ${parsedUrl.pathname} not found.`)
 }
 
+function deleteByID(id){
+    return Project.deleteOne({_id: id});
+}
 
-module.exports = { addProject, verifyProject, findProjects, handleNotFound }
+function updateProjectByID(_id, update ){
+    return Project.findByIdAndUpdate(_id, update);
+}
+
+module.exports = { addProject, verifyProject, findProjects, deleteByID, handleNotFound, updateProjectByID }

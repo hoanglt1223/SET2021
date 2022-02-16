@@ -1,8 +1,5 @@
-import React, { useState, useEffect } from "react"
-import Button from "../button/button"
-import Task from "../task/task.js";
-
-
+import React, {useState} from 'react'
+import Button from './Button';
 
 function ToolbarTask(props) {
     const [taskInput, setTaskInput] = useState('');
@@ -53,34 +50,5 @@ function ToolbarTask(props) {
     )
 }
 
-function DetailTaskList(props) {
 
-    const {
-        projectName,
-        fetchedTaskList
-    } = props
-
-    const [taskList, setTaskList] = useState(fetchedTaskList);
-
-    return (
-        <div className="detailTaskList">
-
-            <ToolbarTask
-                setTaskList={setTaskList}
-            />
-
-            <ul className="taskList">
-                {taskList.map((task, index) => {
-                    return (
-                    <Task
-                        nameTask={task.taskName}
-                        project = {projectName}
-                        key={index}
-                    />
-                )})}
-            </ul>
-        </div>
-    )
-}
-
-export default DetailTaskList
+export default ToolbarTask

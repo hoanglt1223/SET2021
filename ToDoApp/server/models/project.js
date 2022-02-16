@@ -49,6 +49,9 @@ const projectSchema = new Schema({
 
 })
 
+projectSchema.statics.deleteByID = (_id) => {
+    return this.deleteOne({_id: _id});
+}
 
 const Project = mongoose.model('projects', projectSchema);
 

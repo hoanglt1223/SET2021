@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react"
-import DetailTaskList from "./taskList"
+import DetailTaskList from "./DetailTaskList"
 
 
 function DetailBoard(props) {

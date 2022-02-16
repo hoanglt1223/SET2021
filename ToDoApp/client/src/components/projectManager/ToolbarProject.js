@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Button from "../project/button/button";
-import axios from "axios";
+import Button from "./Button";
+import {postMethod} from '../../api'
 
-function Toolbar(props) {
+function ToolbarProject(props) {
     const {
         setProjectList,
     } = props
@@ -14,7 +14,6 @@ function Toolbar(props) {
     }
 
     function handleSubmit() {
-        const uriServer = "http://localhost:5500/add-project";
 
         if (project) {
             const newProject = {
@@ -23,19 +22,23 @@ function Toolbar(props) {
                 memberList: [],
                 isDeleted: false
             }
-            axios.post(uriServer, JSON.stringify(newProject))
-            setProjectList(prev => {
-                return [...prev, newProject]
-            });
+            postMethod('add-project', newProject)
+            .then(
+                response => {
+                    newProject._id =JSON.parse(response.data.message);
+                    setProjectList(prev => {
+                        return [...prev, newProject]
+                    });
+                }
+            )
+            
             cancelTask();
         }
     }
 
 
-
     return (
-        <div id="toolbar_project">
-            {/* //===== field */}
+        <div id="ToolbarProject_project">
             <input
                 id="addProject__field"
                 onChange={e => setProject(e.target.value)}
@@ -48,14 +51,12 @@ function Toolbar(props) {
             >
             </input>
 
-            {/* =======add button */}
             <Button
                 titleValue="Add"
                 id="addProject__addButton"
                 handleOnClick={handleSubmit}
             />
 
-            {/* //=======cancel button */}
             <Button
                 titleValue="Cancel"
                 id="addProject__cancelButton"
@@ -65,4 +66,4 @@ function Toolbar(props) {
     )
 }
 
-export default Toolbar
+export default ToolbarProject

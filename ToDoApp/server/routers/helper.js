@@ -1,32 +1,38 @@
 
-const {parseRequestBody} = require('../middlewares/')
-const {createProject, getProjects} = require('../controllers')
+const { parseRequestBody } = require('../middlewares/')
+const { createProject, getProjects, deleteProject } = require('../controllers')
 
 const Router = {
-    'GET' :{
-        '/projects':{
-            middlewares : [parseRequestBody],
+    'GET': {
+        '/projects': {
+            middlewares: [parseRequestBody],
             controller: getProjects,
         }
     },
 
-    'POST' : {
-        '/add-project' : {
-            middlewares : [parseRequestBody],
+    'POST': {
+        '/add-project': {
+            middlewares: [parseRequestBody],
             controller: createProject,
         }
     },
 
 
-    'DELETE':{
+
+
+    'DELETE': {
+        '/delete-project': {
+            middlewares: [parseRequestBody],
+            controller: deleteProject,
+
+        }
+    },
+
+    'PUT': {
 
     },
 
-    'PUT' : {
-
-    },
-
-    'PATH' : {
+    'PATH': {
 
     }
 }

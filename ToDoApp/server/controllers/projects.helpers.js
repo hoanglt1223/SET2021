@@ -7,25 +7,25 @@ function addProject(project) {
 }
 
 function verifyProject(project) {
-   
-        return {
-            projectName: project.projectName,
-            taskList: (project.taskList) ? project.taskList.map((task, index) => {
-                return {
-                    taskName: task.taskName,
-                    isDone: (task.isDone === 'true') ? true : false
-                }
-            }) : {},
-            memberList: (project.memberList) ? project.memberList.map((member, index) => {
-                return {
-                    memberName: member.memberName,
-                    isKicked: (member.isKicked === 'true') ? true : false,
-                    isLeader: (member.isLeader === 'true') ? true : false,
-                }
-            }) : {},
-            isDeleted: (project.isDeleted === 'true') ? true : false
-        }
-    
+    return {
+        projectName: project.projectName,
+        taskList: (project.taskList) ? project.taskList.map((task, index) => {
+            return {
+                taskName: task.taskName,
+                isDone: (task.isDone === 'true') ? true : false
+            }
+        }) : {},
+        memberList: (project.memberList) ? project.memberList.map((member, index) => {
+            return {
+                memberName: member.memberName,
+                isKicked: (member.isKicked === 'true') ? true : false,
+                isLeader: (member.isLeader === 'true') ? true : false,
+            }
+        }) : {},
+        isDeleted: (project.isDeleted === 'true') ? true : false,
+        _id : project._id
+    }
+
 }
 
 function findProjects(prpos = {}) {
@@ -39,11 +39,11 @@ function handleNotFound(req, res) {
     res.end(`Route ${parsedUrl.pathname} not found.`)
 }
 
-function deleteByID(id){
-    return Project.deleteOne({_id: id});
+function deleteByID(id) {
+    return Project.deleteOne({ _id: id });
 }
 
-function updateProjectByID(_id, update ){
+function updateProjectByID(_id, update) {
     return Project.findByIdAndUpdate(_id, update);
 }
 

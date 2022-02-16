@@ -67,7 +67,7 @@ function Project(props) {
             </div>
 
             <DetailBoard
-                projectName={nameProject}
+                projectID={id}
                 fetchedTaskList={taskList_props}
                 isExpanded={isExpanded}
             />

@@ -1,6 +1,6 @@
 
 const { parseRequestBody } = require('../middlewares/')
-const { createProject, getProjects, deleteProject } = require('../controllers')
+const { createProject, getProjects, deleteProject, updateProjectAddTaskByID } = require('../controllers')
 
 const Router = {
     'GET': {
@@ -15,9 +15,8 @@ const Router = {
             middlewares: [parseRequestBody],
             controller: createProject,
         }
+
     },
-
-
 
 
     'DELETE': {
@@ -30,10 +29,14 @@ const Router = {
 
     'PUT': {
 
+
     },
 
-    'PATH': {
-
+    'PATCH': {
+        '/add-task': {
+            middlewares: [parseRequestBody],
+            controller: updateProjectAddTaskByID
+        }
     }
 }
 

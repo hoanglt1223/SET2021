@@ -21,13 +21,13 @@ function route(request) {
                         currentRouter.controller(request, response);
                     })
                 } catch (error) {
-
+                    console.log('Error: ', error)
                 }
             }
         }
     }
-    return function controller (request, response) {
-        response.send('okeeoke');
+    return function controller(request, response) {
+        response.send('OK');
     }
 }
 

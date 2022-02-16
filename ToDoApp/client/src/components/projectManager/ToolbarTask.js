@@ -1,11 +1,13 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import Button from './Button';
+import { updateMethod } from '../../api'
 
 function ToolbarTask(props) {
     const [taskInput, setTaskInput] = useState('');
 
     const {
         setTaskList,
+        projectID, 
     } = props
 
     function handleAddTask() {
@@ -13,15 +15,16 @@ function ToolbarTask(props) {
             const newTask = {
                 taskName: taskInput,
                 isDone: false,
-                _id: 'Unknown'
+                projectID: projectID
             }
-            // PATCH API
-            setTaskList(preTaskList => [...preTaskList, newTask])
+            updateMethod('add-task', newTask).then(response => {
+                setTaskList(preTaskList => [...preTaskList, newTask])
+            })
             cancelTask();
         }
     }
 
-    function cancelTask(){
+    function cancelTask() {
         setTaskInput('');
     }
     return (
@@ -44,7 +47,7 @@ function ToolbarTask(props) {
             <Button
                 titleValue="Cancel"
                 textColor="red"
-                handleOnClick = {cancelTask}
+                handleOnClick={cancelTask}
             />
         </div>
     )

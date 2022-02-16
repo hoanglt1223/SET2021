@@ -33,6 +33,13 @@
   flex-direction: column;
 }
 
-ul{
+ul {
   list-style-type: none;
+}
+
+.task {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
 }

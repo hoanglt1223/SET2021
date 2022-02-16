@@ -55,4 +55,20 @@ function deleteProject(request, response) {
     })
 }
 
-module.exports = { createProject, getProjects, deleteProject }
+function updateProjectAddTaskByID(request, response) {
+    const { taskName, isDone, projectID } = request.body;
+    findProjects({ _id: projectID })
+        .then(foundProject => {
+            if (foundProject) {
+                let project = foundProject[0];
+                let taskList = project.taskList;
+                taskList.push({ taskName: (taskName), isDone: isDone });
+                updateProjectByID(projectID, {taskList: taskList}).then(() => {
+                    handleAuthResponse(response, true)
+                })
+            }
+        })
+
+}
+
+module.exports = { createProject, getProjects, deleteProject, updateProjectAddTaskByID }

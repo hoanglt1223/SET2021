@@ -1,20 +1,20 @@
-import React, {useState, useEffect} from "react"
+import React, { useState, useEffect } from "react"
 import DetailTaskList from "./DetailTaskList"
 
 
 function DetailBoard(props) {
     const {
-        projectName,
+        projectID,
         fetchedTaskList,
-        isExpanded= 'none'
+        isExpanded = 'none'
     } = props
 
 
     return (
-        <div className="detailProject" style={{display : isExpanded }}>
-            <DetailTaskList 
-            projectName = {projectName}
-            fetchedTaskList = {fetchedTaskList}
+        <div className="detailProject" style={{ display: isExpanded }}>
+            <DetailTaskList
+                projectID={projectID}
+                fetchedTaskList={fetchedTaskList}
             />
         </div>
     )

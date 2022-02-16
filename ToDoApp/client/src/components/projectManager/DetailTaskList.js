@@ -6,17 +6,20 @@ import ToolbarTask from "./ToolbarTask";
 function DetailTaskList(props) {
 
     const {
-        projectName,
+        projectID,
         fetchedTaskList
     } = props
 
     const [taskList, setTaskList] = useState(fetchedTaskList);
+
+
 
     return (
         <div className="detailTaskList">
 
             <ToolbarTask
                 setTaskList={setTaskList}
+                projectID = {projectID}
             />
 
             <ul className="taskList">
@@ -24,7 +27,8 @@ function DetailTaskList(props) {
                     return (
                     <Task
                         nameTask={task.taskName}
-                        project = {projectName}
+                        projectID = {projectID}
+                        status = {task.isDone}
                         key={index}
                     />
                 )})}

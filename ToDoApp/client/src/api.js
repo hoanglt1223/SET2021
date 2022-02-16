@@ -4,17 +4,21 @@ import axios from "axios"
 const portServer = "http://localhost:5500";
 const projectPath = '/projects'
 
-const getMethod = (api) => {
-    return axios.get(`${portServer}/${api}`, JSON.stringify({}))
+const getMethod = (url) => {
+    return axios.get(`${portServer}/${url}`, JSON.stringify({}))
 }
 
-const postMethod = (api, data) => {
-    return axios.post(`${portServer}/${api}`, JSON.stringify(data))
+const postMethod = (url, data) => {
+    return axios.post(`${portServer}/${url}`, JSON.stringify(data))
 }
 
-const deleteMethod = (api, data) => {
-    return axios.request({data:  data, method: 'delete', url: `${portServer}/${api}`})
+const deleteMethod = (url, data) => {
+    return axios.request({data:  JSON.stringify(data), method: 'delete', url: `${portServer}/${url}`})
     
 }
 
-export {getMethod, postMethod, deleteMethod}
+const updateMethod = (url, data) => {
+    return axios.request({method: 'patch', url: `${portServer}/${url}`, data: JSON.stringify(data)})
+}
+
+export {getMethod, postMethod, deleteMethod, updateMethod}

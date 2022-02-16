@@ -1,19 +1,19 @@
 import React, {useState, createContext} from 'react'
 
-const ProjectContext = createContext();
+const {Provider, Consumer} = createContext();
 
 function ProjectContextProvider({children}){
     const [projectList, setProjectList] = useState([]);
     return (
-        <ProjectContext.Provider value = {{
+        <Provider value = {{
             projectList : projectList,
             setProjectList: setProjectList
         }}>
             {children}
-        </ProjectContext.Provider>
+        </Provider>
     )
 
 }
 
 
-export {ProjectContextProvider, ProjectContext}
+export {ProjectContextProvider, Consumer as ProjectContextConsumer}

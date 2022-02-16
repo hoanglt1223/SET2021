@@ -44,11 +44,6 @@ function ToolbarTask(props) {
                 handleOnClick={handleAddTask}
             />
 
-            <Button
-                titleValue="Cancel"
-                textColor="red"
-                handleOnClick={cancelTask}
-            />
         </div>
     )
 }

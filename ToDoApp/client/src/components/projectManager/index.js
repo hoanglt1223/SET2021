@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Project from "./Project";
 import ToolbarProject from "./ToolbarProject.js";
 import './projectManager.css'
+import { ProjectContextConsumer } from '../../context/projectContext'
 
 
 function ProjectManager(props) {
@@ -12,31 +13,39 @@ function ProjectManager(props) {
     const [projectList, setProjectList] = useState(projectFetched)
 
     return (
-        <React.Fragment>
+        <ProjectContextConsumer>
+            {context => {
+                context.setProjectList(projectFetched);
+                return (
 
-            <ToolbarProject
-                setProjectList={setProjectList}
-            />
+                    <React.Fragment>
 
-            <ul id="projectlist">
-                {projectList.map((project, index) => {
-                        return (
-                            <Project
-                                nameProject={project.projectName}
-                                taskList_props={project.taskList}
-                                memberList={project.memberList}
-                                isDeleted={project.isDeleted}
-                                id={project._id}
-                                key = {index}
-                            />
-                        )
-                })}
-            </ul>
+                        <ToolbarProject
+                            setProjectList={context.setProjectList}
+                        />
+
+                        <ul id="projectlist">
+                            {context.projectList.map((project, index) => {
+                                return (
+                                    <Project
+                                        nameProject={project.projectName}
+                                        taskList_props={project.taskList}
+                                        memberList={project.memberList}
+                                        isDeleted={project.isDeleted}
+                                        id={project._id}
+                                        key={index}
+                                    />
+                                )
+                            })}
+                        </ul>
 
 
-        </React.Fragment>
+                    </React.Fragment>
+                )
+
+            }}
+        </ProjectContextConsumer>
     )
-
 
 
 }

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react"
-import Button from "./Button"
 import Task from "./Task.js";
 import ToolbarTask from "./ToolbarTask";
 
@@ -23,13 +22,14 @@ function DetailTaskList(props) {
             />
 
             <ul className="taskList">
-                {taskList.map((task, index) => {
+                { taskList.map((task, index) => {
                     return (
                     <Task
                         nameTask={task.taskName}
                         projectID = {projectID}
                         status = {task.isDone}
                         key={index}
+                        id = {task._id}
                     />
                 )})}
             </ul>

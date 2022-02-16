@@ -5,9 +5,16 @@ function Task(props) {
     const {
         nameTask,
         status,
+        id
     } = props
 
     const [isDone, setHasDone] = useState(status)
+
+    function handleDoneTask() {
+        console.log(id);
+        setHasDone(isDone ? false : true)
+
+    }
 
     return (
         <li className={`task`}>
@@ -21,10 +28,8 @@ function Task(props) {
                 type="checkbox"
                 style={{ width: "20px", marginBottom: '10px' }}
                 defaultChecked={isDone}
-                onClick={() => 
-                    setHasDone(isDone ? false : true)
-                }
-                
+                onClick={handleDoneTask}
+
             >
             </input>
         </li>

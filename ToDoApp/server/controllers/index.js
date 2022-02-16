@@ -63,8 +63,8 @@ function updateProjectAddTaskByID(request, response) {
                 let project = foundProject[0];
                 let taskList = project.taskList;
                 taskList.push({ taskName: (taskName), isDone: isDone });
-                updateProjectByID(projectID, {taskList: taskList}).then(() => {
-                    handleAuthResponse(response, true)
+                updateProjectByID(projectID, {taskList: taskList}).then((demo) => {
+                    handleDataResponse(response, demo)
                 })
             }
         })

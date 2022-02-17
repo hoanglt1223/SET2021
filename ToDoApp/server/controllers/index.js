@@ -37,7 +37,8 @@ function getProjects(request, response) {
                 throw new Error('Unknow Projects')
             }
             else {
-                handleDataResponse(response, foundProjects);
+                const projects = foundProjects.filter(project => (project.isDeleted != true));
+                handleDataResponse(response, projects);
             }
         })
         .catch((error) => {

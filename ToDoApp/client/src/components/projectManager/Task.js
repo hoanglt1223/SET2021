@@ -35,7 +35,7 @@ function Task(props) {
 
 
     return (
-        <li className={`task`} style={{ display: !isDeleted ? 'block' : 'none' }}>
+        <li className={`task`} style={{ display: !isDeleted ? 'flex' : 'none' }}>
 
             <input
                 type="checkbox"
@@ -44,12 +44,12 @@ function Task(props) {
                 onClick={handleDoneTask}
                 className='checkbox-round'
             />
-            <input
-                style={{ paddingLeft: '15px' }}
-                defaultValue={nameTask}
-                style={{ textDecorationLine: isDone ? 'line-through' : 'none' }}
+            <span
+                className="taskName"
+                style={{ textDecorationLine: isDone ? 'line-through' : 'none'}}
             >
-            </input>
+                {nameTask}
+            </span>
             <Button
                 titleValue="x"
                 textColor="red"

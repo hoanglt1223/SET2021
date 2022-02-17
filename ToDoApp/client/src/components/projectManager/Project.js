@@ -42,22 +42,18 @@ function Project(props) {
         <div className="project"
             style={{ display: isRemoved ? 'none' : 'flex' }}
         >
-            <Button
-                element="input"
-                type="text"
-                titleValue={nameProject}
-            />
-
-            <div style = {{display: 'flex', justifyContent: 'center', alignItems : 'center', marginTop : '10px'}}>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '10px' }}>
                 <Button
                     handleOnClick={handleExpand}
-                    className = "gg-chevron-double-down-o"
+                    className="gg-chevron-double-down-o"
                 >
                 </Button>
+                <p className="projectName">{nameProject}</p>
+
 
                 <Button
                     handleOnClick={handleRemove}
-                    className = 'gg-remove'
+                    className='gg-remove'
                 />
             </div>
 

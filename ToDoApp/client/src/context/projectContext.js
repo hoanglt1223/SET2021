@@ -1,12 +1,25 @@
-import React, {useState, createContext} from 'react'
+import React, { useState, createContext, useEffect } from 'react'
+import { getMethod } from '../api';
+const { Provider, Consumer } = createContext();
 
-const {Provider, Consumer} = createContext();
 
-function ProjectContextProvider({children}){
+
+
+function ProjectContextProvider({ children }) {
+
     const [projectList, setProjectList] = useState([]);
+    useEffect(() => {
+
+        getMethod('projects')
+            .then((response) => {
+                setProjectList(response.data);
+            })
+    }, [])
+
+
     return (
-        <Provider value = {{
-            projectList : projectList,
+        <Provider value={{
+            projectList: projectList,
             setProjectList: setProjectList
         }}>
             {children}
@@ -16,4 +29,4 @@ function ProjectContextProvider({children}){
 }
 
 
-export {ProjectContextProvider, Consumer as ProjectContextConsumer}
+export { ProjectContextProvider, Consumer as ProjectContextConsumer }

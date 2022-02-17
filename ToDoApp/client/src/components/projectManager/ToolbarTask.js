@@ -15,10 +15,12 @@ function ToolbarTask(props) {
             const newTask = {
                 taskName: taskInput,
                 isDone: false,
+                isDeleted: false,
                 projectID: projectID
             }
             updateMethod('add-task', newTask).then(response => {
-                setTaskList(preTaskList => [...preTaskList, newTask])
+                newTask._id = response.data;
+                setTaskList(prev => [...prev, newTask])
             })
             cancelTask();
         }
@@ -35,6 +37,10 @@ function ToolbarTask(props) {
                 className="taskInput"
                 onChange={e => setTaskInput(e.target.value)}
                 value={taskInput}
+                onKeyPress={(e) => {
+                    if (e.key == "Enter")
+                        handleAddTask()
+                }}
             >
             </input>
 

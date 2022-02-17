@@ -2,22 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 import ProjectManager from "./components/projectManager/index.js";
 import './style.css'
-import { ProjectContextProvider, ProjectContextConsumer } from "./context/projectContext.js";
-import { getMethod } from './api'
+import { ProjectContextProvider } from "./context/projectContext.js";
 
 
 
-
-getMethod('projects')
-    .then((response) => {
-        ReactDOM.render(
-            <ProjectContextProvider>
-                <ProjectManager
-                    projectFetched={response.data}
-                />
-
-            </ProjectContextProvider>
-            , document.getElementById('root'));
-    })
-
+ReactDOM.render(
+    <ProjectContextProvider>
+        <ProjectManager
+        />
+    </ProjectContextProvider>
+    , document.getElementById('root'));
 

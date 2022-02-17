@@ -1,11 +1,12 @@
 .project {
   padding: 10px;
-  background-color: #94c9ba;
+  background-color: #C2A878;
   border: 2px solid #333;
   border-radius: 10px;
   margin: 5px;
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-direction: column;
   max-height: 500px;
   overflow: auto;
@@ -28,7 +29,7 @@
 }
 
 .detailTaskList {
-  background-color: #65988b;
+  background-color: #355834;
   display: flex;
   flex-direction: column;
 }
@@ -38,8 +39,34 @@ ul {
 }
 
 .task {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.taskList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+}
+
+
+.checkbox-round {
+    width: 10px;
+    height: 20px;
+    background-color: white;
+    border-radius: 100%;
+    vertical-align: middle;
+    border: 5px solid #ddd;
+    appearance: none;
+    outline: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.checkbox-round:checked {
+    background-color: #336699;
 }

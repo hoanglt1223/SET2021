@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-
+import './icon.css'
 
 function Button(props) {
     const {
@@ -8,6 +8,9 @@ function Button(props) {
         textColor = "#333",
         handleOnClick = undefined,
         id,
+        width,
+        height,
+        className
     } = props
 
     useEffect(() => {
@@ -15,17 +18,26 @@ function Button(props) {
     })
 
 
-    return (
-        <input
-            type={type}
-            defaultValue={titleValue}
-            style={{ color: textColor }}
-            onClick={handleOnClick}
-            id = {id}
-        >
-
-        </input>
-    )
+    if (!className) {
+        return (
+            <input
+                type={type}
+                defaultValue={titleValue}
+                style={{ color: textColor, width: width, height: height }}
+                onClick={handleOnClick}
+                id={id}
+            >
+            </input>
+        )
+    }
+    else {
+        return (
+            <i 
+            className= {className}
+            onClick={ handleOnClick}
+            ></i>
+        )
+    }
 }
 
 export default Button

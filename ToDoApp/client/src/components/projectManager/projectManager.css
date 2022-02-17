@@ -5,7 +5,7 @@
 }
 
 #addProject__cancelButton {
-  background-color: #ff4c4d;
+  background-color: #E4572E;
   height: 40px;
   width: 100px;
 }
@@ -18,7 +18,7 @@
 }
 
 #addProject__addButton {
-  background-color: #2e9d42;
+  background-color: #A7C957;
   height: 40px;
   width: 100px;
 }
@@ -40,7 +40,7 @@ input {
 
 #projectlist {
   list-style-type: none;
-  background-color: #DCD538;
+  background-color: #6E633D;
   border: 2px solid #333;
   min-width: 700px;
   min-height: 500px;
@@ -52,4 +52,16 @@ input {
   
 }
 
+#project__title{
+  font-size: 70px;
+  margin-bottom: 50px;
+  margin-top: 50px;
+  color: #386641
+}
 
+
+#ToolbarProject{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

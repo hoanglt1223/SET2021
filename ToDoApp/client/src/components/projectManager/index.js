@@ -5,21 +5,14 @@ import './projectManager.css'
 import { ProjectContextConsumer } from '../../context/projectContext'
 
 
-function ProjectManager(props) {
-    const {
-        projectFetched,
-    } = props
-
-    const [projectList, setProjectList] = useState(projectFetched)
-
+function ProjectManager() {
     return (
         <ProjectContextConsumer>
             {context => {
-                context.setProjectList(projectFetched);
                 return (
 
                     <React.Fragment>
-
+                        <p id = "project__title">PROJECT MANAGER</p>
                         <ToolbarProject
                             setProjectList={context.setProjectList}
                         />
@@ -42,10 +35,10 @@ function ProjectManager(props) {
 
                     </React.Fragment>
                 )
-
             }}
         </ProjectContextConsumer>
     )
+
 
 
 }

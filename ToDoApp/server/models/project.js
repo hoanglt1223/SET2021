@@ -15,6 +15,10 @@ const projectSchema = new Schema({
                 type: String,
                 required: true
             },
+            isDeleted:{
+                type: Boolean,
+                default: false
+            },
             isDone:{
                 type: Boolean,
                 default: false

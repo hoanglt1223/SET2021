@@ -47,4 +47,5 @@ function updateProjectByID(_id, update) {
     return Project.findByIdAndUpdate(_id, update);
 }
 
+
 module.exports = { addProject, verifyProject, findProjects, deleteByID, handleNotFound, updateProjectByID }

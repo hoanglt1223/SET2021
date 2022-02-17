@@ -1,0 +1,125 @@
+/* Expand task */
+.gg-chevron-double-down-o {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid;
+  border-radius: 100px;
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+  background-color: #0a8754;
+}
+
+.gg-chevron-double-down-o::before {
+  content: "";
+  box-sizing: border-box;
+  width: 10px;
+  height: 10px;
+  border-bottom: 2px solid;
+  border-right: 2px solid;
+  transform: rotate(45deg);
+  margin: auto;
+}
+
+.gg-chevron-double-down-o:hover {
+  background-color: #004f2d;
+}
+
+/* refresh project */
+
+.gg-refresh-r {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border: 2px solid;
+  border-radius: 4px;
+  margin-left: 10px;
+  background-color: #e67f0d;
+}
+
+.gg-refresh-r::before {
+  content: "";
+  display: block;
+  box-sizing: border-box;
+  width: 10px;
+  height: 2px;
+  background-color: currentColor;
+  border-radius: 5px;
+}
+
+.gg-refresh-r:hover {
+  background-color: #e4572e;
+}
+
+/*Add*/
+.gg-add {
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border: 2px solid;
+  border-radius: 22px;
+  background-color: #ace894;
+}
+
+.gg-add::after,
+.gg-add::before {
+  content: "";
+  display: block;
+  box-sizing: border-box;
+  position: absolute;
+  width: 10px;
+  height: 2px;
+  background: black;
+  border-radius: 5px;
+  top: 12px;
+  left: 8px;
+  margin: auto;
+}
+
+.gg-add::after {
+  width: 2px;
+  height: 10px;
+  top: 8px;
+  left: 12px;
+}
+
+.gg-add:hover {
+  background-color: #4a7856;
+}
+
+/*remove*/
+.gg-remove {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 34px;
+  height: 34px;
+  border: 2px solid;
+  border-radius: 22px;
+  margin-left: 10px;
+  background-color: #883955;
+}
+
+.gg-remove::before {
+  content: "";
+  box-sizing: border-box;
+  width: 10px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 5px;
+  top: 8px;
+  left: 4px;
+}
+
+.gg-remove:hover{
+  background-color: #FF4D80;
+}

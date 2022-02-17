@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import Button from "./Button";
 import './project.css'
 import DetailBoard from "./DetailBoard";
-import axios from 'axios'
 import { deleteMethod } from '../../api'
+import { ProjectContextConsumer } from '../../context/projectContext'
 
 
 function Project(props) {
+
     const {
         nameProject = "#",
         taskList_props = [],
@@ -23,7 +24,7 @@ function Project(props) {
     function handleExpand() {
         if (isExpanded == 'none') {
             setExpanded('inline-block')
-            setValueExpandButton('Shrink')
+            setValueExpandButton('Collapse')
         }
         else {
             setExpanded('none')
@@ -34,7 +35,6 @@ function Project(props) {
     function handleRemove() {
         deleteMethod('delete-project', { _id: id }).then(response => {
             setRemove(true);
-
         })
     }
 
@@ -48,27 +48,22 @@ function Project(props) {
                 titleValue={nameProject}
             />
 
-            <div>
+            <div style = {{display: 'flex', justifyContent: 'center', alignItems : 'center', marginTop : '10px'}}>
                 <Button
-                    demo="input"
-                    type="button"
-                    titleValue={valueExpandButton}
                     handleOnClick={handleExpand}
-                />
+                    className = "gg-chevron-double-down-o"
+                >
+                </Button>
 
                 <Button
-                    element="input"
-                    type="button"
-                    titleValue="Remove"
                     handleOnClick={handleRemove}
-                    textColor="#AE6F54"
-
+                    className = 'gg-remove'
                 />
             </div>
 
             <DetailBoard
                 projectID={id}
-                fetchedTaskList={taskList_props}
+                fetchedTaskList={taskList}
                 isExpanded={isExpanded}
             />
 

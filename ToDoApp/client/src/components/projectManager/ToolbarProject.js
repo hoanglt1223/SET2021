@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Button from "./Button";
-import {postMethod} from '../../api'
+import { postMethod } from '../../api'
 
 function ToolbarProject(props) {
     const {
@@ -23,22 +23,22 @@ function ToolbarProject(props) {
                 isDeleted: false
             }
             postMethod('add-project', newProject)
-            .then(
-                response => {
-                    newProject._id =JSON.parse(response.data.message);
-                    setProjectList(prev => {
-                        return [...prev, newProject]
-                    });
-                }
-            )
-            
+                .then(
+                    response => {
+                        newProject._id = JSON.parse(response.data.message);
+                        setProjectList(prev => {
+                            return [...prev, newProject]
+                        });
+                    }
+                )
+
             cancelTask();
         }
     }
 
 
     return (
-        <div id="ToolbarProject_project">
+        <div id="ToolbarProject">
             <input
                 id="addProject__field"
                 onChange={e => setProject(e.target.value)}
@@ -48,18 +48,17 @@ function ToolbarProject(props) {
                         handleSubmit()
                 }
                 }
+                placeholder = 'Enter project...'
             >
             </input>
 
             <Button
-                titleValue="Add"
-                id="addProject__addButton"
+                className='gg-add'
                 handleOnClick={handleSubmit}
             />
 
             <Button
-                titleValue="Cancel"
-                id="addProject__cancelButton"
+                className='gg-refresh-r'
                 handleOnClick={cancelTask}
             />
         </div>

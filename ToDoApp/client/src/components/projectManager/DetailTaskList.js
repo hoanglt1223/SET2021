@@ -11,27 +11,29 @@ function DetailTaskList(props) {
 
     const [taskList, setTaskList] = useState(fetchedTaskList);
 
-
-
     return (
         <div className="detailTaskList">
 
             <ToolbarTask
                 setTaskList={setTaskList}
-                projectID = {projectID}
+                projectID={projectID}
             />
 
             <ul className="taskList">
-                { taskList.map((task, index) => {
-                    return (
-                    <Task
-                        nameTask={task.taskName}
-                        projectID = {projectID}
-                        status = {task.isDone}
-                        key={index}
-                        id = {task._id}
-                    />
-                )})}
+                {taskList.map((task, index) => {
+                    if (!task.isDeleted) {
+                        return (
+                            <Task
+                                nameTask={task.taskName}
+                                projectID={projectID}
+                                status={task.isDone}
+                                isDeleted={task.isDeleted}
+                                key={index}
+                                id={task._id}
+                            />
+                        )
+                    }
+                })}
             </ul>
         </div>
     )

@@ -28,16 +28,16 @@ function createProject(request, response) {
 }
 
 function getProjects(request, response) {
-    const project = verifyProject(request.body);
-    debugger
+    let project = verifyProject(request.body);
+    if (project.projectName === undefined) project = {};
     findProjects(project)
         .then(foundProjects => {
-            debugger
             if (!foundProjects) {
                 throw new Error('Unknow Projects')
             }
             else {
-                handleDataResponse(response, foundProjects);
+                const projects = foundProjects.filter(project => (project.isDeleted != true));
+                handleDataResponse(response, projects);
             }
         })
         .catch((error) => {

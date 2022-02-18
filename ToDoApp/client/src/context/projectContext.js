@@ -3,8 +3,6 @@ import { getMethod } from '../api.js';
 const { Provider, Consumer } = createContext();
 
 
-
-
 function ProjectContextProvider({ children }) {
 
     const [projectList, setProjectList] = useState([]);

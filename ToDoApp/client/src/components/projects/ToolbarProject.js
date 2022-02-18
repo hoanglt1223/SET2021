@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Button from "./button";
-import { postMethod } from '../../API'
+import { postMethod } from '../../api'
 
 function ToolbarProject(props) {
     const {

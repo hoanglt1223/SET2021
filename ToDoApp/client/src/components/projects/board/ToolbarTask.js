@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Button from '../button';
-import { updateMethod } from '../../../API'
+import { updateMethod } from '../../../api'
 
 function ToolbarTask(props) {
     const [taskInput, setTaskInput] = useState('');

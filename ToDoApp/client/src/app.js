@@ -2,6 +2,8 @@ import React from 'react'
 import ProjectMananger from './components/projects'
 import { ProjectContextProvider } from './context/projectContext'
 import { BrowserRouter as Router, Link, Routes, Route } from 'react-router-dom'
+import UserManager from "./components/userManager" 
+import { UserContextProvider } from "./context/userContext.js"; 
 
 function RouteProjects() {
     return (

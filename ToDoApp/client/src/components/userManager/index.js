@@ -4,7 +4,6 @@ import Toolbar from "./toolbar.js";
 import Header from "./header.js";
 import Footer from "./footer.js";
 import './userManager.css'
-import axios from "axios";
 import { UserContextConsumer } from '../../context/userContext'
 
 function UserManager() {

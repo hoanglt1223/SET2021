@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Button from "../button";
 import './project.css'
 import DetailBoard from "../board";
-import { deleteMethod } from '../../../API'
+import { deleteMethod } from '../../../api'
 
 function Project(props) {
 

@@ -6,7 +6,6 @@ function route(request) {
     const parsedURL = url.parse(request.url, true);
     if (Router[request.method] && Router[request.method][parsedURL.pathname]) {
         console.log(`${request.method}  ${parsedURL.pathname}`)
-        debugger
         const currentRouter = Router[request.method][parsedURL.pathname];
         if (currentRouter.middlewares && currentRouter.middlewares.length > 0) {
             return function controller(request, response) {

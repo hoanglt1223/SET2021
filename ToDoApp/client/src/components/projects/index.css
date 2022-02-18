@@ -18,6 +18,7 @@
   border-radius: 10px;
   width: 500px;
   margin: 25px;
+  font-size: 25px;
 }
 
 #addProject__addButton {
@@ -66,4 +67,8 @@ input {
   flex-direction: row;
   align-items: center;
   justify-content: center;
+}
+
+.taskInput{
+  width: 200px;
 }

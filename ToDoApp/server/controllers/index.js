@@ -2,13 +2,16 @@ const { addProject, verifyProject, findProjects, deleteByID, handleNotFound, upd
 const { insertUser, findUsers, findUserById, removeUserById, updateUserById, verifyUser } = require('./user.helpers')
 const jwt = require('jsonwebtoken')
 const { handleError } = require('../helper');
-function handleAuthResponse(response, isSuccessful = false) {
+const mongoose = require('mongoose')
+function handleAuthResponse(response, isSuccessful = false, message = '#') {
     const data = {
-        status: isSuccessful ? 'success' : 'fail'
+        status: isSuccessful ? 'success' : 'fail',
+        message: message
     }
     response.setHeader('Content-Type', 'application/json');
     response.end(JSON.stringify(data));
 }
+
 
 function handleDataResponse(response, data) {
     response.statusCode = 200;
@@ -18,14 +21,15 @@ function handleDataResponse(response, data) {
 function createProject(request, response) {
     const project = verifyProject(request.body);
     addProject(project)
-        .then(() => {
-            handleAuthResponse(response, true);
+        .then((projectAdded) => {
+            handleAuthResponse(response, true, JSON.stringify(projectAdded._id));
         })
         .catch(err => {
             handleError(err, 'controllers/index.js', 'createProject')
             handleAuthResponse(response, false);
         })
 }
+
 
 function getProjects(request, response) {
     let project = verifyProject(request.body);
@@ -52,6 +56,7 @@ function deleteProject(request, response) {
         handleAuthResponse(response, true)
     })
 }
+
 
 function updateProjectAddTaskByID(request, response) {
     const { taskName, isDone, projectID, isDeleted } = request.body;
@@ -123,7 +128,6 @@ function signUp(request, response) {
             handleAuthResponse(response, false)
         })
 }
-
 
 function getUsers(request, response) {
     response.setHeader('Content-Type', 'application/json');

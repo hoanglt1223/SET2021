@@ -1,15 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import ProjectManager from "./components/projectManager/index.js";
 import './style.css'
-import { ProjectContextProvider } from "./context/projectContext.js";
-
+import App from './app'
 
 
 ReactDOM.render(
-    <ProjectContextProvider>
-        <ProjectManager
-        />
-    </ProjectContextProvider>
-    , document.getElementById('root'));
+    <App />
+    , document.getElementById('root')
+);
 

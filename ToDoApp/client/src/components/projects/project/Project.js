@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Button from "./Button";
+import Button from "../button";
 import './project.css'
-import DetailBoard from "./DetailBoard";
-import { deleteMethod } from '../../api'
-import { ProjectContextConsumer } from '../../context/projectContext'
-
+import DetailBoard from "../board";
+import { deleteMethod } from '../../../API'
 
 function Project(props) {
 
@@ -42,7 +40,7 @@ function Project(props) {
         <div className="project"
             style={{ display: isRemoved ? 'none' : 'flex' }}
         >
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '10px' }}>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '10px', height: '60px' }}>
                 <Button
                     handleOnClick={handleExpand}
                     className="gg-chevron-double-down-o"

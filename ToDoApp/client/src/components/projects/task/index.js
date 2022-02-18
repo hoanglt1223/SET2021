@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { updateMethod } from '../../api'
-import Button from "./Button";
+import { updateMethod } from '../../../API'
+import Button from "../button";
 
 function Task(props) {
 

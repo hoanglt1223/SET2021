@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import Task from "./Task.js";
+import Task from "../task";
 import ToolbarTask from "./ToolbarTask";
 
 function DetailTaskList(props) {

@@ -1,5 +1,5 @@
 import React, { useState, createContext, useEffect } from 'react'
-import { getMethod } from '../api';
+import { getMethod } from '../API';
 const { Provider, Consumer } = createContext();
 
 

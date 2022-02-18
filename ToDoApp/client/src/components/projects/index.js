@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import Project from "./Project";
+import React from "react";
+import Project from "./project/Project";
 import ToolbarProject from "./ToolbarProject.js";
-import './projectManager.css'
+import './index.css'
 import { ProjectContextConsumer } from '../../context/projectContext'
 
 
@@ -10,7 +10,6 @@ function ProjectManager() {
         <ProjectContextConsumer>
             {context => {
                 return (
-
                     <React.Fragment>
                         <p id = "project__title">PROJECT MANAGER</p>
                         <ToolbarProject

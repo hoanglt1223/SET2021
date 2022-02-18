@@ -36,12 +36,10 @@
     "i": "^0.3.7",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-<<<<<<< HEAD
+
     "react-router": "^6.2.1",
-    "react-router-dom": "^6.2.1"
-=======
+
     "react-router-dom": "^6.2.1",
     "sass": "^1.49.0"
->>>>>>> 14b5e7e59785112bcd63262821bc89ada94baa56
   }
 }

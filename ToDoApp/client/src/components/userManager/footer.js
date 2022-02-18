@@ -4,9 +4,9 @@ import React, { useState, useEffect } from "react";
 function Footer(props) {
 
     return (
-      <React.Fragment>
+      <div className="userManager__footer">
         NAM DEP TRAI, TAI DEP TRAI 
-      </React.Fragment>
+      </div>
     )
     
 }

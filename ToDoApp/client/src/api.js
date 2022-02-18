@@ -4,6 +4,7 @@ import axios from "axios"
 const portServer = "http://localhost:5500";
 const projectPath = '/projects'
 
+
 const getMethod = (url) => {
     return axios.get(`${portServer}/${url}`, JSON.stringify({}))
 }

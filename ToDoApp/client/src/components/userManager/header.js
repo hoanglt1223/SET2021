@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Button from "../user/button/button";
-
+import Button from "./user/button";
+import {Link} from "react-router-dom"
 function Header(props) {
     
   const [isLogin, setLogin] = useState(true)
@@ -15,34 +15,36 @@ function Header(props) {
     function handleLogout() {
       setLogin(false);
       setRemember(false);
-      // window.localStorage.removeItem('currentAccount');
-      window.location.href = "/index.html";
     }
 
 
     return (
       <React.Fragment>
         {/* //===== return to admin */}
-        <div id="header__left">
+        <div className="userManager__header-left">
+          <Link>
               <Button
                 titleValue="Return"
                 id="return__button"
                 handleOnClick={handleReturn}
-        />
+              />
+        </Link>
         </div>
 
             {/* =======title*/}
-        <div id = "header__middle">
-          <span id ="header__title">User management</span>
+        <div className = "userManager__header-middle">
+          <span className ="userManager__header-title">User management</span>
         </div>
 
               {/* //=======logout button */}
-        <div id="header__right">
-          <Button
-                  titleValue="Log out"
-                  id="logout__button"
-                  handleOnClick={handleLogout}
-          />
+        <div className="userManager__header-right">
+          <Link to = "/">
+            <Button
+                    titleValue="Log out"
+                    id="logout__button"
+                    handleOnClick={handleLogout}
+            />
+          </Link>
         </div>  
       </React.Fragment>
     )

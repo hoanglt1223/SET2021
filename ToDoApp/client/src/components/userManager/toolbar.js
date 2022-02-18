@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
-import Button from "../user/button/button";
-
+import Button from "./user/button";
+import {Link} from "react-router-dom"
 function Toolbar(props) {
-    const {
-        
-    } = props
-
-    const [project, setProject] = useState('')
-
+    
     function handleCreateNewAccount() {
       window.location.href = "/signup/signup.html";
     }
 
     function handleDeleteAccount() {
-        
+      postMethod('delete-user', id)
+      .then(
+          response => {
+              
+          }
+      )
     }
 
     function handleEditAccount() {
@@ -24,33 +24,37 @@ function Toolbar(props) {
     return (
       <React.Fragment>
         {/* //===== create, delete account */}
-        <div id="toolbar__left"> 
-          <Button
-                titleValue="Create"
-                id="create__button"
-                handleOnClick={handleCreateNewAccount}
-          />
+          <div className="userManager__toolbar">
+            <div className="userManager__toolbar-left">
+              <Link to = "/">
+                <Button
+                      titleValue="Create"
+                      id="create__button"
+                      handleOnClick={handleCreateNewAccount}
+                />
+              </Link>
 
-          <Button
-                titleValue="Delete"
-                id="delete__button"
-                handleOnClick={handleDeleteAccount}
-          />
-        </div>
+              <Button
+                    titleValue="Delete"
+                    id="delete__button"
+                    handleOnClick={handleDeleteAccount}
+              />
+            </div>
 
-            {/* =======title*/}
-        <div id="toolbar__middle">
-          <span id ="toolbar__title"></span>
-        </div>
+                {/* =======title*/}
+            <div className="userManager__toolbar-middle">
+              <span className ="userManager__toolbar-title"></span>
+            </div>
 
-              {/* //=======edit account */}
-        <div id="toolbar__right">
-          <Button
-                  titleValue="Edit"
-                  id="edit__button"
-                  handleOnClick={handleEditAccount}
-          />
-        </div>  
+                  {/* //=======edit account */}
+            <div className="userManager__toolbar-right">
+              <Button
+                      titleValue="Edit"
+                      id="edit__button"
+                      handleOnClick={handleEditAccount}
+              />
+            </div>
+          </div>
       </React.Fragment>
     )
     

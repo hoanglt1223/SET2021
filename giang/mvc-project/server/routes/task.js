@@ -34,7 +34,9 @@ const taskRouter = {
   },
   OPTIONS: {
     "/tasks": {
-      controller: () => {},
+      controller: (_, res) => {
+        res.end();
+      },
       middlewares: [],
     },
   },

@@ -17,6 +17,10 @@ async function updateById(id, newTodo) {
   await axios.patch(`${TODO_ENDPOINT}?id=${id}`, newTodo);
 }
 
-const todoApis = { findAll, create, updateById };
+async function deleteById(id) {
+  await axios.delete(`${TODO_ENDPOINT}?id=${id}`);
+}
+
+const todoApis = { findAll, create, updateById, deleteById };
 
 export default todoApis;

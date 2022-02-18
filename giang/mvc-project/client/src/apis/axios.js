@@ -6,8 +6,8 @@ axiosInstance.interceptors.request.use((config) => {
   return {
     ...config,
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      // "Content-Type": "application/json",
+      // "Content-Type": "application/x-www-form-urlencoded",
+      "Content-Type": "application/json",
     },
   };
 });

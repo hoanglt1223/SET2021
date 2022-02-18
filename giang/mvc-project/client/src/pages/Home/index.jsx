@@ -16,7 +16,7 @@ const HomePage = () => {
 
   useEffect(() => {
     fetchTodos();
-  }, [fetchTodos]);
+  }, []);
 
   return (
     <div className="home-page-container">

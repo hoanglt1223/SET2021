@@ -1,5 +1,7 @@
 .todo-container {
   display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .todo-container .title {
@@ -7,5 +9,17 @@
 }
 
 .todo-container .title:hover {
+  cursor: pointer;
+}
+
+.todo-container .title--done {
+  text-decoration: line-through;
+}
+
+.todo-container .title--doing {
+  text-decoration: none;
+}
+
+.todo-container i:hover {
   cursor: pointer;
 }

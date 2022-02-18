@@ -2,41 +2,35 @@ import React, { useState, useEffect } from "react";
 import Project from "./Project";
 import ToolbarProject from "./ToolbarProject.js";
 import './projectManager.css'
-import { ProjectContextConsumer } from '../../context/projectContext'
+import { ProjectContext } from '../../context/projectContext'
 
 
 function ProjectManager() {
+    const { projectList, setProjectList } = useContext(ProjectContext);
     return (
-        <ProjectContextConsumer>
-            {context => {
-                return (
+        <React.Fragment>
+            <p id = "project__title">PROJECT MANAGER</p>
+            <ToolbarProject
+                setProjectList={setProjectList}
+            />
 
-                    <React.Fragment>
-                        <p id = "project__title">PROJECT MANAGER</p>
-                        <ToolbarProject
-                            setProjectList={context.setProjectList}
+            <ul id="projectlist">
+                {projectList.map((project, index) => {
+                    return (
+                        <Project
+                            nameProject={project.projectName}
+                            taskList_props={project.taskList}
+                            memberList={project.memberList}
+                            isDeleted={project.isDeleted}
+                            id={project._id}
+                            key={index}
                         />
-
-                        <ul id="projectlist">
-                            {context.projectList.map((project, index) => {
-                                return (
-                                    <Project
-                                        nameProject={project.projectName}
-                                        taskList_props={project.taskList}
-                                        memberList={project.memberList}
-                                        isDeleted={project.isDeleted}
-                                        id={project._id}
-                                        key={index}
-                                    />
-                                )
-                            })}
-                        </ul>
+                    )
+                })}
+            </ul>
 
 
-                    </React.Fragment>
-                )
-            }}
-        </ProjectContextConsumer>
+        </React.Fragment>
     )
 
 

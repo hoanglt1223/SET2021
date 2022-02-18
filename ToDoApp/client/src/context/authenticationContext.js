@@ -1,5 +1,5 @@
 import React, { useState, createContext, useEffect } from 'react'
-const { Provider, Consumer } = createContext();
+export const AuthContext = createContext();
 
 
 
@@ -19,15 +19,15 @@ function AuthenticationContextProvider({ children }) {
 
 
     return (
-        <Provider value={{
+        <AuthContext.Provider value={{
             isUserLogin: isUserLogin,
             setuserLogin: setUserLogin,
         }}>
             {children}
-        </Provider>
+        </AuthContext.Provider>
     )
 
 }
 
 
-export { AuthenticationContextProvider, Consumer as AuthenticationContextConsumer }
+export default AuthenticationContextProvider

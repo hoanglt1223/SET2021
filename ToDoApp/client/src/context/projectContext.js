@@ -1,6 +1,6 @@
 import React, { useState, createContext, useEffect } from 'react'
 import { getMethod } from '../api';
-const { Provider, Consumer } = createContext();
+export const ProjectContext = createContext();
 
 
 
@@ -18,15 +18,15 @@ function ProjectContextProvider({ children }) {
 
 
     return (
-        <Provider value={{
+        <ProjectContext.Provider value={{
             projectList: projectList,
             setProjectList: setProjectList
         }}>
             {children}
-        </Provider>
+        </ProjectContext.Provider>
     )
 
 }
 
 
-export { ProjectContextProvider, Consumer as ProjectContextConsumer }
+export default  ProjectContextProvider

@@ -3,37 +3,26 @@ import React from "react";
 import ProjectManager from "./components/projectManager/index.js";
 import LogIn from "./components/login"
 import UserManager from "./components/userManager"
-import { UserContextProvider } from "./context/userContext.js";
+import UserContextProvider from "./context/userContext";
 import {
-  BrowserRouter as Router,
-  Routes,
+  Switch,
   Route,
-  Link,
-  Outlet
+  BrowserRouter as Router,
 } from "react-router-dom";
 
 function App(props) {
 
   return (
-        <Router>
-          <Routes>
-            
-            <Route exact path="/" element = {<LogIn/>}/>
-            <Route path="/userManagement" element = {
-              <UserContextProvider>
-                <UserManager
-              ></UserManager>
-              </UserContextProvider>
-            }/>
-            <Route path="/projectManagement" element = {      
-                <ProjectManager>
-                </ProjectManager>     
-            }/>
-            
-            {/* <Route exact path="/signup" element = {<SignUp/>}/> */}
-            
-          </Routes>
-        </Router>
+    <div className="App">
+      <Router>
+        <Switch>
+          <Route exact path="/"><LogIn /></Route>
+          <Route path="/userManagement"><UserContextProvider><UserManager /></UserContextProvider></Route>
+          <Route path="/projectManagement"><ProjectManager /></Route>
+          {/* <Route exact path="/signup" element = {<SignUp/>}/> */}
+        </Switch>
+      </Router>
+    </div>
 
   );
 }

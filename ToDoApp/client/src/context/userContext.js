@@ -1,6 +1,6 @@
 import React, { useState, createContext, useEffect } from 'react'
 import { getMethod } from '../api';
-const { Provider, Consumer } = createContext();
+export const UserContext = createContext();
 
 
 
@@ -12,21 +12,21 @@ function UserContextProvider({ children }) {
 
         getMethod('get-users')
             .then((response) => {
-              setUserList(response.data);
+                setUserList(response?.data ?? []);
             })
     }, [])
 
 
     return (
-        <Provider value={{
+        <UserContext.Provider value={{
             userList: userList,
             setUserList: setUserList
         }}>
             {children}
-        </Provider>
+        </UserContext.Provider>
     )
 
 }
 
 
-export { UserContextProvider, Consumer as UserContextConsumer }
+export default UserContextProvider

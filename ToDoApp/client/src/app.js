@@ -1,6 +1,8 @@
 import React from 'react'
 import ProjectMananger from './components/projects'
+import UserManager from './components/userManager'
 import { ProjectContextProvider } from './context/projectContext'
+import { UserContextProvider } from './context/userContext'
 import { BrowserRouter as Router, Link, Routes, Route } from 'react-router-dom'
 import UserManager from "./components/userManager" 
 import { UserContextProvider } from "./context/userContext.js"; 
@@ -27,10 +29,10 @@ function RouteHome() {
 }
 
 function RouteUsers(){
-    return(
-        <div>
-
-        </div>
+    return (
+        <UserContextProvider>
+            <UserManager />
+        </UserContextProvider>
     )
 }
 

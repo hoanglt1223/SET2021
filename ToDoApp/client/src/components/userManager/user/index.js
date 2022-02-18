@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Button from "./button";
 import axios from "axios"
-import {postMethod} from "../../../api"
+import {postMethod, deleteMethod} from "../../../api"
 function User(props) {
     const {
-        key = "",
+        _id = "",
         name = "",
         username = "",
         password = "",
@@ -14,9 +14,10 @@ function User(props) {
         isDeleted = false
     } = props
 
-    const [isEditting, setEditting] = useState('');
+    const [isEditting, setEditting] = useState('none');
     const [isSoftDeleted, setSoftDeleted] = useState('');
     const [edittingData, setEdittingData] = useState({
+      id : _id,
       name: name,
       age: age,
       gender: gender,
@@ -64,21 +65,34 @@ function User(props) {
     
 
     function handleEdit(){
-      setEditting(true)
-      postMethod("edit-user",  edittingData)
-        .then(
-          response => {
-
-          }
-
-        )
-      handleFinishEdit()
+      setEditting("")
     }
 
     function handleFinishEdit(){
-      setEditting(false)
+      setEditting("none")
     }
 
+
+    function handleDeleteAccount(id) {
+      deleteMethod('delete-user', id)
+      .then(
+          response => {
+              
+          }
+      )
+      handleRemove()
+      handleFinishEdit()
+    }
+
+    function handleEditAccount(update) {
+      postMethod('edit-user', update)
+      .then(
+          response => {
+              
+          }
+      )
+      handleFinishEdit()
+    }
 
 
 
@@ -88,9 +102,12 @@ function User(props) {
           className = {username}
           style = {{display: isSoftDeleted}}
         >
-          
+          <td className = "id">
+            {_id}
+          </td>
           <td className = "name">
             {name}
+            <br/>
             <input
               className = "name__editField"
               defaultValue={name}
@@ -107,6 +124,7 @@ function User(props) {
           </td>
           <td className = "age">
             {age}
+            <br/>
             <input
               className = "age__editField"
               defaultValue={age}
@@ -117,6 +135,7 @@ function User(props) {
           </td>
           <td className = "gender">
             {gender}
+            <br/>
             <input
               className = "gender__editField"
               defaultValue={gender}
@@ -127,6 +146,7 @@ function User(props) {
           </td>
           <td className = "role">
             {role}
+            <br/>
             <input
               className = "role__editField"
               defaultValue={role}
@@ -136,12 +156,34 @@ function User(props) {
             </input>
           </td>
           <td className = "checkbox">
+            {(isEditting == "none") && (
             <Button
               type= "checkbox"
               defaultValue= "Check to edit"
               handleOnClick={handleEdit}
           
             />
+            )}
+            {(isEditting == "") && (
+                <div className="user__options">
+                  <Button
+                      titleValue="Delete"
+                      id="delete"
+                      handleOnClick={e => handleDeleteAccount(_id)}
+                  />
+                  <Button
+                      titleValue="Edit"
+                      id="edit__button"
+                      handleOnClick={e => handleEditAccount(edittingData)}
+                  />
+                  <Button
+                      titleValue="Cancel"
+                      id="cancel__button"
+                      handleOnClick={e => setEditting("none")}
+                  />
+                  
+                </div>
+            )}
           </td>
           
         </tr>

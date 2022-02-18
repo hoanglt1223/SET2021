@@ -37,5 +37,9 @@ const userSchema = new Schema({
   }
 })
 
+userSchema.statics.deleteByID = (_id) => {
+  return this.deleteOne({_id: _id});
+}
+
 const Users = mongoose.model('users', userSchema);
 module.exports = Users;

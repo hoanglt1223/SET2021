@@ -24,10 +24,6 @@ const Router = {
             middlewares : [parseRequestBody],
             controller: signUp,
         },
-        '/delete-user':{
-            middlewares : [parseRequestBody],
-            controller: deleteUser,
-        },
         '/edit-user':{
             middlewares : [parseRequestBody],
             controller: editUser,
@@ -46,7 +42,11 @@ const Router = {
         '/delete-project': {
             middlewares: [parseRequestBody],
             controller: deleteProject,
-        }
+        },
+        '/delete-user':{
+            middlewares : [parseRequestBody],
+            controller: deleteUser,
+        },
     },
 
     'PUT': {

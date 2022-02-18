@@ -4,26 +4,11 @@ import {Link} from "react-router-dom"
 function Toolbar(props) {
     
     function handleCreateNewAccount() {
-      window.location.href = "/signup/signup.html";
+      
     }
-
-    function handleDeleteAccount() {
-      postMethod('delete-user', id)
-      .then(
-          response => {
-              
-          }
-      )
-    }
-
-    function handleEditAccount() {
-        
-    }
-
 
     return (
       <React.Fragment>
-        {/* //===== create, delete account */}
           <div className="userManager__toolbar">
             <div className="userManager__toolbar-left">
               <Link to = "/">
@@ -33,26 +18,11 @@ function Toolbar(props) {
                       handleOnClick={handleCreateNewAccount}
                 />
               </Link>
-
-              <Button
-                    titleValue="Delete"
-                    id="delete__button"
-                    handleOnClick={handleDeleteAccount}
-              />
             </div>
 
                 {/* =======title*/}
             <div className="userManager__toolbar-middle">
-              <span className ="userManager__toolbar-title"></span>
-            </div>
-
-                  {/* //=======edit account */}
-            <div className="userManager__toolbar-right">
-              <Button
-                      titleValue="Edit"
-                      id="edit__button"
-                      handleOnClick={handleEditAccount}
-              />
+              <span className ="userManager__toolbar-title">Quang cao dat o day</span>
             </div>
           </div>
       </React.Fragment>

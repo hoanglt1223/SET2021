@@ -13,9 +13,9 @@ function UserManager() {
     return (
       <UserContextConsumer>
         {context => {
+
           let userList = context.userList
           console.log(context.userList)
-          console.log("11312")
           return (
             <div className = "userManager__body">
               <div className="userManager__main">
@@ -33,7 +33,7 @@ function UserManager() {
                 <table className = "userManager__userList"> 
                   <tbody>
                     <tr className ="header__users">
-                
+                      <th>Id</th>
                       <th>Name</th>
                       <th>Username</th>
                       <th>Password</th>
@@ -45,30 +45,34 @@ function UserManager() {
                     </tbody>
                     <tbody>
                     {
+                      
                     userList.map((user, index) => {
+                      if(!user.isDeleted) {
                       // console.log(userList)
-                      user.name = (undefined) ? "" : user.name
-                      user.age = (undefined) ? "" : user.age
-                      user.gender = (undefined) ? "" : user.gender
-                      console.log(user.isAdmin)
-                      if (user.isAdmin){
-                        user.isAdmin = "Admin"
-                      }else {
-                        user.isAdmin = "User"
-                      }
-                      return(
-                        
-                            <User 
-                              key = {index}
-                              name={user.name}
-                              username={user.username}
-                              password={user.password}
-                                age={user.age}
-                                gender={user.gender}
-                                role={user.isAdmin}
-                                isDeleted = {user.isDeleted}
-                            />
-                        )})}
+                        user._id = (undefined) ? "" : user._id
+                        user.name = (undefined) ? "" : user.name
+                        user.password = (undefined) ? "" : "******"
+                        user.age = (undefined) ? "" : user.age
+                        user.gender = (undefined) ? "" : user.gender
+                        if (user.isAdmin){
+                          user.isAdmin = "Admin"
+                        }else {
+                          user.isAdmin = "User"
+                        }
+                        return(
+                          
+                              <User 
+                                key = {index}
+                                _id = {user._id}
+                                name={user.name}
+                                username={user.username}
+                                password={user.password}
+                                  age={user.age}
+                                  gender={user.gender}
+                                  role={user.isAdmin}
+                                  isDeleted = {user.isDeleted}
+                              />
+                          )}})}
                       </tbody>
                 </table>
               </div>

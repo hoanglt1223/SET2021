@@ -1,10 +1,7 @@
 const { addProject, verifyProject, findProjects, deleteByID, handleNotFound, updateProjectByID } = require('./projects.helpers')
 const { insertUser, findUsers, findUserById, removeUserById, updateUserById, verifyUser } = require('./user.helpers')
 const jwt = require('jsonwebtoken')
-const {handleError} = require('../helper');
-const { Project } = require('../models');
-const { User } = require('../models');
-
+const { handleError } = require('../helper');
 function handleAuthResponse(response, isSuccessful = false) {
     const data = {
         status: isSuccessful ? 'success' : 'fail'
@@ -13,40 +10,40 @@ function handleAuthResponse(response, isSuccessful = false) {
     response.end(JSON.stringify(data));
 }
 
-
-function handleDataResponse(response, data){
+function handleDataResponse(response, data) {
     response.statusCode = 200;
     response.end(JSON.stringify(data));
 }
 
-
-function createProject(request, response){
+function createProject(request, response) {
     const project = verifyProject(request.body);
     addProject(project)
-    .then(() => {
-        handleAuthResponse(response, true);
-    })
-    .catch(err => {
-        handleError(err, 'controllers/index.js', 'createProject')
-        handleAuthResponse(response, false);
-    })
+        .then(() => {
+            handleAuthResponse(response, true);
+        })
+        .catch(err => {
+            handleError(err, 'controllers/index.js', 'createProject')
+            handleAuthResponse(response, false);
+        })
 }
 
-function getProjects(request, response){
+function getProjects(request, response) {
     const project = verifyProject(request.body);
+    debugger
     findProjects(project)
-    .then(foundProjects => {
-        if (!foundProjects) {
-            throw new Error('Unknow Projects')
-        }
-        else {
-            handleDataResponse(response, foundProjects);
-        }
-    })
-    .catch ((error) => {
-        handleError(error, '../controllers/index.js', 'getProjects');
-        handleAuthResponse(response, false);
-    })
+        .then(foundProjects => {
+            debugger
+            if (!foundProjects) {
+                throw new Error('Unknow Projects')
+            }
+            else {
+                handleDataResponse(response, foundProjects);
+            }
+        })
+        .catch((error) => {
+            handleError(error, '../controllers/index.js', 'getProjects');
+            handleAuthResponse(response, false);
+        })
 }
 
 function deleteProject(request, response) {
@@ -115,7 +112,6 @@ function updateProjectDeleteTaskByID(request, response) {
         })
 }
 
-
 function signUp(request, response) {
     const user = request.body;
     insertUser(user)
@@ -129,21 +125,21 @@ function signUp(request, response) {
 }
 
 
-function getUsers(request, response){
+function getUsers(request, response) {
     response.setHeader('Content-Type', 'application/json');
     findUsers()
-    .then(foundUsers => {
-        if (!foundUsers) {
-            throw new Error('Unknown Users')
-        }
-        else {
-            handleDataResponse(response, foundUsers);
-        }
-    })
-    .catch ((error) => {
-        handleError(error, '../controllers/index.js', 'getUsers');
-        handleAuthResponse(response, false);
-    })
+        .then(foundUsers => {
+            if (!foundUsers) {
+                throw new Error('Unknown Users')
+            }
+            else {
+                handleDataResponse(response, foundUsers);
+            }
+        })
+        .catch((error) => {
+            handleError(error, '../controllers/index.js', 'getUsers');
+            handleAuthResponse(response, false);
+        })
 }
 
 function getUser(request, response) {
@@ -161,7 +157,7 @@ function getUser(request, response) {
                 handleDataResponse(response, foundUser);
             }
         })
-        .catch ((error) => {
+        .catch((error) => {
             handleError(error, '../controllers/index.js', 'getUsers');
             handleAuthResponse(response, false);
         })
@@ -176,41 +172,41 @@ function deleteUser(request, response) {
             handleError(err, 'controllers/index.js', 'deleteUser')
             handleAuthResponse(response, false)
         })
-        
+
 }
 
 function editUser(request, response) {
-    const {_id, name, age, gender, isAdmin} = request.body;
+    const { _id, name, age, gender, isAdmin } = request.body;
     findUserById(_id)
         .then(foundUser => {
             try {
-                if(foundUser){
-                    updateProjectByID(_id, {name: name, age: age, gender: gender, isAdmin: isAdmin}).then(() => {
+                if (foundUser) {
+                    updateProjectByID(_id, { name: name, age: age, gender: gender, isAdmin: isAdmin }).then(() => {
                         handleAuthResponse(response, true);
                     })
                 }
             } catch (e) {
                 handleError(error, '../controllers/index.js', 'editUser');
                 handleAuthResponse(response, false);
-            }       
+            }
         })
-        
+
 }
 
 function signIn(request, response) {
     const user = request.body
     response.setHeader('Content-Type', 'application/json');
     verifyUser(user).then(foundUser => {
-    if (!foundUser) {
-        throw new Error('User not found')
-    }
-    const token = jwt.sign({ userId: foundUser.id },
-    'RANDOM_TOKEN_SECRET', { expiresIn: '24h' }
-    )
-    const data = {
-        token
-    }
-    response.end(JSON.stringify(data));
+        if (!foundUser) {
+            throw new Error('User not found')
+        }
+        const token = jwt.sign({ userId: foundUser.id },
+            'RANDOM_TOKEN_SECRET', { expiresIn: '24h' }
+        )
+        const data = {
+            token
+        }
+        response.end(JSON.stringify(data));
     }).catch(err => {
         handleError(err, 'controllers/index.js', 'signIn')
         response.statusCode = 404
@@ -219,4 +215,17 @@ function signIn(request, response) {
 }
 
 
-module.exports =  {createProject, getProjects, deleteProject, updateProjectAddTaskByID , updateProjectDoneTaskByID, updateProjectDeleteTaskByID, signUp, getUsers, getUser, deleteUser, editUser, signIn}
+module.exports = {
+    createProject,
+    getProjects,
+    deleteProject,
+    updateProjectAddTaskByID,
+    updateProjectDoneTaskByID,
+    updateProjectDeleteTaskByID,
+    signUp,
+    getUsers,
+    getUser,
+    deleteUser,
+    editUser,
+    signIn
+}

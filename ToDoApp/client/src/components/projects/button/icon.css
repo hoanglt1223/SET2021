@@ -1,8 +1,6 @@
 /* Expand task */
 .gg-chevron-double-down-o {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: relative;
   border: 2px solid;
   border-radius: 100px;
   width: 30px;
@@ -19,12 +17,49 @@
   border-bottom: 2px solid;
   border-right: 2px solid;
   transform: rotate(45deg);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
   margin: auto;
 }
 
 .gg-chevron-double-down-o:hover {
   background-color: #004f2d;
 }
+
+.gg-chevron-double-up-o {
+  position: relative;
+  border: 2px solid;
+  border-radius: 100px;
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+  background-color: #3E7CB1;
+}
+
+.gg-chevron-double-up-o::before {
+  content: "";
+  box-sizing: border-box;
+  width: 10px;
+  height: 10px;
+  border-bottom: 2px solid;
+  border-right: 2px solid;
+  transform: rotate(-135deg);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.gg-chevron-double-up-o:hover {
+  background-color: #81A4CD;
+}
+
+
 
 /* refresh project */
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import Button from "../button";
 import './project.css'
 import DetailBoard from "../board";
@@ -15,24 +15,23 @@ function Project(props) {
     } = props
 
     const [isExpanded, setExpanded] = useState('none');
-    const [valueExpandButton, setValueExpandButton] = useState('Expand');
+    const [valueExpandButton, setValueExpandButton] = useState('down');
     const [isRemoved, setRemove] = useState(isDeleted)
-    const [taskList, setTaskList] = useState(taskList_props);
 
     function handleExpand() {
         if (isExpanded == 'none') {
             setExpanded('inline-block')
-            setValueExpandButton('Collapse')
+            setValueExpandButton('up')
         }
         else {
             setExpanded('none')
-            setValueExpandButton('Expand')
+            setValueExpandButton('down')
         }
     }
 
     function handleRemove() {
         deleteMethod('delete-project', { _id: id }).then(response => {
-            setRemove(true);
+            if (response.data.status === 'success' ) setRemove(true);
         })
     }
 
@@ -43,7 +42,7 @@ function Project(props) {
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '10px', height: '60px' }}>
                 <Button
                     handleOnClick={handleExpand}
-                    className="gg-chevron-double-down-o"
+                    className={`gg-chevron-double-${valueExpandButton}-o`}
                 >
                 </Button>
                 <p className="projectName">{nameProject}</p>
@@ -57,7 +56,7 @@ function Project(props) {
 
             <DetailBoard
                 projectID={id}
-                fetchedTaskList={taskList}
+                fetchedTaskList={taskList_props}
                 isExpanded={isExpanded}
             />
 

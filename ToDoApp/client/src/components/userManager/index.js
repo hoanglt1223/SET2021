@@ -15,18 +15,12 @@ function UserManager() {
         {context => {
 
           let userList = context.userList
-          console.log(context.userList)
           return (
             <div className = "userManager__body">
               <div className="userManager__main">
 
-                  <Header
-                      
-                      
-                  />
-                  <Toolbar
-                      
-                  />
+                  <Header/>
+                  <Toolbar/>
 
               <div className = "userManager__content">
                 

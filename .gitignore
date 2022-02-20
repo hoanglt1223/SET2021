@@ -90,4 +90,6 @@ typings/
 # webstorm
 .DS_Store
 .idea
+
+#VSCode
 .vscode

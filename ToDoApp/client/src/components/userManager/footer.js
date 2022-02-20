@@ -5,7 +5,7 @@ function Footer(props) {
 
     return (
       <div className="userManager__footer">
-        NAM DEP TRAI, TAI DEP TRAI 
+        <h2 className ="userManager__footer-content" >NAM DEP TRAI, TAI DEP TRAI </h2>
       </div>
     )
     

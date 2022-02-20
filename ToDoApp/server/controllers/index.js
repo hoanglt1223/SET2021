@@ -168,7 +168,7 @@ function getUser(request, response) {
 
 function deleteUser(request, response) {
     const { _id } = request.body;
-    updateUserByID(_id, { isDeleted: true }).then(() => {
+    updateUserById(_id, { isDeleted: true }).then(() => {
         handleAuthResponse(response, true)
     })
         .catch(err => {
@@ -179,21 +179,29 @@ function deleteUser(request, response) {
 }
 
 function editUser(request, response) {
-    const { _id, name, age, gender, isAdmin } = request.body;
-    findUserById(_id)
-        .then(foundUser => {
-            try {
-                if (foundUser) {
-                    updateProjectByID(_id, { name: name, age: age, gender: gender, isAdmin: isAdmin }).then(() => {
-                        handleAuthResponse(response, true);
-                    })
-                }
-            } catch (e) {
-                handleError(error, '../controllers/index.js', 'editUser');
-                handleAuthResponse(response, false);
-            }
+    const update = request.body;
+    // console.log(request.body)
+    // findUserById(_id)
+    //     .then(foundUser => {
+    //         try {
+    //             if (foundUser) {
+    //                 updateUserById(_id, { name: name, age: age, gender: gender, isAdmin: isAdmin }).then(() => {
+    //                     handleAuthResponse(response, true);
+    //                 })
+    //             }
+    //         } catch (e) {
+    //             handleError(error, '../controllers/index.js', 'editUser');
+    //             handleAuthResponse(response, false);
+    //         }
+    //     })
+    
+    updateUserById(update._id, { name: update.name, age: update.age, gender: update.gender, isAdmin: update.isAdmin }).then(() => {
+        handleAuthResponse(response, true)
+    })
+        .catch(err => {
+            handleError(err, 'controllers/index.js', 'deleteUser')
+            handleAuthResponse(response, false)
         })
-
 }
 
 function LogIn(request, response) {

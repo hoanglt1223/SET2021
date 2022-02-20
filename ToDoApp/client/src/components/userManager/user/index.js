@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Button from "./button";
 import axios from "axios"
-import {postMethod, deleteMethod} from "../../../api"
+import {updateMethod, deleteMethod} from "../../../api"
 function User(props) {
     const {
         _id = "",
@@ -10,18 +10,18 @@ function User(props) {
         password = "",
         age = 10,
         gender = "male",
-        role = "user",
+        isAdmin = false,
         isDeleted = false
     } = props
-
+    const [userData, setUserData] = useState(props)
     const [isEditting, setEditting] = useState('none');
     const [isSoftDeleted, setSoftDeleted] = useState('');
     const [edittingData, setEdittingData] = useState({
-      id : _id,
+      _id : _id,
       name: name,
       age: age,
       gender: gender,
-      role: role,
+      isAdmin: isAdmin,
     })
 
     useEffect(()=>{
@@ -55,14 +55,11 @@ function User(props) {
         case "role":
           setEdittingData(prevState => ({
             ...prevState,
-            role: text
+            isAdmin: text
         }))
           break;
       }
-      
     }
-      
-    
 
     function handleEdit(){
       setEditting("")
@@ -74,24 +71,39 @@ function User(props) {
 
 
     function handleDeleteAccount(id) {
-      deleteMethod('delete-user', id)
+      deleteMethod('delete-user', { _id: id })
       .then(
           response => {
-              
           }
       )
       handleRemove()
       handleFinishEdit()
     }
 
-    function handleEditAccount(update) {
-      postMethod('edit-user', update)
+    function handleEditAccount(update, id) {
+      setEdittingData()
+      console.log(update)
+      if(update.isAdmin){
+        if(update.isAdmin == "Admin"){
+          update.isAdmin = true
+        } else {
+          update.isAdmin = false
+        }
+      }
+      
+      updateMethod('edit-user', update)
       .then(
           response => {
-              
+            handleFinishEdit()
+            setUserData(prevState => ({
+              ...prevState,
+              name: update.name,
+              age: update.age,
+              gender: update.gender,
+              isAdmin: update.isAdmin
+            }))
           }
       )
-      handleFinishEdit()
     }
 
 
@@ -103,10 +115,10 @@ function User(props) {
           style = {{display: isSoftDeleted}}
         >
           <td className = "id">
-            {_id}
+            {userData._id}
           </td>
           <td className = "name">
-            {name}
+            {userData.name}
             <br/>
             <input
               className = "name__editField"
@@ -117,13 +129,13 @@ function User(props) {
             </input>
           </td>
           <td className = "username">
-            {username}
+            {userData.username}
           </td>
           <td className = "password">
-            {password}
+            {userData.password}
           </td>
           <td className = "age">
-            {age}
+            {userData.age}
             <br/>
             <input
               className = "age__editField"
@@ -134,7 +146,7 @@ function User(props) {
             </input>
           </td>
           <td className = "gender">
-            {gender}
+            {userData.gender}
             <br/>
             <input
               className = "gender__editField"
@@ -145,11 +157,16 @@ function User(props) {
             </input>
           </td>
           <td className = "role">
-            {role}
+            {(userData.isAdmin == false) && (
+              "User"
+            )}
+            {(userData.isAdmin == true) && (
+              "Admin"
+            )}
             <br/>
             <input
               className = "role__editField"
-              defaultValue={role}
+              defaultValue= "User"
               style={{display: isEditting}}
               onChange = {e => handleEditField(e.target.value, "role")}
             >
@@ -174,7 +191,7 @@ function User(props) {
                   <Button
                       titleValue="Edit"
                       id="edit__button"
-                      handleOnClick={e => handleEditAccount(edittingData)}
+                      handleOnClick={e => handleEditAccount(edittingData, _id)}
                   />
                   <Button
                       titleValue="Cancel"

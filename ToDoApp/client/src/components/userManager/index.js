@@ -42,17 +42,12 @@ function UserManager() {
                       
                     userList.map((user, index) => {
                       if(!user.isDeleted) {
-                      // console.log(userList)
                         user._id = (undefined) ? "" : user._id
                         user.name = (undefined) ? "" : user.name
                         user.password = (undefined) ? "" : "******"
                         user.age = (undefined) ? "" : user.age
                         user.gender = (undefined) ? "" : user.gender
-                        if (user.isAdmin){
-                          user.isAdmin = "Admin"
-                        }else {
-                          user.isAdmin = "User"
-                        }
+                        user.isAdmin = (undefined) ? false : user.isAdmin
                         return(
                           
                               <User 
@@ -61,10 +56,10 @@ function UserManager() {
                                 name={user.name}
                                 username={user.username}
                                 password={user.password}
-                                  age={user.age}
-                                  gender={user.gender}
-                                  role={user.isAdmin}
-                                  isDeleted = {user.isDeleted}
+                                age={user.age}
+                                gender={user.gender}
+                                isAdmin={user.isAdmin}
+                                isDeleted = {user.isDeleted}
                               />
                           )}})}
                       </tbody>

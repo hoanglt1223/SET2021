@@ -9,32 +9,28 @@ function Button(props) {
     textColor = "#333",
     handleOnClick = undefined,
     className,
-} = props
+  } = props
 
-useEffect(() => {
+  useEffect(() => {
     window.addEventListener("click", (e) => handleOnClick)
-})
-
-useEffect(() => {
-  window.addEventListener("click", (e) => handleOnClick)
-})
+  })
 
   return (
-  
-        (
-          <React.Fragment>
-         <input
-            type={type}
-            defaultValue={titleValue}
-            style={{ color: textColor }}
-            onClick={handleOnClick}
-            className = {className}
-        >
 
-        </input>
-        </React.Fragment>
 
-      )
+    <React.Fragment>
+      <input
+        type={type}
+        defaultValue={titleValue}
+        style={{ color: textColor }}
+        onClick={handleOnClick}
+        className={className}
+      >
+
+      </input>
+    </React.Fragment>
+
+
 
   );
 }

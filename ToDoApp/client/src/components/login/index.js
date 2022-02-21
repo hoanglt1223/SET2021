@@ -5,7 +5,10 @@ import "./login.css"
 
 function LogIn(props) {
   return (
-    <LogInContent></LogInContent>
+      <LogInContent>
+        
+      </LogInContent>
+
 
   );
 }

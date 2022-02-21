@@ -1,5 +1,5 @@
 const { addProject, verifyProject, findProjects, deleteByID, handleNotFound, updateProjectByID } = require('./projects.helpers')
-const { insertUser, findUsers, findUserById, removeUserById, updateUserById, verifyUser } = require('./user.helpers')
+const { insertUser, findUsers, findUserById, removeUserById, updateUserById, verifyUser, hashPassword } = require('./user.helpers')
 const jwt = require('jsonwebtoken')
 const { handleError } = require('../helper');
 const mongoose = require('mongoose')
@@ -29,7 +29,6 @@ function createProject(request, response) {
             handleAuthResponse(response, false);
         })
 }
-
 
 function getProjects(request, response) {
     let project = verifyProject(request.body);
@@ -197,22 +196,36 @@ function editUser(request, response) {
 
 }
 
-function signIn(request, response) {
-    const user = request.body
+function LogIn(request, response) {
+    const checkingUser = request.body
     response.setHeader('Content-Type', 'application/json');
-    verifyUser(user).then(foundUser => {
-        if (!foundUser) {
-            throw new Error('User not found')
+    findUsers().then(users => {
+        if (!users) {
+            throw new Error('Failed to get users')
         }
-        const token = jwt.sign({ userId: foundUser.id },
-            'RANDOM_TOKEN_SECRET', { expiresIn: '24h' }
-        )
-        const data = {
-            token
+        let user = users.find(user => user.username === checkingUser.username && user.password === hashPassword(checkingUser.password));
+        if (user) {
+            const token = jwt.sign({ userId: users.id },
+                'RANDOM_TOKEN_SECRET', { expiresIn: '24h' }
+            )
+            const data = {
+                status: 'success',
+                token: token,
+                account: {
+                    username: user.username,
+                    name: user.name,
+                    age: user.age,
+                    gender: user.gender
+                }
+            }
+            handleDataResponse(response, data)
         }
-        response.end(JSON.stringify(data));
+        else {
+            handleAuthResponse(response, false)
+        }
+
     }).catch(err => {
-        handleError(err, 'controllers/index.js', 'signIn')
+        handleError(err, 'controllers/index.js', 'LogIn')
         response.statusCode = 404
         response.end('Username or password is not correct.')
     })
@@ -231,5 +244,5 @@ module.exports = {
     getUser,
     deleteUser,
     editUser,
-    signIn
+    LogIn
 }

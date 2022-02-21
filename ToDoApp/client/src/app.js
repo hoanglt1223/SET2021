@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ProjectMananger from './components/projects'
 import { ProjectContextProvider } from './context/projectContext'
 import { BrowserRouter as Router, Link, Routes, Route } from 'react-router-dom'
-import UserManager from "./components/userManager" 
-import { UserContextProvider } from "./context/userContext.js"; 
+import UserManager from "./components/userManager"
+import { UserContextProvider } from "./context/userContext.js";
+import LogIn from './components/login'
+import { MyselfContextConsumer, MyselfContextProvider } from './context/myselfContext'
 
 function RouteProjects() {
     return (
@@ -21,12 +23,12 @@ function RouteHome() {
                 TO DO APP
             </span>
 
-            <span style = {{textDecoration: 'underline'}}>by: Nam & Tai</span>
+            <span style={{ textDecoration: 'underline' }}>by: Nam & Tai</span>
         </React.Fragment>
     )
 }
 
-function RouteUsers(){
+function RouteUsers() {
     return (
         <UserContextProvider>
             <UserManager />
@@ -34,38 +36,68 @@ function RouteUsers(){
     )
 }
 
+function RouteLogIn() {
+    return (
+        <LogIn></LogIn>
+    )
+}
 
-export default function App() {
+function RoutersApp() {
     return (
 
         <React.Fragment>
-            <Router>
-                <div id="router">
-                    <ul style={{ height: "100%" }}>
-                        <li className='navTool' onClick={e => (e.currentTarget.firstChild.click())}>
-                            <Link to="/">Home</Link>
-                        </li>
-                        <li className='navTool' onClick={e => (e.currentTarget.firstChild.click())}>
-                            <Link to='/projects'>Projects</Link>
-                        </li>
-                        <li className='navTool' onClick={e => (e.currentTarget.firstChild.click())}>
-                            <Link to='/users' >Users</Link>
+            <div id="router">
+                <ul style={{ height: "100%" }}>
+                    <li className='navTool' onClick={e => (e.currentTarget.firstChild.click())}>
+                        <Link to="/">Home</Link>
+                    </li>
+                    <li className='navTool' onClick={e => (e.currentTarget.firstChild.click())}>
+                        <Link to='/projects'>Projects</Link>
+                    </li>
+                    <li className='navTool' onClick={e => (e.currentTarget.firstChild.click())}>
+                        <Link to='/users' >Users</Link>
+                    </li>
+                </ul>
+            </div>
 
-                        </li>
-                    </ul>
-                </div>
-
-                <div id="app">
-                    <Routes>
-                        <Route path="/" element={<RouteHome />}></Route>
-                        <Route path='/projects' element={<RouteProjects />}></Route>
-                        <Route path="/users" element={<RouteUsers/>}></Route>
-                    </Routes>
+            <div id="app">
+                <Routes>
+                    <Route path="/" element={<RouteHome />}></Route>
+                    <Route path='/projects' element={<RouteProjects />}></Route>
+                    <Route path="/users" element={<RouteUsers />}></Route>
+                </Routes>
 
 
-                </div>
-            </Router>
+            </div>
         </React.Fragment>
+
+    )
+}
+
+
+export default function App() {
+    return (
+        <Router>
+            <MyselfContextProvider>
+                <MyselfContextConsumer>
+                    {context => {
+                        if (context.account) {
+                            return (
+                                <RoutersApp />
+                            )
+                        }
+                        else {
+                            return (
+                                <RouteLogIn />
+                            )
+                        }
+                    }}
+                </MyselfContextConsumer>
+            </MyselfContextProvider>
+        </Router>
+
+
+
     )
 }
 

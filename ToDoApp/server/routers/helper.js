@@ -1,6 +1,8 @@
 
-const {parseRequestBody} = require('../middlewares/')
-const {createProject, getProjects, deleteProject, updateProjectAddTaskByID , updateProjectDoneTaskByID, updateProjectDeleteTaskByID, signUp, getUsers, getUser, deleteUser, editUser, signIn} = require('../controllers')
+const { parseRequestBody } = require('../middlewares/')
+const { createProject,
+    getProjects,
+    deleteProject, updateProjectAddTaskByID, updateProjectDoneTaskByID, updateProjectDeleteTaskByID, signUp, getUsers, getUser, deleteUser, editUser, LogIn } = require('../controllers')
 
 const Router = {
     'GET': {
@@ -8,11 +10,13 @@ const Router = {
             middlewares: [parseRequestBody],
             controller: getProjects,
         },
-        '/get-users':{
-            middlewares : [parseRequestBody],
+        '/get-users': {
+            middlewares: [parseRequestBody],
             controller: getUsers,
         },
-        
+
+     
+
     },
 
     'POST': {
@@ -20,22 +24,22 @@ const Router = {
             middlewares: [parseRequestBody],
             controller: createProject,
         },
-        '/sign-up' : {
-            middlewares : [parseRequestBody],
+        '/sign-up': {
+            middlewares: [parseRequestBody],
             controller: signUp,
         },
-        '/edit-user':{
-            middlewares : [parseRequestBody],
+        '/edit-user': {
+            middlewares: [parseRequestBody],
             controller: editUser,
         },
-        '/sign-in' : {
-            middlewares : [parseRequestBody],
-            controller: signIn,
-        },
-        '/get-user':{
-            middlewares : [parseRequestBody],
+        '/get-user': {
+            middlewares: [parseRequestBody],
             controller: getUser,
         },
+        '/log-in': {
+            middlewares: [parseRequestBody],
+            controller: LogIn,
+        },  
     },
 
     'DELETE': {
@@ -43,8 +47,8 @@ const Router = {
             middlewares: [parseRequestBody],
             controller: deleteProject,
         },
-        '/delete-user':{
-            middlewares : [parseRequestBody],
+        '/delete-user': {
+            middlewares: [parseRequestBody],
             controller: deleteUser,
         },
     },
@@ -59,11 +63,11 @@ const Router = {
             middlewares: [parseRequestBody],
             controller: updateProjectAddTaskByID
         },
-        '/done-task':{
+        '/done-task': {
             middlewares: [parseRequestBody],
             controller: updateProjectDoneTaskByID,
         },
-        '/delete-task':{
+        '/delete-task': {
             middlewares: [parseRequestBody],
             controller: updateProjectDeleteTaskByID
         }

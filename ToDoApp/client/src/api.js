@@ -3,8 +3,8 @@ import axios from "axios"
 
 const portServer = "http://localhost:5500";
 
-const getMethod = (url) => {
-    return axios.get(`${portServer}/${url}`, JSON.stringify({}))
+const getMethod = (url, data = {}) => {
+    return axios.get(`${portServer}/${url}`, JSON.stringify(data))
 }
 
 const postMethod = (url, data) => {

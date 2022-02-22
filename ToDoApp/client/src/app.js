@@ -47,7 +47,7 @@ function RoutersApp() {
 
         <React.Fragment>
             <div id="router">
-                <ul style={{ height: "100%" }}>
+                <ul id = 'containerTool' style={{ height: "100%" }}>
                     <li className='navTool' onClick={e => (e.currentTarget.firstChild.click())}>
                         <Link to="/">Home</Link>
                     </li>
@@ -57,6 +57,7 @@ function RoutersApp() {
                     <li className='navTool' onClick={e => (e.currentTarget.firstChild.click())}>
                         <Link to='/users' >Users</Link>
                     </li>
+                    
                 </ul>
             </div>
 
@@ -81,7 +82,7 @@ export default function App() {
             <MyselfContextProvider>
                 <MyselfContextConsumer>
                     {context => {
-                        if (context.account) {
+                        if (window.sessionStorage.getItem('token')) {
                             return (
                                 <RoutersApp />
                             )

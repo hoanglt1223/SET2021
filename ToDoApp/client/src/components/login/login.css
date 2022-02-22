@@ -2,8 +2,6 @@
   margin: auto;
   width: 100%;
   height: auto;
-  padding: 10px;
-  margin-top: 50px;
 }
 
 #login > h1 {
@@ -14,8 +12,8 @@
 
 .loginInput {
   width: 250px;
-  padding: 10px;
   font-size: 20px;
+  padding: 10px;
 }
 
 #login__form{

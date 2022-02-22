@@ -19,6 +19,7 @@ function LogInContent(props) {
 						}
 						postMethod('log-in', checkingAccount).then(response => {
 							if (response.data.status === 'success') {
+								window.sessionStorage.setItem('token', response.data.token);
 								context.setAccount(response.data.account);
 							}
 							else {

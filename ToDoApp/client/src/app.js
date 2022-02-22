@@ -7,6 +7,7 @@ import { UserContextProvider } from "./context/userContext.js";
 import LogIn from './components/login'
 import SignUp from './components/signup'
 import { MyselfContextConsumer, MyselfContextProvider } from './context/myselfContext'
+import {LogOut} from './components/logout'
 
 function RouteProjects() {
     return (
@@ -71,6 +72,9 @@ function RoutersApp() {
                     <li className='navTool' onClick={e => (e.currentTarget.firstChild.click())}>
                         <Link to='/users' >Users</Link>
                     </li>
+                    <li className='navTool logout' onClick={e => (e.currentTarget.firstChild.click())}>
+                       <LogOut/>
+                    </li>
                     
                 </ul>
             </div>
@@ -96,7 +100,7 @@ export default function App() {
             <MyselfContextProvider>
                 <MyselfContextConsumer>
                     {context => {
-                        if (window.sessionStorage.getItem('token')) {
+                        if (window.sessionStorage.getItem('token') && context) {
                             return (
                                 <RoutersApp />
                             )

@@ -3,7 +3,7 @@ const router = express.Router();
 const { parseRequestBody } = require('../middlewares/')
 const { createProject,
     getProjects,
-    deleteProject, updateProjectAddTaskByID, updateProjectDoneTaskByID, updateProjectDeleteTaskByID, signUp, getUsers, getUser, deleteUser, editUser, LogIn } = require('../controllers');
+    deleteProject, updateProjectAddTaskByID, updateProjectDoneTaskByID, updateProjectDeleteTaskByID, signUp, getUsers, getUser, deleteUser, editUser, logIn } = require('../controllers');
 
 
 
@@ -44,7 +44,7 @@ router.post('/get-user', (req, res) => {
 })
 
 router.post('/log-in', (req, res) => {
-    LogIn(req, res)
+    logIn(req, res)
 })
 
 //================== DELETE

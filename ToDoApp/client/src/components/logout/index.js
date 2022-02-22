@@ -1,13 +1,16 @@
 import React from 'react'
-import {MyselfContextConsumer} from '../../context/myselfContext'
-import {Link} from 'react-router-dom'
+import { MyselfContextConsumer } from '../../context/myselfContext'
+import { Link } from 'react-router-dom'
 
-function LogOut(){
+export function LogOut() {
     return (
         <MyselfContextConsumer>
             {context => {
                 return (
-                    <div></div>
+                  <Link to ='/' onClick = {e => {
+                      context.setAccount(undefined);
+                      window.sessionStorage.removeItem('token');
+                  }}>Log Out</Link>  
                 )
             }}
         </MyselfContextConsumer>

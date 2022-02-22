@@ -14,7 +14,7 @@ function UserContextProvider({ children }) {
             .then((response) => {
               setUserList(response.data);
             })
-    }, [userList])
+    }, [])
 
 
     return (

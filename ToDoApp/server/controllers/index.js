@@ -180,20 +180,6 @@ function deleteUser(request, response) {
 
 function editUser(request, response) {
     const update = request.body;
-    // console.log(request.body)
-    // findUserById(_id)
-    //     .then(foundUser => {
-    //         try {
-    //             if (foundUser) {
-    //                 updateUserById(_id, { name: name, age: age, gender: gender, isAdmin: isAdmin }).then(() => {
-    //                     handleAuthResponse(response, true);
-    //                 })
-    //             }
-    //         } catch (e) {
-    //             handleError(error, '../controllers/index.js', 'editUser');
-    //             handleAuthResponse(response, false);
-    //         }
-    //     })
     
     updateUserById(update._id, { name: update.name, age: update.age, gender: update.gender, isAdmin: update.isAdmin }).then(() => {
         handleAuthResponse(response, true)
@@ -204,7 +190,7 @@ function editUser(request, response) {
         })
 }
 
-function LogIn(request, response) {
+function logIn(request, response) {
     const checkingUser = request.body
     response.setHeader('Content-Type', 'application/json');
     findUsers().then(users => {
@@ -252,5 +238,5 @@ module.exports = {
     getUser,
     deleteUser,
     editUser,
-    LogIn
+    logIn
 }

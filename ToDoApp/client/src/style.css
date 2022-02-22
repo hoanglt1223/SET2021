@@ -23,6 +23,7 @@ body {
 
 #router {
   width: 12%;
+  min-width: 200px;
   background-color: #878472;
   border-right: 2px solid #1c1c1c;
   position: relative;
@@ -56,6 +57,7 @@ html {
   justify-content: center;
   border-radius: 10px;
   background-color: #BFA89E;
+  min-width: 150px;
 }
 
 .navTool a {
@@ -80,7 +82,19 @@ ul {
 
 #containerTool{
   width: 90%;
-  display: flex;
+  display: flex; 
   flex-direction: column;
   align-items: center;
+}
+
+.logout{
+  background-color: #BC9CB0;
+}
+
+.logout a {
+  color: #F2CD5D ;
+}
+
+.logout:hover{
+  background-color:#8797AF ;
 }

@@ -37,19 +37,15 @@
 .userManager__header {
   text-align: center;
   padding: 10px;
-  margin: 10px;
-  display: flex;
-  flex-direction: row;
   justify-content: center;
   border-radius: 10px;
   background-color: #202020;
+  width: 100%;
 }
 
 .userManager__header-title {
   font-size: 50px;
-  text-align: center;
   color: #6cf;
-  text-align: -webkit-match-parent;
 }
 
 .userManager__toolbar-title {
@@ -59,34 +55,18 @@
   text-align: -webkit-match-parent;
 }
 
-.userManager__header-middle {
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-}
 
 .userManager__toolbar {
   padding: 10px;
-  margin: 10px;
   border-radius: 10px;
   display: flex;
   justify-content: space-between;
   background-color: #e3f5fd;
+  width: 100%;
 }
 
-.userManager__header-left {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: fit-content;
-}
 
-.userManager__header-right {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: fit-content;
-}
+
 
 table {
   padding: 10px;
@@ -123,11 +103,8 @@ input {
   font-size: 16px;
   min-width: auto;
 }
-input:hover {
-  min-width: auto;
-  cursor: pointer;
-  background-color: #6cf;
-}
+
+
 #edit__button:hover {
   background-color: lightcoral;
 }

@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
-import Button from "./button/index";
-import { Link, useNavigate } from "react-router-dom";
-import { postMethod } from "../../api";
-function SignUpContent(props) {
+import Button from "./user/button/";
+import { postMethod, getMethod } from "../../api";
+import "./createUser.css"
+function CreateUser(props) {
+  const {
+    isCreating = '',
+    setCreating = () => {},
+    setUserListContext = () => {},
+  } = props
   const [nameInput, setNameInput] = useState('');
   const [usernameInput, setUsernameInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
@@ -11,9 +16,9 @@ function SignUpContent(props) {
   const [genderInput, setGenderInput] = useState('Male')
   const [isAdmin, setAdmin] = useState(false)
   const [isSuccess, setSuccess] = useState('none')
-  function handleSignUp(){
+  function handlecreateUser(){
     if(nameInput && usernameInput && passwordInput && confirmPasswordInput && ageInput && genderInput){
-      const signingUpAccount = {
+      const createdAccount = {
         name: nameInput,
         username: usernameInput,
         password: passwordInput,
@@ -24,14 +29,18 @@ function SignUpContent(props) {
         isDeleted: false,
         isOnline: false,
       }
-      console.log(signingUpAccount) 
-      postMethod('sign-up', signingUpAccount).then(response => {
+      console.log(createdAccount)
+      postMethod('sign-up', createdAccount).then(response => {
         if (response.data.status === 'success') {
           setSuccess('')
+          setCreating('none')
         } else {
           setSuccess('block')
         }
       })
+      // createdAccount._id = "Wait for server to create"
+      Object.assign(createdAccount, {_id: "Waiting to be created "});
+      setUserListContext(prev => [...prev, createdAccount])
     } else {
       setSuccess('block')
     }
@@ -56,13 +65,13 @@ function SignUpContent(props) {
 
   return (
         (	
-        <div id="signup">
-          <h1>Sign Up</h1>
+        <div style={{display: isCreating}} className="createUser">
+          <h1>Create User</h1>
         {/* <!--Form--> */}
-        <form id="signup__form">
+        <form id="createUser__form">
     
           {/* <!--Name--> */}
-          <div id="signup__nameField">
+          <div id="createUser__nameField">
             Name: 
             <input
                       type='text'
@@ -78,7 +87,7 @@ function SignUpContent(props) {
           </div>
     
                 {/* <!--User Name--> */}
-                <div id="signup__usernameField">
+                <div id="createUser__usernameField">
 
                 Username:
                 <input
@@ -95,7 +104,7 @@ function SignUpContent(props) {
                 </div>
     
                 {/* <!--Password--> */}
-                <div id="signup__passwordField">
+                <div id="createUser__passwordField">
                     Password:
                     <input
                       type='password'
@@ -110,7 +119,7 @@ function SignUpContent(props) {
                 </div>
     
                 {/* <!--Confirm Password--> */}
-                <div id="signup__confirmField">
+                <div id="createUser__confirmField">
                     Confirm Password:
                     <input
                       type='password'
@@ -125,7 +134,7 @@ function SignUpContent(props) {
                 </div>
     
                 {/* <!--Age--> */}
-                <div id="signup__ageField">
+                <div id="createUser__ageField">
                     Age:
                     <input
                       type='text'
@@ -140,7 +149,7 @@ function SignUpContent(props) {
                 </div>
     
                 {/* <!--Gender--> */}
-                <div id="signup__genderField">
+                <div id="createUser__genderField">
                     Gender: <div className="radio-group">
                      
                         <input type="radio" id="Gender" name="gender" value="Gender" defaultChecked onClick={e => 
@@ -156,7 +165,7 @@ function SignUpContent(props) {
                 </div>
     
                 {/* // admin */}
-                <div id = "signup__roleField">
+                <div id = "createUser__roleField">
                   Admin: 
                   <input 
                     type="checkbox" 
@@ -166,18 +175,30 @@ function SignUpContent(props) {
                   />
         
                 </div>
-                <div className="signup__submit">
-                <Button
-                  id =  "signup__button"
-                  titleValue="Sign up"
-                  handleOnClick={() => {
-                    handleSignUp()
-                    cancelInput()
-                  }}
-                />
+                <div className="createUser__buttons">
+                  <div className="createUser__submit">
+                    <Button
+                      id =  "createUser__createButton"
+                      titleValue="Create"
+                      handleOnClick={() => {
+                        handlecreateUser()
+                        cancelInput()
+                      }}
+                  />
+        
+                  </div>
+                  <div className="createUser__cancel">
+                    <Button
+                      id =  "createUser__cancelButton"
+                      titleValue="Cancel"
+                      handleOnClick={() => {
+                        setCreating("none")
+                      }}
+                    />
+                  </div>
                 </div>
                 {/* <!--Result--> */}
-                <div style = {{display: isSuccess}} id="signup__result">
+                <div style = {{display: isSuccess}} id="createUser__result">
                 {(isSuccess == '') && (
                     <h3 style={{color: "green"}}>Successful</h3>
                   )
@@ -188,14 +209,8 @@ function SignUpContent(props) {
                 }
                 </div>
             </form>
-    
-            <Link 
-              id = "return__button"
-              to  = "/"
-              >Return
-            </Link>
         </div>
   ))
 }
 
-export default SignUpContent;
+export default CreateUser

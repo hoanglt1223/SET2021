@@ -118,6 +118,7 @@ function updateProjectDeleteTaskByID(request, response) {
 
 function signUp(request, response) {
     const user = request.body;
+    console.log(user)
     insertUser(user)
         .then(() => {
             handleAuthResponse(response, true)

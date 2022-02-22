@@ -28,12 +28,8 @@ const Router = {
             middlewares: [parseRequestBody],
             controller: signUp,
         },
-        '/edit-user': {
-            middlewares: [parseRequestBody],
-            controller: editUser,
-        },
-        '/get-user': {
-            middlewares: [parseRequestBody],
+        '/get-user':{
+            middlewares : [parseRequestBody],
             controller: getUser,
         },
         '/log-in': {
@@ -70,7 +66,11 @@ const Router = {
         '/delete-task': {
             middlewares: [parseRequestBody],
             controller: updateProjectDeleteTaskByID
-        }
+        },
+        '/edit-user':{
+            middlewares : [parseRequestBody],
+            controller: editUser,
+        },
 
     }
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Button from "./button";
 import axios from "axios"
-import {updateMethod, deleteMethod, getMethod} from "../../../api"
+import {updateMethod, deleteMethod} from "../../../api"
 function User(props) {
     const {
         setUserListContext = () => {},
@@ -82,6 +82,7 @@ function User(props) {
     }
 
     function handleEditAccount(update, id) {
+      console.log(userData)
       setEdittingData()
       console.log(update)
       if(update.isAdmin){
@@ -186,7 +187,7 @@ function User(props) {
                 <div className="user__options">
                   <Button
                       titleValue="Delete"
-                      id="delete"
+                      id="delete__button"
                       handleOnClick={e => handleDeleteAccount(_id)}
                   />
                   <Button

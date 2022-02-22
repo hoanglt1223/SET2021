@@ -34,6 +34,10 @@ const userSchema = new Schema({
   isDeleted:{
     type: Boolean,
     default: false,
+  },
+  isOnline:{
+    type: Boolean,
+    default: false,
   }
 })
 

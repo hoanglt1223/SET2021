@@ -7,7 +7,7 @@ import { UserContextProvider } from "./context/userContext.js";
 import LogIn from './components/login'
 import SignUp from './components/signup'
 import { MyselfContextConsumer, MyselfContextProvider } from './context/myselfContext'
-import {LogOut} from './components/logout'
+import LogOut from './components/logout'
 
 function RouteProjects() {
     return (

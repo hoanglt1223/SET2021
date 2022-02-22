@@ -2,7 +2,7 @@ import React from 'react'
 import { MyselfContextConsumer } from '../../context/myselfContext'
 import { Link } from 'react-router-dom'
 
-export function LogOut() {
+function LogOut() {
     return (
         <MyselfContextConsumer>
             {context => {
@@ -16,3 +16,5 @@ export function LogOut() {
         </MyselfContextConsumer>
     )
 }
+
+export default LogOut

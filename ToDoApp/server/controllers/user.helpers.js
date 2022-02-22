@@ -17,8 +17,8 @@ function insertUser(user) {
         isDone: (task.isDone === 'true') ? true : false
       }
     }) : {},
-    isAdmin: (user.isAdmin === 'true') ? true : false,
-    isDeleted: (user.isDeleted === 'true') ? true : false
+    isAdmin: user.isAdmin,
+    isDeleted: user.isDeleted
   }
   return User.create(newUser)
 }

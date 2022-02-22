@@ -1,0 +1,37 @@
+.createUser{
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  right:0;
+  bottom:0;
+  margin:auto;
+  max-width: 650px;
+  max-height: 650px;
+  z-index: 1;
+  background-color: aliceblue;
+  border-radius: 8px;
+  border: 2px solid #dadde1;
+  box-sizing: border-box;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+  overflow-y: scroll;
+  scrollbar-color: rebeccapurple green;
+  scrollbar-width: auto;
+
+}
+
+#createUser__createButton:hover{
+  background-color: lightcoral;
+}
+#createUser__createButton{
+  background-color: lightpink;
+}
+#createUser__cancelButton:hover{
+  background-color: lightcoral;
+}
+.createUser__buttons{
+  display:flex;
+  justify-content: center;
+}

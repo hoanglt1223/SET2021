@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
 import ProjectMananger from './components/projects'
 import { ProjectContextProvider } from './context/projectContext'
-import { BrowserRouter as Router, Link, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Link, Routes, Route, useNavigate } from 'react-router-dom'
 import UserManager from "./components/userManager"
 import { UserContextProvider } from "./context/userContext.js";
 import LogIn from './components/login'
+import SignUp from './components/signup'
 import { MyselfContextConsumer, MyselfContextProvider } from './context/myselfContext'
 
 function RouteProjects() {
@@ -38,7 +39,20 @@ function RouteUsers() {
 
 function RouteLogIn() {
     return (
-        <LogIn></LogIn>
+        <React.Fragment>
+            <Routes>
+                <Route path="/" element={<LogIn />}></Route>
+                <Route path='/signup' element={<SignUp />}></Route>
+            </Routes>
+        </React.Fragment>
+    )
+}
+
+
+
+function RouteSignUp() {
+    return (
+        <SignUp></SignUp>
     )
 }
 
@@ -89,7 +103,7 @@ export default function App() {
                         }
                         else {
                             return (
-                                <RouteLogIn />
+                                <RouteLogIn/>
                             )
                         }
                     }}

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Button from "./button";
 import axios from "axios"
-import {updateMethod, deleteMethod} from "../../../api"
+import {updateMethod, deleteMethod, getMethod} from "../../../api"
 function User(props) {
     const {
+        setUserListContext = () => {},
         _id = "",
         name = "",
         username = "",

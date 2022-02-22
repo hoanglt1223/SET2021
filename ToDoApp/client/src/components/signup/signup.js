@@ -1,0 +1,200 @@
+import React, { useState, useEffect } from "react";
+import Button from "./button/index";
+import { Link, useNavigate } from "react-router-dom";
+import { postMethod } from "../../api";
+function SignUpContent(props) {
+  const [nameInput, setNameInput] = useState('');
+  const [usernameInput, setUsernameInput] = useState('');
+  const [passwordInput, setPasswordInput] = useState('');
+  const [confirmPasswordInput, setConfirmPasswordInput] = useState('');
+  const [ageInput, setAgeInput] = useState('')
+  const [genderInput, setGenderInput] = useState('Male')
+  const [isAdmin, setAdmin] = useState(false)
+  const [isSuccess, setSuccess] = useState('none')
+  function handleSignUp(){
+    if(nameInput && usernameInput && passwordInput && confirmPasswordInput && ageInput && genderInput){
+      const signingUpAccount = {
+        name: nameInput,
+        username: usernameInput,
+        password: passwordInput,
+        age: ageInput,
+        taskList : [],
+        isAdmin: isAdmin,
+        gender: genderInput,
+        isDeleted: false,
+      }
+      console.log(signingUpAccount) 
+      postMethod('sign-up', signingUpAccount).then(response => {
+        if (response.data.status === 'success') {
+          setSuccess('')
+        } else {
+          setSuccess('block')
+        }
+      })
+    } else {
+      setSuccess('block')
+    }
+  }
+
+  function checkGender(){
+    if(genderInput == "Male"){
+      setGenderInput('Female')
+    } else {
+      setGenderInput('Male')
+    }
+  }
+
+  function cancelInput(){
+    setNameInput('')
+    setUsernameInput('');
+    setPasswordInput('')
+    setConfirmPasswordInput('')
+    setAgeInput('')
+}
+
+
+  return (
+        (	
+        <div id="signup">
+          <h1>Sign Up</h1>
+        {/* <!--Form--> */}
+        <form id="signup__form">
+    
+          {/* <!--Name--> */}
+          <div id="signup__nameField">
+            Name: 
+            <input
+                      type='text'
+                      placeholder="Enter your name."
+                      id="name__field"
+                      onChange={e => setNameInput(e.target.value)}
+                      value={nameInput}
+                      style= {{width: 300 }}
+                  >
+            </input>
+                    <br/>
+                    <span className="name__announce"></span>
+          </div>
+    
+                {/* <!--User Name--> */}
+                <div id="signup__usernameField">
+
+                Username:
+                <input
+                      type='text'
+                      placeholder="Enter username..."
+                      id="username__field"
+                      onChange={e => setUsernameInput(e.target.value)}
+                      value={usernameInput}
+                      style= {{width: 260 }}
+                  >
+                  </input>
+                  <br/>
+                <span className="username__announce"></span>
+                </div>
+    
+                {/* <!--Password--> */}
+                <div id="signup__passwordField">
+                    Password:
+                    <input
+                      type='password'
+                      placeholder="Enter password..."
+                      id="password__field"
+                      onChange={e => setPasswordInput(e.target.value)}
+                      value={passwordInput}
+                    >
+                    </input>
+                    <br/>
+                    <span className="password__announce"></span>
+                </div>
+    
+                {/* <!--Confirm Password--> */}
+                <div id="signup__confirmField">
+                    Confirm Password:
+                    <input
+                      type='password'
+                      placeholder="Confirm password"
+                      id="confirm__field"
+                      onChange={e => setConfirmPasswordInput(e.target.value)}
+                      value={confirmPasswordInput}
+                    >
+                    </input>
+                    <br/>
+                    <span className="confirm__announce"></span>
+                </div>
+    
+                {/* <!--Age--> */}
+                <div id="signup__ageField">
+                    Age:
+                    <input
+                      type='text'
+                      placeholder="16"
+                      id="age__field"
+                      onChange={e => setAgeInput(e.target.value)}
+                      value={ageInput}
+                    >
+                    </input>
+                    <br/>
+                    <span className="age__announce"></span>
+                </div>
+    
+                {/* <!--Gender--> */}
+                <div id="signup__genderField">
+                    Gender: <div className="radio-group">
+                     
+                        <input type="radio" id="Gender" name="gender" value="Gender" defaultChecked onClick={e => 
+                          checkGender()
+                        }
+                        />
+
+                  <label htmlFor="Gender">{genderInput}</label>  
+
+                </div>
+                <br/>
+                  <span className="gender__announce"></span>
+                </div>
+    
+                {/* // admin */}
+                <div id = "signup__roleField">
+                  Admin: 
+                  <input 
+                    type="checkbox" 
+                    id="role__field"
+                    onChange={e => {
+                      setAdmin(e.target.checked)}}
+                  />
+        
+                </div>
+                <div className="signup__submit">
+                <Button
+                  id =  "signup__button"
+                  titleValue="Sign up"
+                  handleOnClick={() => {
+                    handleSignUp()
+                    cancelInput()
+                  }}
+                />
+                </div>
+                {/* <!--Result--> */}
+                <div style = {{display: isSuccess}} id="signup__result">
+                {(isSuccess == '') && (
+                    <h3 style={{color: "green"}}>Successful</h3>
+                  )
+                }
+                {(isSuccess == 'block') && (
+                    <h3 style={{color: "red"}}>Fail</h3>
+                )
+                }
+                </div>
+            </form>
+    
+            <Link 
+              id = "return__button"
+              to  = "/"
+              >Return
+            </Link>
+        </div>
+  ))
+}
+
+export default SignUpContent;

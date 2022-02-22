@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react"
-// import './icon.css'
+import React, { useEffect } from "react"
+import './icon.css'
 
 function Button(props) {
     const {
@@ -23,7 +23,7 @@ function Button(props) {
             <input
                 type={type}
                 defaultValue={titleValue}
-                style={{ color: textColor, width: width, height: height, cursor: "pointer" }}
+                style={{ color: textColor, width: width, height: height, cursor: 'pointer' }}
                 onClick={handleOnClick}
                 id={id}
             >
@@ -35,6 +35,7 @@ function Button(props) {
             <i 
             className= {className}
             onClick={ handleOnClick}
+            style = {{cursor: "pointer"}}
             ></i>
         )
     }

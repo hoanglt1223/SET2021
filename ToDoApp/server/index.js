@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose')
-const { route } = require('./routers')
+const { router } = require('./routers')
 
 const hostname = "localhost"
 const port = "5500"
@@ -26,14 +26,15 @@ connection
 const server = express();
 
 server.use(cors())
+server.use(router);
 
-server.all('/*', (request, response) => {
-    response.setHeader("Access-Control-Allow-Origin", "*");
-    response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
-    let controller = route(request);
-    controller(request, response)
-})
+// server.all('/*', (request, response) => {
+//     response.setHeader("Access-Control-Allow-Origin", "*");
+//     response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//     response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
+//     let controller = route(request);
+//     controller(request, response)
+// })
 
 server.listen(port, () => {
     console.log(`Server running at http://${hostname}:${port}`)

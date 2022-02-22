@@ -1,35 +1,84 @@
-const Router = require('./helper')
-const url = require('url')
-const handleError = require('../helper')
-
-function route(request) {
-    const parsedURL = url.parse(request.url, true);
-    if (Router[request.method] && Router[request.method][parsedURL.pathname]) {
-        console.log(`${request.method}  ${parsedURL.pathname}`)
-        const currentRouter = Router[request.method][parsedURL.pathname];
-        if (currentRouter.middlewares && currentRouter.middlewares.length > 0) {
-            return function controller(request, response) {
-                try {
-                    let progress = currentRouter.middlewares[0](request, response);
-                    currentRouter.middlewares.forEach((middleware, index) => {
-                        if (index > 0) {
-                            progress.then(() => middleware(request, response))
-                        }
-                    })
-
-                    progress.then(() => {
-                        currentRouter.controller(request, response);
-                    })
-                } catch (error) {
-                    console.log('Error: ', error)
-                }
-            }
-        }
-    }
-    return function controller(request, response) {
-        response.send('OK');
-    }
-}
+const express = require('express')
+const router = express.Router();
+const { parseRequestBody } = require('../middlewares/')
+const { createProject,
+    getProjects,
+    deleteProject, updateProjectAddTaskByID, updateProjectDoneTaskByID, updateProjectDeleteTaskByID, signUp, getUsers, getUser, deleteUser, editUser, LogIn } = require('../controllers');
 
 
-module.exports = { route }
+
+// >>>>>>>>>>>>>> Middleware
+router.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
+    console.log(req.method, '  ->  ', req.url);
+    parseRequestBody(req, res)
+    .then(() => next());
+})
+
+// >>>>>>>>>>>>>> CONTROLLER
+//================== GET
+
+router.get('/projects', (req, res) => {
+    getProjects(req, res);
+})
+
+router.get('/get-users', (req, res) => {
+    getUsers(req, res);
+})
+
+
+//================== POST
+
+router.post('/add-project', (req, res) => {
+    createProject(req, res)
+})
+
+router.post('/sign-up', (req, res) => {
+    signUp(req, res)
+})
+
+router.post('/get-user', (req, res) => {
+    getUser(req, res)
+})
+
+router.post('/log-in', (req, res) => {
+    LogIn(req, res)
+})
+
+//================== DELETE
+
+router.delete('/delete-project', (req, res) => {
+    deleteProject(req, res)
+})
+
+router.delete('/delete-user', (req, res) => {
+    deleteUser(req, res)
+})
+
+//================== PUT
+
+
+//================== PATCH
+
+router.patch('/add-task', (req, res) => {
+    updateProjectAddTaskByID(req, res)
+})
+
+router.patch('/done-task', (req, res) => {
+    updateProjectDoneTaskByID(req, res)
+})
+
+
+router.patch('/delete-task', (req, res) => {
+    updateProjectDeleteTaskByID(req, res)
+})
+
+router.patch('/edit-user', (req, res) => {
+    editUser(req, res)
+})
+
+
+
+module.exports = { router }

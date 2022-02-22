@@ -22,31 +22,13 @@ function Header(props) {
       <React.Fragment>
         <div className="userManager__header">
         {/* //===== return to admin */}
-          <div className="userManager__header-left">
-            {/* <Link> */}
-                <Button
-                  titleValue="Return"
-                  id="return__button"
-                  handleOnClick={handleReturn}
-                />
-          {/* </Link> */}
-          </div>
 
               {/* =======title*/}
           <div className = "userManager__header-middle">
             <span className ="userManager__header-title">User management</span>
           </div>
 
-                {/* //=======logout button */}
-            <div className="userManager__header-right">
-              <Link to = "/">
-                <Button
-                        titleValue="Log out"
-                        id="logout__button"
-                        handleOnClick={handleLogout}
-                />
-              </Link>
-            </div>
+        
           </div>
       </React.Fragment>
     )

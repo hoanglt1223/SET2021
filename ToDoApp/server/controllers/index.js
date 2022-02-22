@@ -31,6 +31,7 @@ function createProject(request, response) {
 }
 
 function getProjects(request, response) {
+    debugger;
     let project = verifyProject(request.body);
     if (project.projectName === undefined) project = {};
     findProjects(project)
@@ -55,7 +56,6 @@ function deleteProject(request, response) {
         handleAuthResponse(response, true)
     })
 }
-
 
 function updateProjectAddTaskByID(request, response) {
     const { taskName, isDone, projectID, isDeleted } = request.body;

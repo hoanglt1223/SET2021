@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
-// const { userRepository } = require('../repositories')
-const { handleError } = require('../helpers')
+const { handleError } = require('../helper')
 const {User} = require('../models')
 function authenticate(req, res) {
   try {

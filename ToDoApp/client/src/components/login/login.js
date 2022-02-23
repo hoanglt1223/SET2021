@@ -3,7 +3,7 @@ import Button from "./button";
 import { Link } from "react-router-dom"
 import { MyselfContextConsumer } from '../../context/myselfContext'
 import { postMethod } from '../../api'
-
+import axios from "axios"
 function LogInContent(props) {
 	const [usernameInput, setUsernameInput] = useState('');
 	const [passwordInput, setPasswordInput] = useState('');
@@ -19,6 +19,7 @@ function LogInContent(props) {
 						}
 						postMethod('log-in', checkingAccount).then(response => {
 							if (response.data.status === 'success') {
+								
 								window.sessionStorage.setItem('token', response.data.token);
 								context.setAccount(response.data.account);
 							}

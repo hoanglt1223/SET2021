@@ -34,11 +34,15 @@ server.listen(port, hostname, () => {
 function getRouter(req) {
   const routeUrl = req.url.split("?")[0];
 
-  switch (routeUrl) {
-    case "/tasks":
+  switch (true) {
+    case routeUrl.includes("/tasks"):
       return routes.task;
-    case "/image":
+    case routeUrl.includes("/image"):
       return routes.image;
+    case routeUrl.includes("/users"):
+      return routes.user;
+    case routeUrl.includes("/auth"):
+      return routes.auth;
     default:
       return {};
   }

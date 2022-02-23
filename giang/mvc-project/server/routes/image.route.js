@@ -1,4 +1,4 @@
-const imageController = require("../controller/image");
+const imageController = require("../controller/image.controller");
 
 const imageRouter = {
   GET: {

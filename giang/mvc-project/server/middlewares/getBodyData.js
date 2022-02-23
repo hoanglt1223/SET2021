@@ -9,8 +9,6 @@ function getBodyData(req) {
       const data = JSON.parse(rawData);
       req.body = data;
 
-      console.log({ data });
-
       resolve();
     });
   });

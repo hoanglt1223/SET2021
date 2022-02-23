@@ -1,4 +1,4 @@
-const taskController = require("../controller/task");
+const taskController = require("../controller/task.controller");
 const { getBodyData } = require("../middlewares");
 
 const taskRouter = {

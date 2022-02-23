@@ -2,8 +2,6 @@ module.exports = function (router, req, res) {
   const routeUrl = req.url.split("?")[0];
   const method = req.method;
 
-  console.log("run middleware");
-
   const route = router[method][routeUrl];
 
   if (route.middlewares.length > 0) {

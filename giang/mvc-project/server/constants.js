@@ -1,5 +1,6 @@
 const DBCollection = {
   TASK: "Task",
+  USER: "User",
 };
 
 const TaskStatus = {

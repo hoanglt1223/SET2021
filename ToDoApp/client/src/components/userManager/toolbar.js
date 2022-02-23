@@ -39,7 +39,9 @@ function Toolbar(props) {
                     />
                 </div>
             </div>
-            {(isCreating == '') && <SignUpContent prevPage = '/users'></SignUpContent>}
+            {(isCreating == '') && <SignUpContent prevPage = '/users'
+                setCreating = {setCreating}
+            ></SignUpContent>}
         </React.Fragment>
     )
 

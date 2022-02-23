@@ -9,7 +9,7 @@ function SignUp() {
   return (
 
     <SignUpContent
-      prevPage='/'
+        prevPage='/'
     >
 
     </SignUpContent>

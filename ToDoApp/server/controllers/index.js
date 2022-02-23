@@ -119,8 +119,12 @@ function updateProjectDeleteTaskByID(request, response) {
 function signUp(request, response) {
     const user = request.body;
     insertUser(user)
-        .then(() => {
-            handleAuthResponse(response, true)
+        .then((userAdded) => {
+            const data = {
+                status: 'success',
+                _id : userAdded._id
+            }
+            handleDataResponse(response, data)
         })
         .catch(err => {
             handleError(err, 'controllers/index.js', 'signUp')

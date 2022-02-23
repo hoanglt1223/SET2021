@@ -12,7 +12,7 @@ function SignUpContent(props) {
     const [isAdmin, setAdmin] = useState(false)
     const [isSuccess, setSuccess] = useState('none');
 
-    const {  prevPage, setCreating } = props
+    const {  prevPage, setCreating, setUserListContext } = props
 
     function handleSignUp() {
         if (nameInput && usernameInput && passwordInput && confirmPasswordInput && ageInput && genderInput) {
@@ -27,9 +27,10 @@ function SignUpContent(props) {
                 isDeleted: false,
                 isOnline: false,
             }
-            console.log(signingUpAccount)
             postMethod('sign-up', signingUpAccount).then(response => {
                 if (response.data.status === 'success') {
+                    signingUpAccount._id = response.data._id
+                    setUserListContext(prev => [...prev, signingUpAccount]);
                     setSuccess('')
                 } else {
                     setSuccess('block')
@@ -64,8 +65,9 @@ function SignUpContent(props) {
 
 
     useEffect(() => {
+        debugger
         if (isSuccess == '') {
-            window.location.href = prevPage
+            handleReturnClick();
         }
     }, [isSuccess])
 

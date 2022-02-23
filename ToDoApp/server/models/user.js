@@ -12,15 +12,12 @@ const userSchema = new Schema({
     type: String,
     required: true,
     unique: true,
-    // minLength: [6, 'username must have at least 6 characters, got {VALUE}'],
-    // maxLength: [25, 'password must not have more than 25 characters, got {VALUE}'],
-    // bug, truoc khi create, password bi hash roi
+    minLength: [3, 'username must have at least 3 characters, got {VALUE}'],
+    maxLength: [30, 'username must not have more than 30 characters, got {VALUE}'],
   },
   password: {
     type: String,
     required: true,
-    minLength: [6, 'password must have at least 6 characters, got {VALUE}'],
-    maxLength: [30, 'password must not have more than 20 characters, got {VALUE}'],
   },
   age: {
     type: Number,

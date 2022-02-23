@@ -9,7 +9,7 @@ function LogOut() {
                 return (
                     <Link to='/' onClick={e => {
                         context.setAccount(undefined);
-                        window.sessionStorage.removeItem('token');
+                        window.sessionStorage.clear();
                     }}>Log Out</Link>
                 )
             }}

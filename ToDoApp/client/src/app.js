@@ -99,7 +99,7 @@ export default function App() {
             <MyselfContextProvider>
                 <MyselfContextConsumer>
                     {context => {
-                        if (context && window.sessionStorage.getItem('token')) {
+                        if (window.sessionStorage.getItem('token')) {
                             return (
                                 <RoutersApp />
                             )

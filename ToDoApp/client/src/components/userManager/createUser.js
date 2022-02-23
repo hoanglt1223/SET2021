@@ -29,7 +29,6 @@ function CreateUser(props) {
         isDeleted: false,
         isOnline: false,
       }
-      console.log(createdAccount)
       postMethod('sign-up', createdAccount).then(response => {
         if (response.data.status === 'success') {
           setSuccess('')
@@ -72,14 +71,13 @@ function CreateUser(props) {
     
           {/* <!--Name--> */}
           <div id="createUser__nameField">
-            Name: 
+            <span id="createUser__nameLabel">Name:</span>
             <input
                       type='text'
                       placeholder="Enter your name."
                       id="name__field"
                       onChange={e => setNameInput(e.target.value)}
-                      value={nameInput}
-                      style= {{width: 300 }}
+                      value={nameInput} 
                   >
             </input>
                     <br/>
@@ -96,7 +94,7 @@ function CreateUser(props) {
                       id="username__field"
                       onChange={e => setUsernameInput(e.target.value)}
                       value={usernameInput}
-                      style= {{width: 260 }}
+                      
                   >
                   </input>
                   <br/>

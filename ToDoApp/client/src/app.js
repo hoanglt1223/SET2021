@@ -24,7 +24,6 @@ function RouteHome() {
             <span style={{ fontSize: '100px' }}>
                 TO DO APP
             </span>
-
             <span style={{ textDecoration: 'underline' }}>by: Nam & Tai</span>
         </React.Fragment>
     )

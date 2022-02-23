@@ -3,26 +3,14 @@ import { toast } from "react-toastify";
 
 import TodoItem from "../TodoItem";
 import "./styles.css";
-import { ETodoStatus } from "../../enums";
 import apis from "../../apis";
 
 const TodoList = (props) => {
   const { todos, reFetchData } = props;
 
-  async function updateTodoStatus(todo) {
+  async function updateTodo(todoId, newTodo) {
     try {
-      let newStatus;
-
-      if (todo.status === ETodoStatus.DOING) {
-        newStatus = ETodoStatus.DONE;
-      } else {
-        newStatus = ETodoStatus.DOING;
-      }
-
-      await apis.todo.updateById(todo._id, {
-        ...todo,
-        status: newStatus,
-      });
+      await apis.todo.updateById(todoId, newTodo);
 
       toast.success("Update todo successfully");
       await reFetchData();
@@ -50,8 +38,8 @@ const TodoList = (props) => {
             <li key={index}>
               <TodoItem
                 todo={todo}
-                updateTodoStatus={updateTodoStatus}
                 deleteTodo={deleteTodo}
+                updateTodo={updateTodo}
               />
             </li>
           );

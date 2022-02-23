@@ -28,8 +28,8 @@ function verifyProject(project) {
 
 }
 
-function findProjects(prpos = {}) {
-    return Project.find(prpos)
+function findProjects(props = {}) {
+    return Project.find(props)
 }
 
 

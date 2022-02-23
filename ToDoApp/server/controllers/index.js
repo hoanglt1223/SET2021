@@ -118,7 +118,6 @@ function updateProjectDeleteTaskByID(request, response) {
 
 function signUp(request, response) {
     const user = request.body;
-    console.log(user)
     insertUser(user)
         .then(() => {
             handleAuthResponse(response, true)
@@ -148,6 +147,7 @@ function getUsers(request, response) {
 
 function getUser(request, response) {
     const id = request.body;
+    
     response.setHeader('Content-Type', 'application/json');
     findUserById(id)
         // .then((data) => {

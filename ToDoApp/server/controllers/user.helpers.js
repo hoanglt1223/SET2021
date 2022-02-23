@@ -54,5 +54,9 @@ function verifyUser(checkingUser) {
       
 }
 
+function verifySignUp(checkingUser) {
+  
+
+}
 
 module.exports = { insertUser, findUsers, findUserById, removeUserById, updateUserById, verifyUser, hashPassword }

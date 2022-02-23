@@ -12,7 +12,7 @@ function SignUpContent(props) {
     const [isAdmin, setAdmin] = useState(false)
     const [isSuccess, setSuccess] = useState('none');
 
-    const {  prevPage } = props
+    const {  prevPage, setCreating } = props
 
     function handleSignUp() {
         if (nameInput && usernameInput && passwordInput && confirmPasswordInput && ageInput && genderInput) {
@@ -59,6 +59,7 @@ function SignUpContent(props) {
     const history = useNavigate()
     function handleReturnClick() {
         history(prevPage);
+        setCreating('none')
     }
 
 
@@ -147,7 +148,7 @@ function SignUpContent(props) {
                         Age:
                         <input
                             type='text'
-                            placeholder="16"
+                            placeholder=""
                             id="age__field"
                             onChange={e => setAgeInput(e.target.value)}
                             value={ageInput}

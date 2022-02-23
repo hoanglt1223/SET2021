@@ -39,9 +39,22 @@ async function login(req, res) {
   );
 }
 
+async function getMe(req, res) {
+  const userId = req.user._id;
+  const user = await User.findById(userId);
+
+  res.end(
+    JSON.stringify({
+      _id: user._id,
+      username: user.username,
+    })
+  );
+}
+
 const authController = {
   register,
   login,
+  getMe,
 };
 
 module.exports = authController;

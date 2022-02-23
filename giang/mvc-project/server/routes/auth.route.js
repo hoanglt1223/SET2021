@@ -1,4 +1,4 @@
-const { getBodyData } = require("../middlewares");
+const { getBodyData, saveUser, authen } = require("../middlewares");
 
 const authController = require("../controller/auth.controller");
 
@@ -17,6 +17,10 @@ const authRouter = {
     "/auth/login": {
       controller: authController.login,
       middlewares: [getBodyData],
+    },
+    "/auth/me": {
+      controller: authController.getMe,
+      middlewares: [saveUser, authen],
     },
   },
   DELETE: {

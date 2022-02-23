@@ -1,15 +1,20 @@
-import reactDom from "react-dom";
 import React from "react";
 import SignUpContent from "./signup"
 
 import "./signup.css";
 
-``
-function SignUp(props) {
-  return (
-      <SignUpContent>
+function SignUp() {
 
-      </SignUpContent>
+  
+  return (
+
+    <SignUpContent
+      prevPage='/'
+    >
+
+    </SignUpContent>
+
+
   );
 }
 

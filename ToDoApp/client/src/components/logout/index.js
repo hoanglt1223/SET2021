@@ -7,10 +7,10 @@ function LogOut() {
         <MyselfContextConsumer>
             {context => {
                 return (
-                  <Link to ='/' onClick = {e => {
-                      context.setAccount(undefined);
-                      window.sessionStorage.removeItem('token');
-                  }}>Log Out</Link>  
+                    <Link to='/' onClick={e => {
+                        context.setAccount(undefined);
+                        window.sessionStorage.removeItem('token');
+                    }}>Log Out</Link>
                 )
             }}
         </MyselfContextConsumer>

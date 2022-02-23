@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Button from "./user/button";
-import CreateUser from "./createUser";
-import { Link } from "react-router-dom"
+import SignUpContent from "../signup/signup";
 function Toolbar(props) {
     const {
         setUserListContext
@@ -40,13 +39,7 @@ function Toolbar(props) {
                     />
                 </div>
             </div>
-            {(isCreating == '') && (
-                <CreateUser
-                    isCreating={isCreating}
-                    setCreating={setCreating}
-                    setUserListContext={setUserListContext}
-                ></CreateUser>
-            )}
+            {(isCreating == '') && <SignUpContent prevPage = '/users'></SignUpContent>}
         </React.Fragment>
     )
 

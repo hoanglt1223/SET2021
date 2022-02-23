@@ -9,6 +9,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: absolute;
 }
 
 #signup > h1 {
@@ -64,16 +65,17 @@ h3 {
 
 #return__button {
   border: 2px solid #333;
-  padding: 10px;
-  text-decoration: none;
-  color: #333;
+  width: 30px;
+  height: 30px;
+  color: #B6174B;
   border-radius: 5px;
-  margin: 5px;
-  margin-top: 10px;
+  justify-self: flex-start;
+  align-self: flex-end;
 }
 
 #return__button:hover {
   background-color: #b54;
+  color: #333
 }
 
 #signup__roleField {

@@ -18,7 +18,7 @@ function UserManager() {
                         <Header />
                         <Toolbar
                             setUserListContext={context.setUserList}
-                        ></Toolbar>
+                        />
 
 
                             <div className="userManager__main">

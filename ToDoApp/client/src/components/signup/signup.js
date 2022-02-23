@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Button from "./button/index";
 import { Link, useNavigate } from "react-router-dom";
+import Button from "./button/index";
 import { postMethod } from "../../api";
 function SignUpContent(props) {
     const [nameInput, setNameInput] = useState('');
@@ -10,7 +10,10 @@ function SignUpContent(props) {
     const [ageInput, setAgeInput] = useState('')
     const [genderInput, setGenderInput] = useState('Male')
     const [isAdmin, setAdmin] = useState(false)
-    const [isSuccess, setSuccess] = useState('none')
+    const [isSuccess, setSuccess] = useState('none');
+
+    const {  prevPage } = props
+
     function handleSignUp() {
         if (nameInput && usernameInput && passwordInput && confirmPasswordInput && ageInput && genderInput) {
             const signingUpAccount = {
@@ -53,10 +56,27 @@ function SignUpContent(props) {
         setAgeInput('')
     }
 
+    const history = useNavigate()
+    function handleReturnClick() {
+        history(prevPage);
+    }
+
+
+    useEffect(() => {
+        if (isSuccess == '') {
+            window.location.href = prevPage
+        }
+    }, [isSuccess])
 
     return (
         (
             <div id="signup">
+                <button
+                    id="return__button"
+                    onClick={handleReturnClick}
+
+                >x
+                </button>
                 <h1>Sign Up</h1>
                 {/* <!--Form--> */}
                 <form id="signup__form">
@@ -142,7 +162,7 @@ function SignUpContent(props) {
                         Gender:
                         <div className="radio-group">
 
-                            <input style = {{width: '30px', height: '30px', marginRight: '20px'}}type="radio" name="gender" defaultChecked onClick={e =>
+                            <input style={{ width: '30px', height: '30px', marginRight: '20px' }} type="radio" name="gender" defaultChecked onClick={e =>
                                 checkGender()
                             }
                             />
@@ -159,7 +179,7 @@ function SignUpContent(props) {
                         <input
                             type="checkbox"
                             id="role__field"
-                            style={{width: '30px', height: '30px', marginLeft: '10px'}}
+                            style={{ width: '30px', height: '30px', marginLeft: '10px' }}
                             onChange={e => {
                                 setAdmin(e.target.checked)
                             }}
@@ -189,11 +209,7 @@ function SignUpContent(props) {
                     </div>
                 </form>
 
-                <Link
-                    id="return__button"
-                    to="/"
-                >Return
-                </Link>
+
             </div>
         ))
 }

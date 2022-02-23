@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import ProjectMananger from './components/projects'
 import { ProjectContextProvider } from './context/projectContext'
-import { BrowserRouter as Router, Link, Routes, Route, useNavigate } from 'react-router-dom'
+import { BrowserRouter as Router, Link, Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 import UserManager from "./components/userManager"
 import { UserContextProvider } from "./context/userContext.js";
 import LogIn from './components/login'
@@ -41,7 +41,8 @@ function RouteLogIn() {
     return (
         <React.Fragment>
             <Routes>
-                <Route path="/" element={<LogIn />}></Route>
+                <Route path="/" element={<Navigate to='/log-in'></Navigate>}></Route>
+                <Route path="/log-in" element={<LogIn />}></Route>
                 <Route path='/signup' element={<SignUp />}></Route>
             </Routes>
         </React.Fragment>
@@ -61,7 +62,7 @@ function RoutersApp() {
 
         <React.Fragment>
             <div id="router">
-                <ul id = 'containerTool' style={{ height: "100%" }}>
+                <ul id='containerTool' style={{ height: "100%" }}>
                     <li className='navTool' onClick={e => (e.currentTarget.firstChild.click())}>
                         <Link to="/">Home</Link>
                     </li>
@@ -72,15 +73,16 @@ function RoutersApp() {
                         <Link to='/users' >Users</Link>
                     </li>
                     <li className='navTool logout' onClick={e => (e.currentTarget.firstChild.click())}>
-                       <LogOut/>
+                        <LogOut />
                     </li>
-                    
+
                 </ul>
             </div>
 
             <div id="app">
                 <Routes>
                     <Route path="/" element={<RouteHome />}></Route>
+                    <Route path="/log-in" element={<Navigate to='/' />}></Route>
                     <Route path='/projects' element={<RouteProjects />}></Route>
                     <Route path="/users" element={<RouteUsers />}></Route>
                 </Routes>
@@ -99,14 +101,14 @@ export default function App() {
             <MyselfContextProvider>
                 <MyselfContextConsumer>
                     {context => {
-                        if (window.sessionStorage.getItem('token')) {
+                        if (window.sessionStorage.getItem('token') && context.account ) {
                             return (
                                 <RoutersApp />
                             )
                         }
                         else {
                             return (
-                                <RouteLogIn/>
+                                <RouteLogIn />
                             )
                         }
                     }}

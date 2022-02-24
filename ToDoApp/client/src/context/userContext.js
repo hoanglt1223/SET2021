@@ -3,8 +3,6 @@ import { getMethod } from '../api';
 const { Provider, Consumer } = createContext();
 
 
-
-
 function UserContextProvider({ children }) {
 
     const [userList, setUserList] = useState([]);
@@ -13,7 +11,7 @@ function UserContextProvider({ children }) {
             .then((response) => {
                 setUserList(response.data);
             })
-    }, [userList.length])
+    }, [])
 
 
     return (

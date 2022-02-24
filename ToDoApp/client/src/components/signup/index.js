@@ -5,11 +5,11 @@ import "./signup.css";
 
 function SignUp() {
 
-  
   return (
 
     <SignUpContent
         prevPage='/'
+        setCreating
     >
 
     </SignUpContent>

@@ -4,6 +4,7 @@ const { parseRequestBody } = require('../middlewares/')
 const { createProject,
     getProjects,
     deleteProject, updateProjectAddTaskByID, updateProjectDoneTaskByID, updateProjectDeleteTaskByID, signUp, getUsers, getUser, deleteUser, editUser, logIn } = require('../controllers');
+const authenticate = require('../middlewares/authentication');
 
 
 
@@ -12,11 +13,19 @@ router.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
+    res.setHeader('Access-Control-Allow-Headers', "Authorization")
     console.log(req.method, '  ->  ', req.url);
     parseRequestBody(req, res)
     .then(() => next());
 })
 
+<<<<<<< HEAD
+=======
+// router.use('/',(req, res) => {
+//     authenticate(req,res).then(() => next())
+    
+// })
+>>>>>>> todoList
 
 // >>>>>>>>>>>>>> CONTROLLER
 //================== GET

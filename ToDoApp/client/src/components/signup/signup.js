@@ -32,6 +32,7 @@ function SignUpContent(props) {
                     signingUpAccount._id = response.data._id
                     setUserListContext(prev => [...prev, signingUpAccount]);
                     setSuccess('')
+                    setUserListContext
                 } else {
                     setSuccess('block')
                 }

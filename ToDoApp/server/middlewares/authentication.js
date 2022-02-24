@@ -1,9 +1,14 @@
 const jwt = require('jsonwebtoken');
+<<<<<<< HEAD
 // const { userRepository } = require('../repositories')
 const { handleError } = require('../helper')
 const { User } = require('../models')
 
 
+=======
+const { handleError } = require('../helper')
+const {User} = require('../models')
+>>>>>>> todoList
 function authenticate(req, res) {
     try {
         if (!req.headers.authorization) {

@@ -3,6 +3,7 @@ const { insertUser, findUsers, findUserById, removeUserById, updateUserById, ver
 const jwt = require('jsonwebtoken')
 const { handleError } = require('../helper');
 const mongoose = require('mongoose')
+const axios = require("axios")
 function handleAuthResponse(response, isSuccessful = false, message = '#') {
     const data = {
         status: isSuccessful ? 'success' : 'fail',
@@ -207,6 +208,7 @@ function logIn(request, response) {
             const token = jwt.sign({ userId: users.id },
                 'RANDOM_TOKEN_SECRET', { expiresIn: '24h' }
             )
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}` 
             const data = {
                 status: 'success',
                 token: token,

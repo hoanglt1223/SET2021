@@ -8,6 +8,7 @@ import LogIn from './components/login'
 import SignUp from './components/signup'
 import { MyselfContextConsumer, MyselfContextProvider } from './context/myselfContext'
 import LogOut from './components/logout'
+import { getMethod, postMethod } from './api'
 
 function RouteProjects() {
     return (
@@ -101,7 +102,21 @@ export default function App() {
             <MyselfContextProvider>
                 <MyselfContextConsumer>
                     {context => {
-                        if (window.sessionStorage.getItem('token') && context.account ) {
+                        if (window.sessionStorage.getItem('token')) {
+                            const data = {
+                                headers: {
+                                    Authorization: window.sessionStorage.getItem('token')
+                                }
+                            };
+                            getMethod('authenticate', data).then(response => {
+                                if (response.data.status === 'success') {
+                                    context.setAccount(response.data.account)
+                                }
+                                else {
+                                    window.sessionStorage.removeItem('token')
+                                    context.setAccount(undefined)
+                                }
+                            })
                             return (
                                 <RoutersApp />
                             )

@@ -8,7 +8,8 @@ import LogIn from './components/login'
 import SignUp from './components/signup'
 import { MyselfContextConsumer, MyselfContextProvider } from './context/myselfContext'
 import LogOut from './components/logout'
-import { getMethod, postMethod } from './api'
+import { getMethod } from './api'
+import Account from './components/account'
 
 function RouteProjects() {
     return (
@@ -38,6 +39,14 @@ function RouteUsers() {
     )
 }
 
+function RouteAccount(){
+    return (
+        <MyselfContextProvider>
+            <Account/>
+        </MyselfContextProvider>
+    )
+}
+
 function RouteLogIn() {
     return (
         <React.Fragment>
@@ -50,13 +59,6 @@ function RouteLogIn() {
     )
 }
 
-
-
-function RouteSignUp() {
-    return (
-        <SignUp></SignUp>
-    )
-}
 
 function RoutersApp() {
     return (
@@ -73,6 +75,9 @@ function RoutersApp() {
                     <li className='navTool' onClick={e => (e.currentTarget.firstChild.click())}>
                         <Link to='/users' >Users</Link>
                     </li>
+                    <li className='navTool' onClick={e => (e.currentTarget.firstChild.click())}>
+                        <Link to='/account' >Account</Link>
+                    </li>
                     <li className='navTool logout' onClick={e => (e.currentTarget.firstChild.click())}>
                         <LogOut />
                     </li>
@@ -86,6 +91,7 @@ function RoutersApp() {
                     <Route path="/log-in" element={<Navigate to='/' />}></Route>
                     <Route path='/projects' element={<RouteProjects />}></Route>
                     <Route path="/users" element={<RouteUsers />}></Route>
+                    <Route path="/account" element={<Account />}></Route>
                 </Routes>
 
 

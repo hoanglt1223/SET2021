@@ -20,7 +20,7 @@ router.use((req, res, next) => {
 })
 
 router.use('/authenticate', (req, res, next) => {
-    authenticate(req, res);
+    authenticate(req, res).then(() => next());
 })
 
 

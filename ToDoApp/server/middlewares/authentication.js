@@ -18,10 +18,10 @@ function authenticate(req, res) {
                 throw new Error('Invalid token.')
             }
             else {
-                console.log(foundUser);
+            const {username, age, name, gender} = foundUser;
                 res.send({
                     status : 'success',
-                    account : foundUser
+                    account : {username : username, age: age, name: name, gender: gender}
                 })
             }
         })

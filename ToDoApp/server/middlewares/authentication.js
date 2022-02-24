@@ -1,29 +1,28 @@
 const jwt = require('jsonwebtoken');
-<<<<<<< HEAD
-// const { userRepository } = require('../repositories')
 const { handleError } = require('../helper')
 const { User } = require('../models')
 
 
-=======
-const { handleError } = require('../helper')
-const {User} = require('../models')
->>>>>>> todoList
 function authenticate(req, res) {
     try {
         if (!req.headers.authorization) {
             throw new Error('Invalid token.')
         }
-        const token = req.headers.authorization.split(' ')[1];
+        const token = req.headers.authorization.split(' ')[0];
         const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
         const { userId } = decodedToken;
 
         return User.findById(userId).then(foundUser => {
+            debugger;
             if (!foundUser) {
                 throw new Error('Invalid token.')
             }
             else {
-                res.send(foundUser)
+                console.log(foundUser);
+                res.send({
+                    status : 'success',
+                    account : foundUser
+                })
             }
         })
     } catch (err) {

@@ -19,13 +19,10 @@ router.use((req, res, next) => {
     .then(() => next());
 })
 
-<<<<<<< HEAD
-=======
-// router.use('/',(req, res) => {
-//     authenticate(req,res).then(() => next())
-    
-// })
->>>>>>> todoList
+router.use('/authenticate', (req, res, next) => {
+    authenticate(req, res);
+})
+
 
 // >>>>>>>>>>>>>> CONTROLLER
 //================== GET

@@ -32,7 +32,6 @@ function createProject(request, response) {
 }
 
 function getProjects(request, response) {
-    debugger;
     let project = verifyProject(request.body);
     if (project.projectName === undefined) project = {};
     findProjects(project)
@@ -205,10 +204,9 @@ function logIn(request, response) {
         }
         let user = users.find(user => user.username === checkingUser.username && user.password === hashPassword(checkingUser.password));
         if (user) {
-            const token = jwt.sign({ userId: users.id },
-                'RANDOM_TOKEN_SECRET', { expiresIn: '24h' }
+            const token = jwt.sign({ userId: user.id },
+                'RANDOM_TOKEN_SECRET'
             )
-            axios.defaults.headers.common['Authorization'] = `Bearer ${token}` 
             const data = {
                 status: 'success',
                 token: token,

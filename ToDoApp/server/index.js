@@ -26,6 +26,7 @@ connection
 const server = express();
 
 server.use(cors())
+
 server.use(router);
 
 // server.all('/*', (request, response) => {

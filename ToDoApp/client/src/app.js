@@ -103,20 +103,24 @@ export default function App() {
                 <MyselfContextConsumer>
                     {context => {
                         if (window.sessionStorage.getItem('token')) {
-                            const data = {
-                                headers: {
-                                    Authorization: window.sessionStorage.getItem('token')
-                                }
-                            };
-                            getMethod('authenticate', data).then(response => {
-                                if (response.data.status === 'success') {
-                                    context.setAccount(response.data.account)
-                                }
-                                else {
-                                    window.sessionStorage.removeItem('token')
-                                    context.setAccount(undefined)
-                                }
-                            })
+                            if (!context.account) {
+                                const config = {
+                                    headers: {
+                                        authorization: window.sessionStorage.getItem('token')
+                                    }
+                                };
+                                getMethod('authenticate', config).then(response => {
+                                    if (response.data.status === 'success') {
+                                        console.log(response.data.account);
+                                        context.setAccount(response.data.account)
+                                    }
+                                    else {
+                                        window.sessionStorage.removeItem('token')
+                                        context.setAccount(undefined)
+                                    }
+                                })
+                            }
+
                             return (
                                 <RoutersApp />
                             )

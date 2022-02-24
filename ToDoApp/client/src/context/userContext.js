@@ -9,7 +9,6 @@ function UserContextProvider({ children }) {
 
     const [userList, setUserList] = useState([]);
     useEffect(() => {
-        const data = window.sessionStorage.getItem('token');
         getMethod('get-users')
             .then((response) => {
                 setUserList(response.data);

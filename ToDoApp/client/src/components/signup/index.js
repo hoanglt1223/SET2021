@@ -8,10 +8,8 @@ function SignUp() {
   return (
 
     <SignUpContent
-        prevPage='/'
-        setCreating
+        prevPage='/log-in'
     >
-
     </SignUpContent>
 
 

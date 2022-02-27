@@ -12,7 +12,7 @@ function SignUpContent(props) {
     const [isAdmin, setAdmin] = useState(false)
     const [isSuccess, setSuccess] = useState('none');
 
-    const {  prevPage, setCreating, setUserListContext } = props
+    const { prevPage, setCreating, setUserListContext } = props
 
     function handleSignUp() {
         if (nameInput && usernameInput && passwordInput && confirmPasswordInput && ageInput && genderInput) {
@@ -28,11 +28,12 @@ function SignUpContent(props) {
                 isOnline: false,
             }
             postMethod('sign-up', signingUpAccount).then(response => {
+                debugger
                 if (response.data.status === 'success') {
+                    console.log(1);
                     signingUpAccount._id = response.data._id
-                    setUserListContext(prev => [...prev, signingUpAccount]);
-                    setSuccess('')
-                    setUserListContext
+                    setSuccess('');
+                    if (setUserListContext) setUserListContext(prev => [...prev, signingUpAccount]);
                 } else {
                     setSuccess('block')
                 }
@@ -59,14 +60,14 @@ function SignUpContent(props) {
     }
 
     const history = useNavigate()
+
     function handleReturnClick() {
         history(prevPage);
-        setCreating('none')
+        if (setCreating) setCreating('none')
     }
 
 
     useEffect(() => {
-        debugger
         if (isSuccess == '') {
             handleReturnClick();
         }

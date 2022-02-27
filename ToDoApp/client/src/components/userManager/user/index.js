@@ -82,9 +82,7 @@ function User(props) {
     }
 
     function handleEditAccount(update, id) {
-      console.log(userData)
       setEdittingData()
-      console.log(update)
       if(update.isAdmin){
         if(update.isAdmin == "Admin"){
           update.isAdmin = true
@@ -176,11 +174,10 @@ function User(props) {
           </td>
           <td className = "checkbox">
             {(isEditting == "none") && (
-            <Button
-              type= "checkbox"
-              defaultValue= "Check to edit"
-              handleOnClick={handleEdit}
-          
+            <input
+              type= "button"
+              className = 'checkbox-round'
+              onClick={handleEdit}
             />
             )}
             {(isEditting == "") && (

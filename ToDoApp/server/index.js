@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose')
 const { router } = require('./routers')
+const { logger } = require('./utils/logger.js')
 
 const hostname = "localhost"
 const port = "5500"
@@ -14,13 +15,14 @@ const connection = mongoose.connection
 
 connection
     .on('connected', () => {
-        console.log('Connected Database');
+        logger.info('Connected Database')
     })
     .on('disconnected', () => {
-        console.log('Disconnect Database');
+        logger.info('Disconnect Database');
+        
     })
     .on('error', (error) => {
-        console.log('Error: ', error);
+        logger.error(error)
     })
 
 const server = express();
@@ -29,14 +31,7 @@ server.use(cors())
 
 server.use(router);
 
-// server.all('/*', (request, response) => {
-//     response.setHeader("Access-Control-Allow-Origin", "*");
-//     response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//     response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
-//     let controller = route(request);
-//     controller(request, response)
-// })
 
 server.listen(port, () => {
-    console.log(`Server running at http://${hostname}:${port}`)
+    logger.info(`Server running at http://${hostname}:${port}`);
 })

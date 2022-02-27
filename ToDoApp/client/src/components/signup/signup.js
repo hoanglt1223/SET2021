@@ -30,7 +30,6 @@ function SignUpContent(props) {
             postMethod('sign-up', signingUpAccount).then(response => {
                 debugger
                 if (response.data.status === 'success') {
-                    console.log(1);
                     signingUpAccount._id = response.data._id
                     setSuccess('');
                     if (setUserListContext) setUserListContext(prev => [...prev, signingUpAccount]);

@@ -115,9 +115,8 @@ export default function App() {
                                         authorization: window.sessionStorage.getItem('token')
                                     }
                                 };
-                                getMethod('authenticate', config).then(response => {
+                                getMethod('authentication', config).then(response => {
                                     if (response.data.status === 'success') {
-                                        console.log(response.data.account);
                                         context.setAccount(response.data.account)
                                     }
                                     else {

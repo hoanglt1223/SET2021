@@ -1,7 +1,9 @@
+const { logger } = require('./utils/logger')
+
 exports.handleError = function handleError(
     error,
     filePath = '',
     functionName = ''
 ) {
-    console.error(`${filePath} -> ${functionName} -> Error:`, error)
+    logger.error(`${filePath} -> ${functionName} -> Error: ${error}`)
 }

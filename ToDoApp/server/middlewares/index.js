@@ -1,3 +1,4 @@
 const parseRequestBody = require('./parseRequestBody')
+const authenticate = require('./authentication')
 
-module.exports = {parseRequestBody}
+module.exports = {parseRequestBody, authenticate}

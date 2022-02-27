@@ -1,10 +1,10 @@
 const express = require('express')
 const router = express.Router();
-const { parseRequestBody } = require('../middlewares/')
+const { parseRequestBody, authenticate } = require('../middlewares/')
 const { createProject,
     getProjects,
     deleteProject, updateProjectAddTaskByID, updateProjectDoneTaskByID, updateProjectDeleteTaskByID, signUp, getUsers, getUser, deleteUser, editUser, logIn } = require('../controllers');
-const authenticate = require('../middlewares/authentication');
+const {logger} =require('../utils/logger')
 
 
 
@@ -14,12 +14,12 @@ router.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
     res.setHeader('Access-Control-Allow-Headers', "Authorization")
-    console.log(req.method, '  ->  ', req.url);
+    logger.info(req.method + '  ->  ' + req.url)
     parseRequestBody(req, res)
     .then(() => next());
 })
 
-router.use('/authenticate', (req, res, next) => {
+router.use('/authentication', (req, res, next) => {
     authenticate(req, res).then(() => next());
 })
 

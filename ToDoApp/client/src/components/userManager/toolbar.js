@@ -11,9 +11,6 @@ function Toolbar(props) {
     function handleCreateNewAccount() {
         setCreating('')
     }
-    function handleFilter() {
-
-    }
 
 
     return (
@@ -31,12 +28,9 @@ function Toolbar(props) {
                 <div className="userManager__toolbar-middle">
                     <span className="userManager__toolbar-title">SET 2021</span>
                 </div>
+
                 <div className="userManager__toolbar-right">
-                    <Button
-                        titleValue="Filter"
-                        id="filter__button"
-                        handleOnClick={handleFilter}
-                    />
+                   
                 </div>
             </div>
             {(isCreating == '') && <SignUpContent prevPage = '/users'

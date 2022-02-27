@@ -50,10 +50,11 @@
 }
 
 .userManager__toolbar-title {
-  font-size: 35px;
+  font-size: 50px;
   text-align: center;
   color: #2769be;
   text-align: -webkit-match-parent;
+  font-weight: 1000;
 }
 
 
@@ -61,6 +62,7 @@
   display: flex;
   text-align: center;
   justify-content: space-between;
+  align-items: center;
   background-color: #e3f5fd;
   width: 100%;
   color: #6cf;  
@@ -99,7 +101,6 @@ th {
 }
 
 input {
-  background-color: lightgrey;
   border-radius: 10px;
   width: 100px;
   height: 30px;
@@ -120,7 +121,7 @@ input {
 }
 
 #create__button:hover {
-  background-color: lightcoral;
+  background-color: #00A878;
 }
 
 #filter__button:hover {
@@ -134,14 +135,21 @@ input {
   background-color: #202020;
   margin-bottom:0;
   width: 100%;
-  -webkit-border-radius: 0 0 10px 10px;
-  -moz-border-radius: 0 0 10px 10px;
-  -ms-border-radius: 0 0 10px 10px;
-  -o-border-radius: 0 0 10px 10px;
 }
 
 
 .userManager__footer-content{
   text-align: center;
 
+}
+
+.userManager__toolbar-middle{
+  width: 100%;
+}
+
+#create__button{
+  background-color:  #C7F2A7;
+  height: 40px;
+  font-size: 20px;
+  border: 4px solid #1E441E ;
 }

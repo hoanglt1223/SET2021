@@ -1,4 +1,3 @@
-import { useCallback } from "react";
 import { toast } from "react-toastify";
 
 import TodoItem from "../TodoItem";

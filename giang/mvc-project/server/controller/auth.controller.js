@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const errorHandler = require("../helper/errorHandler");
 
 const { User } = require("../model");
 
@@ -20,13 +21,15 @@ async function login(req, res) {
   const existsUser = await User.findOne({ username });
 
   if (!existsUser) {
-    throw new Error("User does not exists in system");
+    errorHandler(res, "User does't exist");
+    return;
   }
 
   const isMatchPassword = existsUser.comparePassword(password);
 
   if (!isMatchPassword) {
-    throw new Error("Username or password invalid");
+    errorHandler(res, "Username or password invalid");
+    return;
   }
 
   res.end(
@@ -42,6 +45,8 @@ async function login(req, res) {
 async function getMe(req, res) {
   const userId = req.user._id;
   const user = await User.findById(userId);
+
+  console.log({ user });
 
   res.end(
     JSON.stringify({

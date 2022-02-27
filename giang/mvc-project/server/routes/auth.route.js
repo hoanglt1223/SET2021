@@ -48,6 +48,24 @@ const authRouter = {
       },
       middlewares: [],
     },
+    "/auth/login": {
+      controller: (_, res) => {
+        res.end();
+      },
+      middlewares: [],
+    },
+    "/auth/me": {
+      controller: (_, res) => {
+        res.end();
+      },
+      middlewares: [],
+    },
+    "/auth/register": {
+      controller: (_, res) => {
+        res.end();
+      },
+      middlewares: [],
+    },
   },
 };
 

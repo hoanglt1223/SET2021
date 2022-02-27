@@ -18,7 +18,7 @@ connection
         logger.info('Connected Database')
     })
     .on('disconnected', () => {
-        logger.info('Disconnect Database');
+        logger.warn('Disconnect Database');
         
     })
     .on('error', (error) => {

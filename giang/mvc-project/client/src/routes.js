@@ -5,4 +5,7 @@ module.exports = {
   login: {
     value: "/login",
   },
+  register: {
+    value: "/register",
+  },
 };

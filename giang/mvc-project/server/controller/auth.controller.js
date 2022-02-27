@@ -46,8 +46,6 @@ async function getMe(req, res) {
   const userId = req.user._id;
   const user = await User.findById(userId);
 
-  console.log({ user });
-
   res.end(
     JSON.stringify({
       _id: user._id,

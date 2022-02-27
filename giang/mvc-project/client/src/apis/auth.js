@@ -26,6 +26,19 @@ async function getMe() {
   return response.data;
 }
 
-const authApis = { login, getMe };
+async function register(username, password) {
+  const response = await axios.post(`${AUTH_ENDPOINT}/register`, {
+    username,
+    password,
+  });
+
+  if (response?.data?.error) {
+    throw new Error(response?.data?.error);
+  }
+
+  return response.data;
+}
+
+const authApis = { login, getMe, register };
 
 export default authApis;

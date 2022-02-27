@@ -5,6 +5,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import HomePage from "./pages/Home";
 import LoginPage from "./pages/Login";
+import RegisterPage from "./pages/Register";
+
 import routes from "./routes";
 import UserContext from "./context/user.context";
 import { useState } from "react";
@@ -27,6 +29,7 @@ const App = () => {
           <Routes>
             <Route path={routes.login.value} element={<LoginPage />} />
             <Route path={routes.home.value} element={<HomePage />} />
+            <Route path={routes.register.value} element={<RegisterPage />} />
           </Routes>
           <ToastContainer />
         </div>

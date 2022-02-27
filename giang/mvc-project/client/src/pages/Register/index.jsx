@@ -1,46 +1,43 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 import apis from "../../apis";
 import "./styles.css";
 import routes from "../../routes";
-import { AUTHORIZATION_KEY } from "../../constants";
-import UserContext from "../../context/user.context";
 
-const LoginPage = () => {
+const RegisterPage = () => {
   const navigator = useNavigate();
-  const userContext = useContext(UserContext);
 
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
+  const [confirmPassword, setConfirmPassword] = useState();
 
-  async function onSubmitLoginForm(event) {
+  async function onSubmitRegisterForm(event) {
     event.preventDefault();
 
     try {
-      const response = await apis.auth.login(username, password);
-      toast.success(`Hi, ${username} ^^`);
+      if (password !== confirmPassword) {
+        toast.error("Confirm password not match");
+        return;
+      }
 
-      handleAfterLoginSuccess(response?.token);
+      await apis.auth.register(username, password);
+      toast.success(`Register success`);
+      handleAfterRegisterSuccess();
     } catch (error) {
       toast.error(error.message);
     }
   }
 
-  async function handleAfterLoginSuccess(token) {
-    localStorage.setItem(AUTHORIZATION_KEY, token);
-
-    const currentUser = await apis.auth.getMe();
-    userContext.saveMe(currentUser);
-
-    navigator(routes.home.value);
+  async function handleAfterRegisterSuccess() {
+    navigator(routes.login.value);
   }
 
   return (
     <div className="container">
-      <h3>Login page</h3>
-      <form onSubmit={onSubmitLoginForm}>
+      <h3>Register page</h3>
+      <form onSubmit={onSubmitRegisterForm}>
         <div className="form-group">
           <label htmlFor="username">Username: </label>
           <input
@@ -60,14 +57,20 @@ const LoginPage = () => {
           />
         </div>
 
-        <a href={routes.register.value}>You don't have account?</a>
-
-        <div>
-          <button type="submit">Submit</button>
+        <div className="form-group">
+          <label htmlFor="confirm-password">Confirm password: </label>
+          <input
+            type="password"
+            id="confirm-password"
+            onChange={(event) => setConfirmPassword(event.target.value)}
+            value={confirmPassword}
+          />
         </div>
+
+        <button type="submit">Submit</button>
       </form>
     </div>
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

@@ -7,6 +7,7 @@ import { deleteUser, getAllUser } from "../../API/user";
 import SignUpAdmin from "./component/SignUp.js";
 import ButtonContainer from "./component/ButtonContainer";
 import { resetForm } from "../../utils/helper-validate";
+import { getCurrentInfomation } from "../../utils/helper-log-status";
 
 const UserAdmin = () => {
   const [userList, setUserList] = useState([]);
@@ -30,6 +31,7 @@ const UserAdmin = () => {
 
   useEffect(() => {
     renderUser();
+    getCurrentInfomation();
   }, []);
 
   async function renderUser() {

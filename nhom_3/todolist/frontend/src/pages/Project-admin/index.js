@@ -17,6 +17,7 @@ import { getAllUser } from "../../API/user";
 import { editTask, getAllTask, getTaskById } from "../../API/task";
 import { createProjectUser, getAllProjectUser } from "../../API/project-user";
 import { showTableControl } from "../../utils/project-admin";
+import { getCurrentInfomation } from "../../utils/helper-log-status";
 
 const ProjectAdmin = () => {
   const [projectList, setProjectList] = useState([]);
@@ -40,6 +41,7 @@ const ProjectAdmin = () => {
     renderTaskOption();
     setTaskId(taskList?.[0]?._id);
     setUserId(userList?.[0]?._id);
+    getCurrentInfomation();
     localStorage.removeItem("projectId");
   }, []);
 

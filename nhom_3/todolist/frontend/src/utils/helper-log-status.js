@@ -1,4 +1,5 @@
 // import { setItemWithSession } from "./process-data";
+import { getUserById } from "../API/user";
 
 export function doLogOut() {
   localStorage.setItem("isRemember", false);
@@ -43,4 +44,17 @@ export function resetForm() {
   document.querySelector(".button-update-task").style.display = "none";
   document.querySelector(".button-add-task").style.display = "inline";
   inputText.value = "";
+}
+
+export async function getCurrentInfomation() {
+  const currentUserId = localStorage.getItem("userId");
+  const requestId = {
+    _id: currentUserId,
+  };
+  const currentUser = await getUserById(requestId);
+  console.log(currentUser);
+  if (!currentUser?.isAdmin) {
+    window.location.href = "/";
+    alert("You are not admin");
+  }
 }

@@ -12,7 +12,8 @@ const headers = {
   "Access-Control-Allow-Methods": "*",
   "Access-Control-Max-Age": 2592000, // 30 days
   /** add other headers as per requirement */
-  "Access-Control-Allow-Headers": "Content-Type, Authorization",
+  "Access-Control-Allow-Headers":
+    "Content-Type, Authorization, User-Agent, Referer",
 };
 
 const server = http.createServer((req, res) => {

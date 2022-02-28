@@ -5,16 +5,27 @@ const axiosInstance = axios.create();
 
 axiosInstance.interceptors.request.use((config) => {
   const token = localStorage?.getItem(AUTHORIZATION_KEY) ?? "";
-
-  return {
+  let customConfig = {
     ...config,
     headers: {
-      // "Content-Type": "application/x-www-form-urlencoded",
       "Content-Type": "application/json",
-      // "Access-Control-Allow-Credentials": true,
-      Authorization: `Bearer ${token}`,
     },
   };
+
+  if (token) {
+    customConfig.headers = {
+      ...customConfig.headers,
+      Authorization: `Bearer ${token}`,
+    };
+  }
+
+  return customConfig;
+});
+
+axiosInstance.interceptors.response.use((response) => {
+  if (response?.data?.error) {
+    throw new Error(response?.data?.error);
+  }
 });
 
 export default axiosInstance;

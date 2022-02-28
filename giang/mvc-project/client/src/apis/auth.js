@@ -9,19 +9,11 @@ async function login(username, password) {
     password,
   });
 
-  if (response?.data?.error) {
-    throw new Error(response?.data?.error);
-  }
-
   return response.data;
 }
 
 async function getMe() {
   const response = await axios.post(`${AUTH_ENDPOINT}/me`);
-
-  if (response?.data?.error) {
-    throw new Error(response?.data?.error);
-  }
 
   return response.data;
 }
@@ -31,10 +23,6 @@ async function register(username, password) {
     username,
     password,
   });
-
-  if (response?.data?.error) {
-    throw new Error(response?.data?.error);
-  }
 
   return response.data;
 }

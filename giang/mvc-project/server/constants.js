@@ -15,4 +15,10 @@ const DEFAULT_TASK = {
   isDeleted: null,
 };
 
-module.exports = { DBCollection, TaskStatus, DEFAULT_TASK };
+const LogInfoType = {
+  INFO: "info",
+  WARNING: "warning",
+  ERROR: "error",
+};
+
+module.exports = { DBCollection, TaskStatus, DEFAULT_TASK, LogInfoType };

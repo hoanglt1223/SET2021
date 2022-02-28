@@ -20,6 +20,7 @@ const TodoList = (props) => {
       await reFetchData(currentUser?._id);
     } catch (error) {
       toast.error(error);
+      toast.error(error.message);
     }
   }
 

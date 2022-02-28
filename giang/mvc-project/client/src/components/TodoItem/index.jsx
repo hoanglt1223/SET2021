@@ -1,6 +1,6 @@
 import "./styles.css";
 import { ETodoStatus } from "../../enums";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const TodoItem = (props) => {
   const { todo, deleteTodo, updateTodo } = props;
@@ -48,6 +48,14 @@ const TodoItem = (props) => {
       status: newStatus,
     });
   }
+
+  useEffect(() => {
+    if (!isEditable) {
+      setCurrentTitle("");
+    } else {
+      setCurrentTitle(todo?.title);
+    }
+  }, [isEditable]);
 
   return (
     <div className="todo-container">

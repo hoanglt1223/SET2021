@@ -1,18 +1,26 @@
-const winston = require("winston");
+const { createLogger, format, transports } = require("winston");
 const path = require("path");
 
-module.exports = winston.createLogger({
+const LEVEL = Symbol.for("level");
+
+function filterOnly(level) {
+  return format(function (info) {
+    if (info[LEVEL] === level) {
+      return info;
+    }
+  })();
+}
+
+module.exports = createLogger({
   // format của log được kết hợp thông qua format.combine
-  format: winston.format.combine(
-    winston.format.splat(),
+  format: format.combine(
+    format.splat(),
     // Định dạng time cho log
-    winston.format.timestamp({
+    format.timestamp({
       format: "YYYY-MM-DD HH:mm:ss",
     }),
-    // thêm màu sắc
-    winston.format.colorize(),
     // thiết lập định dạng của log
-    winston.format.printf((log) => {
+    format.printf((log) => {
       // nếu log là error hiển thị stack trace còn không hiển thị message của log
       if (log.stack) return `${log.timestamp} ${log.level} ${log.stack}`;
       return `${log.timestamp} ${log.level} ${log.message}`;
@@ -20,15 +28,19 @@ module.exports = winston.createLogger({
   ),
   transports: [
     // hiển thị log thông qua console
-    new winston.transports.Console(),
+    new transports.Console(),
+
     // Thiết lập ghi các errors vào file
-    new winston.transports.File({
+    new transports.File({
       level: "error",
+      format: filterOnly("error"),
       filename: path.join(__dirname, "errors.log"),
     }),
     // Thiết lập ghi các info vào file
-    new winston.transports.File({
+
+    new transports.File({
       level: "info",
+      format: filterOnly("info"),
       filename: path.join(__dirname, "info.log"),
     }),
   ],

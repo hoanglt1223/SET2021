@@ -1,6 +1,9 @@
 const http = require("http");
 const mongoose = require("mongoose");
+const logger = require("./helper/logger");
 const middleware = require("./helper/middleware");
+const { LogInfoType } = require("./constants");
+
 require("dotenv").config();
 
 const hostname = "127.0.0.1";
@@ -30,6 +33,7 @@ async function main() {
 main().catch((err) => console.log(err));
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
+  logger(LogInfoType.INFO, `Server running at http://${hostname}:${port}/`);
 });
 
 function getRouter(req) {

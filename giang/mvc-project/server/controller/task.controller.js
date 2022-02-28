@@ -4,6 +4,7 @@ const { getParameterByName } = require("../utils");
 const { Task } = require("../model");
 const { TaskStatus, DEFAULT_TASK } = require("../constants");
 const { task } = require("../routes");
+const errorHandler = require("../helper/errorHandler");
 
 const taskController = {
   getTasks,
@@ -61,6 +62,12 @@ async function updateTask(req, res) {
 
   if (taskId) {
     const taskBody = req.body;
+
+    if (taskBody.title.includes("toilet")) {
+      errorHandler(res, `${taskId}: Task title invalid`);
+      return;
+    }
+
     await Task.updateOne(
       {
         _id: taskObjectId,

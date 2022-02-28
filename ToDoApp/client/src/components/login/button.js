@@ -12,16 +12,16 @@ function Button(props) {
   } = props
 
   useEffect(() => {
+    // Cái này để làm gì vậy, hình như không cần thiết
     window.addEventListener("click", (e) => handleOnClick)
   })
 
   return (
-
-
     <React.Fragment>
       <input
         type={type}
         defaultValue={titleValue}
+        // Tránh sử dụng inline style
         style={{ color: textColor }}
         onClick={handleOnClick}
         className={className}

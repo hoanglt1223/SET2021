@@ -43,8 +43,7 @@ function Project(props) {
                 <Button
                     handleOnClick={handleExpand}
                     className={`gg-chevron-double-${valueExpandButton}-o`}
-                >
-                </Button>
+                />
                 <p className="projectName">{nameProject}</p>
 
 

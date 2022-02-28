@@ -35,6 +35,7 @@ function Task(props) {
 
 
     return (
+        // Nghiên cứu dùng thư viện classnames
         <li className={`task`} style={{ display: !isDeleted ? 'flex' : 'none' }}>
 
             <input
@@ -46,6 +47,7 @@ function Task(props) {
             />
             <span
                 className="taskName"
+        // Nghiên cứu dùng thư viện classnames
                 style={{ textDecorationLine: isDone ? 'line-through' : 'none'}}
             >
                 {nameTask}

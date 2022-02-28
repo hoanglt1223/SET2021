@@ -12,6 +12,7 @@ function DetailBoard(props) {
 
     return (
         <div className="detailProject" style={{ display: isExpanded }}>
+        // Chỗ này chưa cần tách component
             <DetailTaskList
                 projectID={projectID}
                 fetchedTaskList={fetchedTaskList}

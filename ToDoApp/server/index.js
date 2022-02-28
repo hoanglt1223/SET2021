@@ -7,6 +7,7 @@ const  logger  = require('./loggingServer/index')
 const hostname = "localhost"
 const port = "5500"
 
+// Xài dotenv, không lưu trong git
 const uriDB = "mongodb+srv://thanhtailt1223:tailt1007@cluster0.mv93c.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 
 mongoose.connect(uriDB);

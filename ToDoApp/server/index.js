@@ -2,8 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose')
 const { router } = require('./routers')
-const { logger } = require('./utils/logger.js')
-
+// const { logger } = require('./utils/logger.js')
+const { logger } = require('./loggingServer/index')
 const hostname = "localhost"
 const port = "5500"
 

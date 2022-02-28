@@ -4,8 +4,8 @@ const { parseRequestBody, authenticate } = require('../middlewares/')
 const { createProject,
     getProjects,
     deleteProject, updateProjectAddTaskByID, updateProjectDoneTaskByID, updateProjectDeleteTaskByID, signUp, getUsers, getUser, deleteUser, editUser, logIn } = require('../controllers');
-const {logger} =require('../utils/logger')
-
+// const {logger} =require('../utils/logger')
+const { logger } = require('./loggingServer/index')
 
 
 // >>>>>>>>>>>>>> Middleware

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Button from "./button";
 import { Link } from "react-router-dom"
 import { MyselfContextConsumer } from '../../context/myselfContext'
-import { postMethod } from '../../api'
+import { postMethod, getMethod } from '../../api'
 import axios from "axios"
 function LogInContent(props) {
 	const [usernameInput, setUsernameInput] = useState('');

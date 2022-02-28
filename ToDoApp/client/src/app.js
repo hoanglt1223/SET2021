@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import ProjectMananger from './components/projects'
+import ProjectManager from './components/projects'
 import { ProjectContextProvider } from './context/projectContext'
 import { BrowserRouter as Router, Link, Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 import UserManager from "./components/userManager"
@@ -14,7 +14,7 @@ import Account from './components/account'
 function RouteProjects() {
     return (
         <ProjectContextProvider>
-            <ProjectMananger />
+            <ProjectManager />
         </ProjectContextProvider>
     )
 }

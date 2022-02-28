@@ -3,7 +3,7 @@ import Button from "./button";
 import { Link } from "react-router-dom"
 import { MyselfContextConsumer } from '../../context/myselfContext'
 import { postMethod, getMethod } from '../../api'
-import axios from "axios"
+
 function LogInContent(props) {
 	const [usernameInput, setUsernameInput] = useState('');
 	const [passwordInput, setPasswordInput] = useState('');

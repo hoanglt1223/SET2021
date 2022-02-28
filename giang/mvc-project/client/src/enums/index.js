@@ -1,4 +1,4 @@
 export const ETodoStatus = {
-  DOING: "doing",
-  DONE: "done",
-};
+  DOING: 'doing',
+  DONE: 'done'
+}

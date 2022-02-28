@@ -1,9 +1,9 @@
-import { createContext } from "react";
+import { createContext } from 'react'
 
 const UserContext = createContext({
   currentUser: null,
   saveMe: () => {},
-  resetMe: () => {},
-});
+  resetMe: () => {}
+})
 
-export default UserContext;
+export default UserContext

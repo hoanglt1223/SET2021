@@ -1,6 +1,6 @@
-import todo from "./todo";
-import auth from "./auth";
+import todo from './todo'
+import auth from './auth'
 
-const apis = { todo, auth };
+const apis = { todo, auth }
 
-export default apis;
+export default apis

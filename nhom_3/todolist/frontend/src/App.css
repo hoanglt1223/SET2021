@@ -180,6 +180,13 @@ input#username {
   padding: 0 20px;
   min-width: 250px;
 }
+.todo-list.show {
+  display: inline
+}
+.todo-list.hide {
+  display: none;
+}
+
 .todo-item {
   display: flex;
   width: 500px;

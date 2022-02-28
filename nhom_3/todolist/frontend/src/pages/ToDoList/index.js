@@ -8,12 +8,13 @@ import Option from "../../components/Option";
 import List from "../../components/List";
 import { createTask, editTask, getAllTask } from "../../API/task";
 import TodoItem from "../../components/List/TodoItem";
+import { getCurrentInfomation } from "../../utils/helper-log-status";
 
 const ToDoList = () => {
   const [taskList, setTaskList] = useState([]);
   const [taskName, setTaskName] = useState("");
   const [currentTask, setCurrentTask] = useState();
-  const [currentUser, setCurrentUser] = useState();
+  const [currentId, setCurrentId] = useState();
   const [option, setOption] = useState("all");
 
   function handleInputTask(event) {
@@ -22,7 +23,8 @@ const ToDoList = () => {
 
   useEffect(() => {
     renderTask();
-    setCurrentUser(localStorage.getItem("userId"));
+    getCurrentInfomation();
+    setCurrentId(localStorage.getItem("userId"));
   }, []);
 
   useEffect(() => {
@@ -48,8 +50,8 @@ const ToDoList = () => {
     const newTask = {
       taskName: taskName,
       isDone: false,
-      createdBy: currentUser,
-      assignedTo: currentUser,
+      createdBy: currentId,
+      assignedTo: currentId,
     };
     await createTask(newTask);
     resetForm();

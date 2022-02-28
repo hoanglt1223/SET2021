@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
-import ButtonSubmit from "../../../components/ButtonSubmit";
 import Form from "../../../components/Form";
 import FormGroup from "../../../components/FormGroup";
 import RadioGroup from "../../../components/RadioButtonGroup";
 import RadioButton from "../../../components/RadioButton";
-import { NOTI_MESSAGE } from "../../../constants/validate";
 import {
   validateName,
   validateUsername,
@@ -13,19 +11,26 @@ import {
   validateAge,
 } from "../../../utils/validate-signUp";
 import { getElementValueById, resetForm } from "../../../utils/helper-validate";
-import { setItemWithLocal } from "../../../utils/process-data";
 import CheckboxGroup from "../../../components/CheckboxGroup";
 import { signUp } from "../../../API/user";
 // import { enableForm, disableForm } from "../../../utils/user-admin";
-import { getAllUser, getUserById, editUser } from "../../../API/user";
+import { getAllUser, editUser } from "../../../API/user";
 import Button from "../../../components/Button";
 
 const SignUpAdmin = (props) => {
-  const { userList, setUserList, setCurrentUser, data, setData, isEditting, isAdding, setIsAdding, setIsEditting, disableForm } = props;
-  console.log(data)
-  
+  const {
+    setUserList,
+    data,
+    setData,
+    isEditting,
+    isAdding,
+    setIsAdding,
+    setIsEditting,
+    disableForm,
+  } = props;
+  console.log(data);
+
   const [genderValue, setGenderValue] = useState("");
-  const [isDisable, setIsDisable] = useState(true);
 
   // useEffect(() => {
   //   isDisable ? disableForm() : enableForm();
@@ -38,11 +43,10 @@ const SignUpAdmin = (props) => {
     setUserList(filteredUser);
   }
 
-
   async function addUser(e) {
     e.preventDefault();
-    setIsEditting(false)
-    setIsAdding(true)
+    setIsEditting(false);
+    setIsAdding(true);
     let userData = {};
     userData.isAdmin = data.isAdmin;
     userData.name = data.name;
@@ -64,7 +68,6 @@ const SignUpAdmin = (props) => {
       gender: "",
       isAdmin: "",
     });
-    setIsDisable(true);
     renderUser();
     resetForm();
     disableForm();
@@ -73,7 +76,15 @@ const SignUpAdmin = (props) => {
   async function updateUser() {
     console.log("update");
     await editUser(data);
-    // console.log(currentUser);
+    setData({
+      name: "",
+      username: "",
+      password: "",
+      confirmPassword: "",
+      age: "",
+      gender: "",
+      isAdmin: "",
+    });
     renderUser();
     resetForm();
     disableForm();
@@ -106,9 +117,18 @@ const SignUpAdmin = (props) => {
     setData(newData);
   }, [genderValue]);
 
-  function cancelEdit(){
-    setIsAdding(false)
-    setIsEditting(false)
+  function cancelEdit() {
+    setIsAdding(false);
+    setIsEditting(false);
+    setData({
+      name: "",
+      username: "",
+      password: "",
+      confirmPassword: "",
+      age: "",
+      gender: "",
+      isAdmin: "",
+    });
     disableForm();
     resetForm();
   }
@@ -142,10 +162,10 @@ const SignUpAdmin = (props) => {
     const age = getElementValueById("age");
     validateAge(age);
   }
-  function setAdmin(e){
+  function setAdmin(e) {
     const value = e.target.checked;
     console.log(value);
-    setData({...data, isAdmin: value});
+    setData({ ...data, isAdmin: value });
   }
 
   return (
@@ -229,11 +249,22 @@ const SignUpAdmin = (props) => {
           groupId="role"
           labelName="Set admin"
           onChange={setAdmin}
-        >
-        </CheckboxGroup>
-        <Button buttonName="Confirm" buttonClass={`button-add-user ${isAdding ? 'show' : 'hide'} `} onClick={addUser}/>
-        <Button buttonName="Update" buttonClass={`button-update-user ${isEditting? 'show' : 'hide'} `} onClick={updateUser}/>
-        <Button buttonName="Cancel" buttonClass="button-cancel" onClick={cancelEdit}/>
+        ></CheckboxGroup>
+        <Button
+          buttonName="Confirm"
+          buttonClass={`button-add-user ${isAdding ? "show" : "hide"} `}
+          onClick={addUser}
+        />
+        <Button
+          buttonName="Update"
+          buttonClass={`button-update-user ${isEditting ? "show" : "hide"} `}
+          onClick={updateUser}
+        />
+        <Button
+          buttonName="Cancel"
+          buttonClass="button-cancel"
+          onClick={cancelEdit}
+        />
       </>
     </Form>
   );

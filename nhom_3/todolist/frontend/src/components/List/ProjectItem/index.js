@@ -8,14 +8,18 @@ const ProjectItem = (props) => {
     props;
 
   async function handleEditProject(id) {
-    document.querySelector(".button-update-task").style.display = "inline";
-    document.querySelector(".button-add-task").style.display = "none";
-    setProjectName(projectName);
-    const requestId = {
-      _id: id,
-    };
-    const currentProject = await getProjectById(requestId);
-    setCurrentProject(currentProject);
+    try {
+      document.querySelector(".button-update-task").style.display = "inline";
+      document.querySelector(".button-add-task").style.display = "none";
+      setProjectName(projectName);
+      const requestId = {
+        _id: id,
+      };
+      const currentProject = await getProjectById(requestId);
+      setCurrentProject(currentProject);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async function handleDeleteProject(id) {

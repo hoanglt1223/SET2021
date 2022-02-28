@@ -3,7 +3,7 @@ import Container from "../../components/Container";
 import Table from "../../components/Table";
 import Button from "../../components/Button";
 import { enableForm, disableForm } from "../../utils/user-admin";
-import { deleteUser, getAllUser } from "../../API/user";
+import { getAllUser } from "../../API/user";
 import SignUpAdmin from "./component/SignUp.js";
 import ButtonContainer from "./component/ButtonContainer";
 import { resetForm } from "../../utils/helper-validate";
@@ -13,7 +13,7 @@ const UserAdmin = () => {
   const [userList, setUserList] = useState([]);
   const [currentUser, setCurrentUser] = useState();
   const [isEditting, setIsEditting] = useState(false);
-  const [isAdding, setIsAdding] = useState(false)
+  const [isAdding, setIsAdding] = useState(false);
   const [isDisable, setIsDisable] = useState(true);
   const [data, setData] = useState({
     name: "",
@@ -24,7 +24,6 @@ const UserAdmin = () => {
     gender: "",
     role: "",
   });
-  // console.log(userList);
   useEffect(() => {
     isDisable ? disableForm() : enableForm();
   }, [isDisable]);
@@ -43,17 +42,9 @@ const UserAdmin = () => {
 
   function addUser() {
     setIsEditting(false);
-    setIsAdding(true)
-    // document.querySelector(".button-update-user").style.display = "none";
-    // document.querySelector(".button-add-user").style.display = "inline";
+    setIsAdding(true);
     enableForm();
     resetForm();
-  }
-
-  async function handleDeleteUser(id) {
-    await deleteUser(id);
-    console.log(1);
-    renderUser();
   }
 
   return (
@@ -70,7 +61,7 @@ const UserAdmin = () => {
                 <>
                   <tr className="user-table" key={user._id}>
                     <td>{user.name}</td>
-                    <td>{user.isAdmin? 'Admin' : 'User'}</td>
+                    <td>{user.isAdmin ? "Admin" : "User"}</td>
                   </tr>
                   <tr className="user-table-option">
                     <ButtonContainer

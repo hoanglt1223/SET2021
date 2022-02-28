@@ -23,6 +23,7 @@ const ProjectAdmin = () => {
   const [projectList, setProjectList] = useState([]);
   const [projectName, setProjectName] = useState("");
   const [currentProject, setCurrentProject] = useState();
+  const [isShowingControl, setIsShowingControl] = useState(false);
   const [taskList, setTaskList] = useState([]);
   const [userList, setUserList] = useState([]);
   const currentUser = localStorage.getItem("userId");
@@ -64,8 +65,16 @@ const ProjectAdmin = () => {
         (value) => value.isDone === false
       );
     }
-    showTableControl();
+    handleTableControl();
     setProjectList(filteredProject);
+  }
+
+  function handleTableControl() {
+    if (!localStorage.getItem("projectId")) {
+      setIsShowingControl(false);
+    } else {
+      setIsShowingControl(true);
+    }
   }
 
   async function handleProject(projectId) {
@@ -238,7 +247,7 @@ const ProjectAdmin = () => {
               })}
             </List>
           </List>
-          <List listClass="todo-list">
+          <List listClass={`todo-list ${isShowingControl ? "show" : "hide"}`}>
             <h3 id="task-project-name">
               Task list in Project {currentProject?.projectName}
             </h3>
@@ -262,7 +271,7 @@ const ProjectAdmin = () => {
               })}
             </List>
           </List>
-          <List listClass="todo-list">
+          <List listClass={`todo-list ${isShowingControl ? "show" : "hide"}`}>
             <h3 id="user-project-name">
               User list in Project {currentProject?.projectName}{" "}
             </h3>

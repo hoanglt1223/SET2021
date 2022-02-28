@@ -57,4 +57,5 @@ export async function getCurrentInfomation() {
     window.location.href = "/";
     alert("You are not admin");
   }
+  return currentUser;
 }

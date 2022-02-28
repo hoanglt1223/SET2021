@@ -1,8 +1,7 @@
 const http = require("http");
 const mongoose = require("mongoose");
 const router = require("./router");
-
-const port = 3001;
+require('dotenv').config();
 
 
 
@@ -11,11 +10,11 @@ const server = http.createServer((request, response) => {
     controller(request, response);
 });
 
-server.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}/`);
+server.listen(process.env.PORT, () => {
+    console.log(`Server running at http://localhost:${process.env.PORT}/`);
 });
 
-mongoose.connect('mongodb+srv://bean:12345ABC@cluster0.pzr7l.mongodb.net/test\n', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));

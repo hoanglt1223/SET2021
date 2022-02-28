@@ -15,8 +15,8 @@ const HomePage = () => {
   const userContext = useContext(UserContext);
   const currentUser = userContext?.currentUser;
 
-  async function fetchTodos() {
-    const todosData = await apis.todo.findAll();
+  async function fetchTodos(userId) {
+    const todosData = await apis.todo.findAll(userId);
 
     setTodos(todosData);
   }
@@ -28,14 +28,20 @@ const HomePage = () => {
     navigator(routes.login.value);
   }
 
-  useEffect(() => {
-    if (!currentUser) {
+  async function handleAuthen() {
+    const me = await apis.auth.getMe();
+
+    if (!me) {
       navigator(routes.login.value);
+    } else {
+      userContext.saveMe(me);
+      fetchTodos(me._id);
+      return;
     }
-  }, []);
+  }
 
   useEffect(() => {
-    fetchTodos();
+    handleAuthen();
   }, []);
 
   return (

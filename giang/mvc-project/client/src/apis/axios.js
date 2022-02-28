@@ -26,6 +26,8 @@ axiosInstance.interceptors.response.use((response) => {
   if (response?.data?.error) {
     throw new Error(response?.data?.error);
   }
+
+  return response;
 });
 
 export default axiosInstance;

@@ -13,6 +13,10 @@ const taskSchema = new Schema({
   },
   isAdminCreated: Boolean,
   isDeleted: Boolean,
+  creatorId: {
+    type: String,
+    required: true,
+  },
 });
 
 const Task = mongoose.model(DBCollection.TASK, taskSchema);

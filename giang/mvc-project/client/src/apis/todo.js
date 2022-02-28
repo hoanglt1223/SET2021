@@ -3,8 +3,16 @@ import { API_URL } from "../constants";
 
 const TODO_ENDPOINT = `${API_URL}/tasks`;
 
-async function findAll() {
-  const response = await axios.get(TODO_ENDPOINT);
+async function findAll(creatorId) {
+  const filter = {
+    where: {
+      creatorId,
+    },
+  };
+
+  const response = await axios.get(
+    `${TODO_ENDPOINT}?filter=${JSON.stringify(filter)}`
+  );
 
   return response.data;
 }

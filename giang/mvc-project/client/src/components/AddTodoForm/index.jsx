@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { toast } from "react-toastify";
+
+import UserContext from "../../context/user.context";
 
 import apis from "../../apis";
 import { ETodoStatus } from "../../enums";
@@ -7,11 +9,13 @@ import "./styles.css";
 
 const AddTodoForm = (props) => {
   const { reFetchData } = props;
+  const userContext = useContext(UserContext);
+  const currentUser = userContext?.currentUser;
 
   const [todoTitle, setTodoTitles] = useState("");
 
   async function handleAfterCreateSuccess() {
-    await reFetchData();
+    await reFetchData(currentUser?._id);
     setTodoTitles("");
     toast.success("Add todo success");
   }
@@ -26,6 +30,7 @@ const AddTodoForm = (props) => {
       const newTask = {
         title: todoTitle,
         status: ETodoStatus.DOING,
+        creatorId: currentUser?._id,
       };
 
       await apis.todo.create(newTask);

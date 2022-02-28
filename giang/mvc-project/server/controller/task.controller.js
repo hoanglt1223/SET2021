@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const { getParameterByName } = require("../utils");
 const { Task } = require("../model");
 const { TaskStatus, DEFAULT_TASK } = require("../constants");
+const { task } = require("../routes");
 
 const taskController = {
   getTasks,
@@ -13,14 +14,23 @@ const taskController = {
 };
 
 async function getTasks(req, res) {
-  const tasks = await Task.find();
+  let tasks = [];
+  const filter = JSON.parse(getParameterByName("filter", req.url));
+
+  if (filter?.where?.creatorId) {
+    tasks = await Task.find({ creatorId: filter?.where?.creatorId });
+  } else {
+    tasks = await Task.find();
+  }
+
   const taskId = getParameterByName("id", req.url);
 
-  if (taskId) {
-    const taskObjectId = mongoose.Types.ObjectId(taskId);
-    const currentTask = await Task.findById(taskObjectId);
-    res.end(JSON.stringify(currentTask));
-  }
+  if (filter?.where?.creatorId)
+    if (taskId) {
+      const taskObjectId = mongoose.Types.ObjectId(taskId);
+      const currentTask = await Task.findById(taskObjectId);
+      res.end(JSON.stringify(currentTask));
+    }
   res.end(JSON.stringify(tasks));
 }
 

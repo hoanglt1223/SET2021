@@ -5,6 +5,8 @@ async function logger(type, message) {
     type,
     message,
   });
+
+  return;
 }
 
 module.exports = logger;

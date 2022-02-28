@@ -67,7 +67,11 @@ const RegisterPage = () => {
           />
         </div>
 
-        <button type="submit">Submit</button>
+        <a href={routes.login.value}>Login</a>
+
+        <div>
+          <button type="submit">Submit</button>
+        </div>
       </form>
     </div>
   );

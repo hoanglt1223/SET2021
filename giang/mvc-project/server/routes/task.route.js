@@ -1,11 +1,11 @@
 const taskController = require("../controller/task.controller");
-const { getBodyData } = require("../middlewares");
+const { getBodyData, saveUser, authen } = require("../middlewares");
 
 const taskRouter = {
   GET: {
     "/tasks": {
       controller: taskController.getTasks,
-      middlewares: [],
+      middlewares: [saveUser, authen],
     },
   },
   POST: {

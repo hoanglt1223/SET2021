@@ -29,14 +29,13 @@ const HomePage = () => {
   }
 
   async function handleAuthen() {
-    const me = await apis.auth.getMe();
-
-    if (!me) {
-      navigator(routes.login.value);
-    } else {
+    try {
+      const me = await apis.auth.getMe();
       userContext.saveMe(me);
       fetchTodos(me._id);
       return;
+    } catch (error) {
+      navigator(routes.login.value);
     }
   }
 

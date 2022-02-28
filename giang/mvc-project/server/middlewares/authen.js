@@ -5,7 +5,7 @@ function authenMiddlware(req, res) {
     if (req.user) {
       resolve();
     } else {
-      errorHandler("Unauthorized user!");
+      errorHandler(res, "Unauthorized user!");
     }
   });
 }

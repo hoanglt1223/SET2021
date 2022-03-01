@@ -6,37 +6,37 @@ import { ProjectContextConsumer } from '../../context/projectContext'
 
 
 function ProjectManager() {
-    return (
-        <ProjectContextConsumer>
-            {context => {
-                return (
-                    <React.Fragment>
-                        <p id = "project__title">PROJECT MANAGER</p>
-                        <ToolbarProject
-                            setProjectList={context.setProjectList}
-                        />
+	return (
+		<ProjectContextConsumer>
+			{context => {
+				return (
+					<React.Fragment>
+						<p id="project__title">PROJECT MANAGER</p>
+						<ToolbarProject
+							setProjectList={context.setProjectList}
+						/>
 
-                        <ul id="projectlist">
-                            {context.projectList.map((project, index) => {
-                                return (
-                                    <Project
-                                        nameProject={project.projectName}
-                                        taskList_props={project.taskList}
-                                        memberList={project.memberList}
-                                        isDeleted={project.isDeleted}
-                                        id={project._id}
-                                        key={index}
-                                    />
-                                )
-                            })}
-                        </ul>
+						<ul id="projectlist">
+							{context.projectList.map((project, index) => {
+								return (
+									<Project
+										key={index}
+										nameProject={project.projectName}
+										taskList_props={project.taskList}
+										memberList={project.memberList}
+										isDeleted={project.isDeleted}
+										id={project._id}
+									/>
+								)
+							})}
+						</ul>
 
 
-                    </React.Fragment>
-                )
-            }}
-        </ProjectContextConsumer>
-    )
+					</React.Fragment>
+				)
+			}}
+		</ProjectContextConsumer>
+	)
 
 
 

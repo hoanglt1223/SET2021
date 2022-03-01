@@ -45,6 +45,7 @@ const projectSchema = new Schema({
         }],
         required: true
     },
+    // ERD, relation
 
     isDeleted: {
         type: Boolean,

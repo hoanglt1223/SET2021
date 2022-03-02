@@ -19,7 +19,7 @@ const headers = {
 const server = http.createServer((req, res) => {
   res.writeHead(200, headers);
   const router = getRouter(req);
-  return middleware(router, req, res);
+  middleware(router, req, res);
 });
 
 async function main() {

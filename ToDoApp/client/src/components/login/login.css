@@ -28,4 +28,18 @@
 }
 
 
+.remember_account{
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.remember_button{
+  width: 30px;
+  height: 30px;
+  margin-right: 20px;
+}
+
+
 

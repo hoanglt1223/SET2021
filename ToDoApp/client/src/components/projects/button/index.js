@@ -13,11 +13,7 @@ function Button(props) {
         className
     } = props
 
-    useEffect(() => {
-        window.addEventListener("click", (e) => handleOnClick)
-    })
-
-
+    
     if (!className) {
         return (
             <input

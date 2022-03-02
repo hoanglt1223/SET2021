@@ -1,6 +1,5 @@
 const { createLogger, format, transports } = require('winston');
 require('winston-mongodb')
-const { combine, timestamp, label, printf } = format;
 
 
 const productionLogger = () => {
@@ -36,7 +35,7 @@ const productionLogger = () => {
 
         }),
         new transports.MongoDB({
-          db: 'mongodb+srv://hqnam:Hqnam1711@hqnam.ja5is.mongodb.net/test',
+          db: process.env.NODE_ENV === 'production' ? process.env.LOGGER_URL : '',
           collection: 'logs',
           options: {
               useUnifiedTopology: true

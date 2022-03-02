@@ -2,15 +2,14 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose')
 const { router } = require('./routers')
-// const { logger } = require('./utils/logger.js')
+require('dotenv').config();
 const  logger  = require('./loggingServer/index')
 const hostname = "localhost"
 const port = "5500"
 
-// Xài dotenv, không lưu trong git
-const uriDB = "mongodb+srv://thanhtailt1223:tailt1007@cluster0.mv93c.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 
-mongoose.connect(uriDB);
+mongoose.connect(process.env.NODE_ENV === 'staging' ? process.env.MONGODB_URL : '' );
+
 
 const connection = mongoose.connection
 

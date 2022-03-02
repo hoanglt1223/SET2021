@@ -32,15 +32,12 @@ function Task(props) {
         })
     }
 
-
-
     return (
         // Nghiên cứu dùng thư viện classnames
         <li className={`task`} style={{ display: !isDeleted ? 'flex' : 'none' }}>
 
             <input
                 type="checkbox"
-                style={{ width: "20px", marginBottom: '10px' }}
                 defaultChecked={isDone}
                 onClick={handleDoneTask}
                 className='checkbox-round'

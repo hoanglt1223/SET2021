@@ -4,8 +4,8 @@ const { parseRequestBody, authenticate } = require('../middlewares/')
 const { createProject,
     getProjects,
     deleteProject, updateProjectAddTaskByID, updateProjectDoneTaskByID, updateProjectDeleteTaskByID, signUp, getUsers, getUser, deleteUser, editUser, logIn } = require('../controllers');
-// const {logger} =require('../utils/logger')
 const  logger  = require('../loggingServer/index')
+const {api} = require('./helper')
 
 
 // >>>>>>>>>>>>>> Middleware
@@ -27,40 +27,40 @@ router.use('/authentication', (req, res, next) => {
 // >>>>>>>>>>>>>> CONTROLLER
 //================== GET
 
-router.get('/projects', (req, res) => {
+router.get(api.GET.projects.value, (req, res) => {
     getProjects(req, res);
 })
 
-router.get('/get-users', (req, res) => {
+router.get(api.GET.users.value, (req, res) => {
     getUsers(req, res);
 })
 
 
 //================== POST
 
-router.post('/add-project', (req, res) => {
+router.post(api.POST.addProject.value, (req, res) => {
     createProject(req, res)
 })
 
-router.post('/sign-up', (req, res) => {
+router.post(api.POST.signUp.value, (req, res) => {
     signUp(req, res)
 })
 
-router.post('/get-user', (req, res) => {
+router.post(api.POST.getUser.value, (req, res) => {
     getUser(req, res)
 })
 
-router.post('/log-in', (req, res) => {
+router.post(api.POST.logIn.value, (req, res) => {
     logIn(req, res)
 })
 
 //================== DELETE
 
-router.delete('/delete-project', (req, res) => {
+router.delete(api.DELETE.project.value, (req, res) => {
     deleteProject(req, res)
 })
 
-router.delete('/delete-user', (req, res) => {
+router.delete(api.DELETE.user.value, (req, res) => {
     deleteUser(req, res)
 })
 
@@ -69,20 +69,20 @@ router.delete('/delete-user', (req, res) => {
 
 //================== PATCH
 
-router.patch('/add-task', (req, res) => {
+router.patch(api.PATCH.editProject.add.value, (req, res) => {
     updateProjectAddTaskByID(req, res)
 })
 
-router.patch('/done-task', (req, res) => {
+router.patch(api.PATCH.editProject.done.value, (req, res) => {
     updateProjectDoneTaskByID(req, res)
 })
 
 
-router.patch('/delete-task', (req, res) => {
+router.patch(api.PATCH.editProject.delete.value, (req, res) => {
     updateProjectDeleteTaskByID(req, res)
 })
 
-router.patch('/edit-user', (req, res) => {
+router.patch(api.PATCH.editUser.value, (req, res) => {
     editUser(req, res)
 })
 

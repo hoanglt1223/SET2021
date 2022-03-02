@@ -12,7 +12,6 @@ function Button(props) {
   } = props
 
   useEffect(() => {
-    // Cái này để làm gì vậy, hình như không cần thiết
     window.addEventListener("click", (e) => handleOnClick)
   })
 

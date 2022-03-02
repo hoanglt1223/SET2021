@@ -68,3 +68,7 @@ input {
 .taskInput{
   width: 200px;
 }
+
+.project:hover{
+  background-color:#754F5B ;
+}

@@ -5,15 +5,18 @@ const routes = {
   login: {
     value: '/log-in',
   },
-  user: {
-    value: '/user',
-    detail: {
-      value: (userId) => `/house-detail/:${userId}`,
-    }
+  users: {
+    value: '/users',
   },
-  project: {
-    value: '/project'
+  projects: {
+    value: '/projects'
   },
+  signup: {
+    value: '/signup'
+  },
+  account: {
+    value : '/account'
+  }
 }
 
 export default routes

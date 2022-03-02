@@ -3,7 +3,6 @@ const { insertUser, findUsers, findUserById, removeUserById, updateUserById, ver
 const jwt = require('jsonwebtoken')
 const { handleError } = require('../helper');
 const mongoose = require('mongoose')
-const axios = require("axios")
 function handleAuthResponse(response, isSuccessful = false, message = '#') {
     const data = {
         status: isSuccessful ? 'success' : 'fail',

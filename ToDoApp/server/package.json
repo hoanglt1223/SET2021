@@ -5,19 +5,23 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": " set NODE_ENV=staging&& node index.js"
+    "start": " set NODE_ENV=staging&& nodemon index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.25.0",
+    "cli-color": "^2.0.1",
     "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
     "express": "^4.17.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.1.7",
+    "nodemon": "^2.0.15",
     "url": "^0.11.0",
     "winston": "^3.6.0",
     "winston-color": "^1.0.0",
+    "winston-console-formatter": "^1.0.0-beta.3",
     "winston-mongodb": "^5.0.7"
   }
 }

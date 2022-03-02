@@ -11,7 +11,7 @@ const DBCollection = {
   const DEFAULT_TASK = {
     title: null,
     status: null,
-    isAdminCreated: null,
+    isCreatedByAdmin: null,
     isDeleted: null,
   };
   

@@ -1,7 +1,6 @@
 module.exports = function (router, req, res) {
     const routeUrl = req.url.split("?")[0];
     const method = req.method;
-    console.log({ method, routeUrl });
     const route = router[method][routeUrl];
   
     console.log({ route, method, routeUrl });

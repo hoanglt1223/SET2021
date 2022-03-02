@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const { getParameterByName } = require("../utils");
+const { getParameterByName } = require("../../utils/common");
 const { Task } = require("../model");
 const { TaskStatus, DEFAULT_TASK } = require("../constants");
 

@@ -20,6 +20,7 @@
     "jsonwebtoken": "^8.5.1",
     "migrate": "^1.7.0",
     "migrate-mongo": "^8.2.3",
+    "mongodb": "^4.4.0",
     "mongoose": "^6.1.7",
     "nodemon": "^2.0.15",
     "url": "^0.11.0",

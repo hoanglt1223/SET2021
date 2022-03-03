@@ -2,11 +2,7 @@
 
 const config = {
   mongodb: {
-    // TODO Change (or review) the url to your MongoDB:
     url: "mongodb+srv://thanhtailt1223:tailt1007@cluster0.mv93c.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-
-    // TODO Change this to your database name:
-    databaseName: "YOURDATABASENAME",
 
     options: {
       useNewUrlParser: true, // removes a deprecation warning when connecting

@@ -29,7 +29,6 @@ const userSchema = new Schema({
     type: String,
     required: false,
   },
-  // Nên tách taskList thành 1 model riêng, có relation tới user, project
   taskList:{
     type : [{type: String}],
     required: false

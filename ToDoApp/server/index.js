@@ -3,13 +3,12 @@ const cors = require('cors');
 const mongoose = require('mongoose')
 const { router } = require('./routers')
 require('dotenv').config();
-const  logger  = require('./loggingServer/index')
+const logger = require('./loggingServer/index')
 const hostname = "localhost"
 const port = "5500"
 
 
-mongoose.connect(process.env.NODE_ENV === 'staging' ? process.env.MONGODB_URL : '' );
-
+mongoose.connect(process.env.NODE_ENV === 'staging' ? process.env.MONGODB_URL : '');
 
 const connection = mongoose.connection
 
@@ -19,12 +18,27 @@ connection
     })
     .on('disconnected', () => {
         logger.warn('Disconnect Database');
-        
+
     })
     .on('error', (error) => {
         logger.error(error)
     })
 
+const migrate = require('migrate')
+
+migrate.load({
+    stateStore: '.migrate'
+}, function (err, set) {
+    if (err) {
+        throw err
+    }
+    set.up(function (err) {
+        if (err) {
+            throw err
+        }
+        console.log('migrations successfully ran')
+    })
+})
 const server = express();
 
 server.use(cors())

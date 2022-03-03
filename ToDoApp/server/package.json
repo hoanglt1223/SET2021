@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": " set NODE_ENV=staging&& nodemon index.js"
+    "start": " set NODE_ENV=staging&& nodemon index.js",
+    "migrate": "migrate create test",
+    "migrateUp": " migrate up : migrations/1646224429841-test"
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +18,8 @@
     "dotenv": "^16.0.0",
     "express": "^4.17.2",
     "jsonwebtoken": "^8.5.1",
+    "migrate": "^1.7.0",
+    "migrate-mongo": "^8.2.3",
     "mongoose": "^6.1.7",
     "nodemon": "^2.0.15",
     "url": "^0.11.0",

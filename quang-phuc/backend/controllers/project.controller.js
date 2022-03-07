@@ -16,7 +16,7 @@ function getProjectByById(request, response) {
 
 function getProjects(request, response) {
   const filter = getQueryParams(request);
-  console.log(filter);
+  //console.log(filter);
   Project.find(filter).then(data => {
     response.end(JSON.stringify(data))
   })
@@ -54,7 +54,7 @@ function deleteProjectById(request, response) {
 
 function addProject(request, response) {
   const project = request.body
-  console.log('project', project);
+  //console.log('project', project);
   Project.create(project)
     .then((insertedTask) => {
       handleResponse(response, true)

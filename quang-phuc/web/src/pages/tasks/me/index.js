@@ -13,7 +13,7 @@ const MyTasks = () => {
     setIsLoading(true);
     const tasksFromDatabase = await taskService.getTasksOfOwner(loginUser.username);
     setTasks(tasksFromDatabase);
-    console.log(tasksFromDatabase);
+    //console.log(tasksFromDatabase);
     setIsLoading(false);
 
   }, [])

@@ -1,7 +1,7 @@
 const { handleError } = require('../helpers')
 
 function parseRequestBody(request) {
-  console.log('parse-body-request')
+  //console.log('parse-body-request')
   try {
     return new Promise((resolve, reject) => {
       const chunks = []
@@ -12,9 +12,9 @@ function parseRequestBody(request) {
         .on('end', () => {
           const data = JSON.parse(chunks.length > 0 ? chunks : '{}')
           request.body = data
-          console.log('requestbody', request.body)
+          //console.log('requestbody', request.body)
           resolve();
-        })        
+        })
     })
   } catch (err) {
     if (!err.message) {

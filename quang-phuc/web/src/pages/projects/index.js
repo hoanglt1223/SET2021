@@ -19,7 +19,7 @@ function Projects(props) {
       setProjects(dataFromDatabase);
     } else {
       const dataFromDatabase = await projectService.getProjectsOfUser(loginUser.username);
-      console.log(dataFromDatabase)
+      //console.log(dataFromDatabase)
       setProjects(dataFromDatabase);
     }
     setIsLoading(false);

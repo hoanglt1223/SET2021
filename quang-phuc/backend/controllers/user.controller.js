@@ -2,12 +2,13 @@ const jwt = require('jsonwebtoken')
 const { insertUser, verifyUser, handleResponse, signUpUser} = require('./helpers')
 const { handleError, getPathnameArrayFromRequest, getQueryParams} = require('../helpers')
 const {User, UserStatus} = require("../models/user");
+const redisClient = require("../core/connectors/redis");
 
 function signUp(request, response) {
     const user = request.body
     signUpUser(user)
         .then((insertedUser) => {
-            console.log('Log: signUp -> insertedUser', insertedUser)
+            //console.log('Log: signUp -> insertedUser', insertedUser)
             handleResponse(response, true)
         })
         .catch(err => {
@@ -78,13 +79,22 @@ function getUserByUsername(request, response) {
 
 function getUsers(request, response) {
     const filter = getQueryParams(request);
-    User.find(filter).then(data => {
-        response.end(JSON.stringify(data))
-    })
-      .catch(err => {
-          handleError(err, 'controllers/index.js', 'addTask')
-          handleResponse(response, false)
-      })
+    redisClient.get('users').then(value => {
+        if(!value) {
+            User.find(filter).then(data => {
+                redisClient.set('users', JSON.stringify(data));
+                response.end(JSON.stringify(data))
+            })
+                .catch(err => {
+                    handleError(err, 'controllers/index.js', 'addTask')
+                    handleResponse(response, false)
+                })
+        }
+        else {
+            response.end(value);
+        }
+    });
+
 }
 
 

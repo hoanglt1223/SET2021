@@ -13,7 +13,7 @@ function App(props) {
   useEffect(async () => {
     await auth.fetchLoginUser();
   }, [])
-  console.log(auth);
+  //console.log(auth);
 
   if(auth.isLoading) return <></>
 

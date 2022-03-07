@@ -5,7 +5,9 @@
     "main": "index.js",
     "scripts": {
         "start": "nodemon --config nodemon1.json",
-        "dev": "nodemon --config nodemon.json"
+        "dev": "nodemon --config nodemon.json",
+        "migrate": "migrate-mongo up",
+        "proxy":  "lcp --proxyUrl http://localhost:3001"
     },
     "author": "",
     "license": "ISC",
@@ -14,6 +16,7 @@
         "dotenv": "^16.0.0",
         "jsonwebtoken": "^8.5.1",
         "mongoose": "^5.10.5",
-        "nodemon": "^2.0.4"
+        "nodemon": "^2.0.4",
+        "redis": "^4.0.4"
     }
 }

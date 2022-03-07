@@ -1,6 +1,7 @@
 const http = require("http");
 const mongoose = require("mongoose");
 const router = require("./router");
+const redisClient = require("./core/connectors/redis");
 require('dotenv').config();
 
 
@@ -21,3 +22,5 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
     console.log('we are connected!')
 });
+
+redisClient.connect();

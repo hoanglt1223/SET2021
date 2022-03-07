@@ -6,7 +6,7 @@ const {UserStatus} = require("../models/user");
 
 
 function authenticate(req, res) {
-  console.log('authenticate');
+  //console.log('authenticate');
   return new Promise((resolve, reject) => {
     try {
       if (!req.headers.authorization) {
@@ -35,7 +35,7 @@ function authenticate(req, res) {
 }
 
 function adminAuthenticate(req, res) {
-  console.log('adminauthenticate')
+  //console.log('adminauthenticate')
   return new Promise ((resolve, reject) => {
     try {
       if (!req.headers.authorization) {
@@ -44,11 +44,11 @@ function adminAuthenticate(req, res) {
       const token = req.headers.authorization.split(' ')[1];
       const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
       const { username } = decodedToken;
-  
+
       return User.find({username}).then(data => {
         if (data.length === 0) {
           reject();
-  
+
         } else if(data[0].role !== 'admin') {
           reject();
         } else if(data[0].status === UserStatus.INACTIVE) {
@@ -64,7 +64,7 @@ function adminAuthenticate(req, res) {
       reject();
     }
   })
-  
+
 }
 
 

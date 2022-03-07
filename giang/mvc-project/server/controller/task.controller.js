@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const { getParameterByName } = require("../utils");
 const { Task } = require("../model");
 const { TaskStatus, DEFAULT_TASK } = require("../constants");
-const { task } = require("../routes");
 const errorHandler = require("../helper/errorHandler");
+const redisClient = require("../helper/redis");
 
 const taskController = {
   getTasks,
@@ -26,12 +26,25 @@ async function getTasks(req, res) {
 
   const taskId = getParameterByName("id", req.url);
 
-  if (filter?.where?.creatorId)
-    if (taskId) {
+  if (taskId) {
+    const taskData = await redisClient.hGetAll("task");
+
+    let currentTask;
+    if (taskData) {
+      currentTask = taskData;
+    } else {
       const taskObjectId = mongoose.Types.ObjectId(taskId);
-      const currentTask = await Task.findById(taskObjectId);
-      res.end(JSON.stringify(currentTask));
+      currentTask = await Task.findById(taskObjectId);
+      console.log({ currentTask });
+
+      redisClient.hmset("task", currentTask);
     }
+
+    res.end(JSON.stringify(currentTask));
+  }
+
+  // if (filter?.where?.creatorId)
+
   res.end(JSON.stringify(tasks));
 }
 

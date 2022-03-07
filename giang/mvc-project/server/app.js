@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const logger = require("./helper/logger");
 const middleware = require("./helper/middleware");
 const { LogInfoType } = require("./constants");
+const redisClient = require("./helper/redis");
 
 require("dotenv").config();
 
@@ -26,15 +27,21 @@ const server = http.createServer((req, res) => {
   return middleware(router, req, res);
 });
 
+redisClient.on("connect", () => {
+  console.log("Redis connected");
+});
+
+server.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
+  // logger(LogInfoType.INFO, `Server running at http://${hostname}:${port}/`);
+});
+
 async function main() {
   await mongoose.connect(process.env.DB_URL);
+  await redisClient.connect();
 }
 
 main().catch((err) => console.log(err));
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-  logger(LogInfoType.INFO, `Server running at http://${hostname}:${port}/`);
-});
 
 function getRouter(req) {
   const routeUrl = req.url.split("?")[0];

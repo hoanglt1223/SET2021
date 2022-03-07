@@ -6,13 +6,17 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": " set NODE_ENV=staging&& nodemon index.js",
-    "migrate": "migrate create test",
-    "migrateUp": " migrate up : migrations/1646224429841-test"
+    "migrate": "migrate-mongo create add_isSuperVisor",
+    "migrateUp": "migrate-mongo up MIGRATED UP: 20220307114121-add_isSuperVisor.js",
+    "migrateDown": "migrate-mongo down MIGRATED DOWN: 20220307114121-add_isSuperVisor.js",
+    "migrateStatus":" migrate-mongo status"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.25.0",
+    "bluebird": "^3.7.2",
+    "chance": "^1.1.8",
     "cli-color": "^2.0.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",

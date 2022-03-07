@@ -23,7 +23,6 @@ const ToDoList = () => {
 
   useEffect(() => {
     renderTask();
-    getCurrentInfomation();
     setCurrentId(localStorage.getItem("userId"));
   }, []);
 

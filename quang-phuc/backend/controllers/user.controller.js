@@ -82,7 +82,7 @@ function getUsers(request, response) {
     redisClient.get('users').then(value => {
         if(!value) {
             User.find(filter).then(data => {
-                redisClient.set('users', JSON.stringify(data));
+                redisClient.setEx('users', 5, JSON.stringify((data)));
                 response.end(JSON.stringify(data))
             })
                 .catch(err => {

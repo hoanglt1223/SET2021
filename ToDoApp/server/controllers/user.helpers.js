@@ -1,6 +1,7 @@
 
 const { User } = require('../models')
 const crypto = require('crypto')
+const { cacheClient } = require('./cache.helper')
 
 function insertUser(user) {
   const password = user.password ? hashPassword(user.password) : undefined
@@ -22,9 +23,39 @@ function insertUser(user) {
   return User.create(newUser)
 }
 
-
 function findUsers() {
-  return User.find();
+  return cacheClient.get('userList')
+    .then(usersCached => {
+      if (usersCached && usersCached.users) {
+        return JSON.parse(usersCached.users)
+      }
+      else {
+        return User.find().then(users => {
+          if (!users) {
+            throw new Error('Failed to get USERS LIST from Database');
+          }
+          const today = new Date();
+          const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+          const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+          const dateTime = date + ' ' + time;
+          const cachingUsersList = {
+            users: users,
+            modifiedAt: dateTime,
+
+          }
+          cacheClient.set('userList', JSON.stringify(cachingUsersList))
+            .then(() => {
+              // cacheClient.expireAt('userList', parseInt((+new Date) / 1000) + 86400);
+              // 24 hours
+              cacheClient.expire('userList', 86400);
+            }
+            )
+
+          return users
+        })
+
+      }
+    })
 }
 
 function findUserById(id) {
@@ -50,7 +81,7 @@ function verifyUser(checkingUser) {
       user.username === checkingUser.username &&
       user.password === hashPassword(checkingUser.password)
     ))
-      
+
 }
 
 module.exports = { insertUser, findUsers, findUserById, removeUserById, updateUserById, verifyUser, hashPassword }

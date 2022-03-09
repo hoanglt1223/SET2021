@@ -1,8 +1,9 @@
-const { addProject, verifyProject, findProjects, deleteByID, handleNotFound, updateProjectByID } = require('./projects.helpers')
-const { insertUser, findUsers, findUserById, removeUserById, updateUserById, verifyUser, hashPassword } = require('./user.helpers')
+const { addProject, verifyProject, findProjects, updateProjectByID } = require('./projects.helpers')
+const { insertUser, findUsers, findUserById, updateUserById, hashPassword } = require('./user.helpers')
 const jwt = require('jsonwebtoken')
 const { handleError } = require('../helper');
 const mongoose = require('mongoose')
+
 function handleAuthResponse(response, isSuccessful = false, message = '#') {
     const data = {
         status: isSuccessful ? 'success' : 'fail',
@@ -11,7 +12,6 @@ function handleAuthResponse(response, isSuccessful = false, message = '#') {
     response.setHeader('Content-Type', 'application/json');
     response.end(JSON.stringify(data));
 }
-
 
 function handleDataResponse(response, data) {
     response.statusCode = 200;
@@ -72,7 +72,7 @@ function updateProjectAddTaskByID(request, response) {
                             isDeleted: isDeleted,
                             _id: newid,
                         });
-                    updateProjectByID(projectID, { taskList: taskList }).then((project) => {
+                    updateProjectByID(projectID, { taskList: taskList }).then(() => {
                         handleDataResponse(response, newid);
                     })
                 }
@@ -121,7 +121,7 @@ function signUp(request, response) {
         .then((userAdded) => {
             const data = {
                 status: 'success',
-                _id : userAdded._id
+                _id: userAdded._id
             }
             handleDataResponse(response, data)
         })
@@ -131,7 +131,7 @@ function signUp(request, response) {
         })
 }
 
-function getUsers(request, response) {
+function getUsers(response) {
     response.setHeader('Content-Type', 'application/json');
     findUsers()
         .then(foundUsers => {
@@ -150,7 +150,7 @@ function getUsers(request, response) {
 
 function getUser(request, response) {
     const id = request.body;
-    
+
     response.setHeader('Content-Type', 'application/json');
     findUserById(id)
         // .then((data) => {
@@ -184,7 +184,7 @@ function deleteUser(request, response) {
 
 function editUser(request, response) {
     const update = request.body;
-    
+
     updateUserById(update._id, { name: update.name, age: update.age, gender: update.gender, isAdmin: update.isAdmin }).then(() => {
         handleAuthResponse(response, true)
     })
@@ -197,36 +197,34 @@ function editUser(request, response) {
 function logIn(request, response) {
     const checkingUser = request.body
     response.setHeader('Content-Type', 'application/json');
-    findUsers().then(users => {
-        if (!users) {
-            throw new Error('Failed to get users')
-        }
-        let user = users.find(user => user.username === checkingUser.username && user.password === hashPassword(checkingUser.password));
-        if (user) {
-            const token = jwt.sign({ userId: user.id },
-                'RANDOM_TOKEN_SECRET'
-            )
-            const data = {
-                status: 'success',
-                token: token,
-                account: {
-                    username: user.username,
-                    name: user.name,
-                    age: user.age,
-                    gender: user.gender
+    findUsers()
+        .then(users => {
+            let user = users.find(user => user.username === checkingUser.username && user.password === hashPassword(checkingUser.password));
+            if (user) {
+                const token = jwt.sign({ userId: user.id },
+                    'RANDOM_TOKEN_SECRET'
+                )
+                const data = {
+                    status: 'success',
+                    token: token,
+                    account: {
+                        username: user.username,
+                        name: user.name,
+                        age: user.age,
+                        gender: user.gender
+                    }
                 }
+                handleDataResponse(response, data)
             }
-            handleDataResponse(response, data)
-        }
-        else {
-            handleAuthResponse(response, false)
-        }
-
-    }).catch(err => {
-        handleError(err, 'controllers/index.js', 'LogIn')
-        response.statusCode = 404
-        response.end('Username or password is not correct.')
-    })
+            else {
+                handleAuthResponse(response, false)
+            }
+        })
+        .catch(err => {
+            handleError(err, 'controllers/index.js', 'LogIn')
+            response.statusCode = 404
+            response.end('Username or password is not correct.')
+        })
 }
 
 

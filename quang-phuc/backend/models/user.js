@@ -37,6 +37,12 @@ const UserStatus = {
 }
 const User = mongoose.model('User', userSchema)
 
+
+User.prototype.find = function(filter) {
+  console.log('hihi');
+  return mongoose.model.prototype.find.call(this, filter);
+}
+
 module.exports = {
   User,
   UserRole,

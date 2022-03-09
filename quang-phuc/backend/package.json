@@ -7,7 +7,8 @@
         "start": "nodemon --config nodemon1.json",
         "dev": "nodemon --config nodemon.json",
         "migrate": "migrate-mongo up",
-        "proxy":  "lcp --proxyUrl http://localhost:3001"
+        "proxy": "lcp --proxyUrl http://localhost:3001",
+        "format": "prettier --write **/*.js"
     },
     "author": "",
     "license": "ISC",
@@ -18,5 +19,8 @@
         "mongoose": "^5.10.5",
         "nodemon": "^2.0.4",
         "redis": "^4.0.4"
+    },
+    "devDependencies": {
+        "prettier": "^2.5.1"
     }
 }

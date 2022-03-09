@@ -1,25 +1,23 @@
-const jwt = require('jsonwebtoken');
-const { userRepository } = require('../repositories')
-const { handleError } = require('../helpers');
-const { User } = require('../models');
-const {UserStatus} = require("../models/user");
-
+const jwt = require('jsonwebtoken')
+const { handleError } = require('../helpers')
+const { User } = require('../models')
+const { UserStatus } = require('../models/user')
 
 function authenticate(req, res) {
   //console.log('authenticate');
   return new Promise((resolve, reject) => {
     try {
       if (!req.headers.authorization) {
-        reject();
+        reject()
       }
-      const token = req.headers.authorization.split(' ')[1];
-      const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
-      const { username} = decodedToken;
-      return User.find({username}).then(data => {
+      const token = req.headers.authorization.split(' ')[1]
+      const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET')
+      const { username } = decodedToken
+      return User.find({ username }).then((data) => {
         if (data.length === 0) {
-          reject();
+          reject()
         } else {
-          resolve();
+          resolve()
         }
       })
     } catch (err) {
@@ -30,43 +28,38 @@ function authenticate(req, res) {
       reject()
     }
   })
-
-
 }
 
 function adminAuthenticate(req, res) {
   //console.log('adminauthenticate')
-  return new Promise ((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     try {
       if (!req.headers.authorization) {
-        reject();
+        reject()
       }
-      const token = req.headers.authorization.split(' ')[1];
-      const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
-      const { username } = decodedToken;
+      const token = req.headers.authorization.split(' ')[1]
+      const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET')
+      const { username } = decodedToken
 
-      return User.find({username}).then(data => {
+      return User.find({ username }).then((data) => {
         if (data.length === 0) {
-          reject();
-
-        } else if(data[0].role !== 'admin') {
-          reject();
-        } else if(data[0].status === UserStatus.INACTIVE) {
-          reject();
+          reject()
+        } else if (data[0].role !== 'admin') {
+          reject()
+        } else if (data[0].status === UserStatus.INACTIVE) {
+          reject()
         } else {
-          resolve();
+          resolve()
         }
       })
     } catch (err) {
       if (!err.message) {
         handleError(err, 'middlewares/authentication.js', 'adminAuthenticate')
       }
-      reject();
+      reject()
     }
   })
-
 }
-
 
 module.exports = {
   authenticate,

@@ -1,6 +1,6 @@
-function unauthorize(res){
-  res.statusCode = 401;
-  res.end();
+function unauthorize(res) {
+  res.statusCode = 401
+  res.end()
 }
 
 module.exports = {

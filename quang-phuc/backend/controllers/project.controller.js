@@ -1,52 +1,52 @@
 const { handleResponse } = require('./helpers')
-const { handleError, getPathnameArrayFromRequest, getQueryParams} = require('../helpers')
-const {Project} = require('./../models')
-const url = require("url");
+const { handleError, getPathnameArrayFromRequest, getQueryParams } = require('../helpers')
+const { Project } = require('./../models')
 
 function getProjectByById(request, response) {
-  const projectId = getPathnameArrayFromRequest(request)[1];
-  Project.find({projectId}).then(data => {
-    response.end(JSON.stringify(data[0]))
-  })
-    .catch(err => {
+  const projectId = getPathnameArrayFromRequest(request)[1]
+  Project.find({ projectId })
+    .then((data) => {
+      response.end(JSON.stringify(data[0]))
+    })
+    .catch((err) => {
       handleError(err, 'controllers/index.js', 'addTask')
       handleResponse(response, false)
     })
 }
 
 function getProjects(request, response) {
-  const filter = getQueryParams(request);
+  const filter = getQueryParams(request)
   //console.log(filter);
-  Project.find(filter).then(data => {
-    response.end(JSON.stringify(data))
-  })
-    .catch(err => {
+  Project.find(filter)
+    .then((data) => {
+      response.end(JSON.stringify(data))
+    })
+    .catch((err) => {
       handleError(err, 'controllers/index.js', 'addTask')
       handleResponse(response, false)
     })
 }
 
-
 function updateProjectById(request, response) {
-  const projectId = getPathnameArrayFromRequest(request)[1];
+  const projectId = getPathnameArrayFromRequest(request)[1]
   const updateInformation = request.body
-  Project.findOneAndUpdate({projectId}, {...updateInformation})
+  Project.findOneAndUpdate({ projectId }, { ...updateInformation })
     .then((editedTask) => {
       handleResponse(response, true)
     })
-    .catch(err => {
+    .catch((err) => {
       handleError(err, 'controllers/index.js', 'editTask')
       handleResponse(response, false)
     })
 }
 
 function deleteProjectById(request, response) {
-  const projectId = getPathnameArrayFromRequest(request)[1];
+  const projectId = getPathnameArrayFromRequest(request)[1]
   Project.remove({ projectId })
     .then((deletedTask) => {
       handleResponse(response, true)
     })
-    .catch(err => {
+    .catch((err) => {
       handleError(err, 'controllers/index.js', 'deleteTask')
       handleResponse(response, false)
     })
@@ -59,8 +59,8 @@ function addProject(request, response) {
     .then((insertedTask) => {
       handleResponse(response, true)
     })
-    .catch(err => {
-      response.statusCode = 500;
+    .catch((err) => {
+      response.statusCode = 500
       response.end('Internal Server Error')
     })
 }
@@ -70,5 +70,5 @@ module.exports = {
   getProjects,
   addProject,
   updateProjectById,
-  deleteProjectById,
+  deleteProjectById
 }

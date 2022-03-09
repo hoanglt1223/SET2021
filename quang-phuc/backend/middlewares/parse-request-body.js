@@ -13,7 +13,7 @@ function parseRequestBody(request) {
           const data = JSON.parse(chunks.length > 0 ? chunks : '{}')
           request.body = data
           //console.log('requestbody', request.body)
-          resolve();
+          resolve()
         })
     })
   } catch (err) {

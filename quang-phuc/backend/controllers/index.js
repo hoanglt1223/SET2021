@@ -4,19 +4,19 @@ const taskControllers = require('./task.controller')
 const imageControllers = require('./image.controller')
 
 function handleNotFound(req, res) {
-    const parsedUrl = url.parse(req.url, true)
-    res.statusCode = 404
-    res.end(`Route ${parsedUrl.pathname} not found.`)
+  const parsedUrl = url.parse(req.url, true)
+  res.statusCode = 404
+  res.end(`Route ${parsedUrl.pathname} not found.`)
 }
 
 function pingWithAuth(req, res) {
-    res.end('Success')
+  res.end('Success')
 }
 
 module.exports = {
-    handleNotFound,
-    pingWithAuth,
-    ...userControllers,
-    ...taskControllers,
-    ...imageControllers
+  handleNotFound,
+  pingWithAuth,
+  ...userControllers,
+  ...taskControllers,
+  ...imageControllers
 }

@@ -7,12 +7,13 @@ function FileSystemDataSource(databasePath = '') {
   this.readCollection = function readCollection(collectionName = '') {
     const collectionPath = `${this.databasePath}/${collectionName.toLowerCase()}.txt`
 
-    return fs.readFile(collectionPath)
-      .then(data => {
+    return fs
+      .readFile(collectionPath)
+      .then((data) => {
         const parsedData = JSON.parse(data) || []
         return parsedData
       })
-      .catch(err => {
+      .catch((err) => {
         handleError(err, 'datasources/file-system.datasource.js', 'readCollection')
         return []
       })
@@ -22,9 +23,10 @@ function FileSystemDataSource(databasePath = '') {
     const collectionPath = `${this.databasePath}/${collectionName.toLowerCase()}.txt`
     return fs.writeFile(collectionPath, JSON.stringify(newData)).catch(() => {
       // create database folder in case error due to database folder does not exist
-      return fs.mkdir(database)
+      return fs
+        .mkdir(database)
         .then(() => fs.writeFile(this.databasePath, JSON.stringify(existingItems)))
-        .catch(err => {
+        .catch((err) => {
           handleError(err, 'datasources/file-system.datasource.js', 'updateCollection')
         })
     })

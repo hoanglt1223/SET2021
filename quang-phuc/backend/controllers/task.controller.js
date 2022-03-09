@@ -1,72 +1,74 @@
 const { handleResponse } = require('./helpers')
-const { handleError, getPathnameArrayFromRequest, getQueryParams} = require('../helpers')
-const {Task} = require('./../models')
+const { handleError, getPathnameArrayFromRequest, getQueryParams } = require('../helpers')
+const { Task } = require('./../models')
 
 function getTaskById(request, response) {
-    const _id = getPathnameArrayFromRequest(request)[1];
-    Task.find({_id}).then(data => {
+  const _id = getPathnameArrayFromRequest(request)[1]
+  Task.find({ _id })
+    .then((data) => {
       response.end(JSON.stringify(data[0]))
     })
-      .catch(err => {
-        handleError(err, 'controllers/index.js', 'addTask')
-        handleResponse(response, false)
-      })
+    .catch((err) => {
+      handleError(err, 'controllers/index.js', 'addTask')
+      handleResponse(response, false)
+    })
 }
 
 function getTasks(request, response) {
-  const filter = getQueryParams(request);
-  Task.find(filter).then(data => {
-    response.end(JSON.stringify(data))
-  })
-    .catch(err => {
+  const filter = getQueryParams(request)
+  Task.find(filter)
+    .then((data) => {
+      response.end(JSON.stringify(data))
+    })
+    .catch((err) => {
       handleError(err, 'controllers/index.js', 'addTask')
       handleResponse(response, false)
     })
 }
 
 function updateTaskById(request, response) {
-    const _id = getPathnameArrayFromRequest(request)[1];
-    //console.log('id:', _id)
-    const updateInformation = request.body
-    Task.findOneAndUpdate({_id}, {...updateInformation})
-        .then((editedTask) => {
-          //console.log(editedTask)
-            handleResponse(response, true)
-        })
-        .catch(err => {
-            handleError(err, 'controllers/index.js', 'editTask')
-            handleResponse(response, false)
-        })
+  const _id = getPathnameArrayFromRequest(request)[1]
+  //console.log('id:', _id)
+  const updateInformation = request.body
+  Task.findOneAndUpdate({ _id }, { ...updateInformation })
+    .then((editedTask) => {
+      //console.log(editedTask)
+      handleResponse(response, true)
+    })
+    .catch((err) => {
+      handleError(err, 'controllers/index.js', 'editTask')
+      handleResponse(response, false)
+    })
 }
 
 function deleteTask(request, response) {
-    const _id = getPathnameArrayFromRequest(request)[1];
-    Task.remove({ _id})
-        .then((deletedTask) => {
-            handleResponse(response, true)
-        })
-        .catch(err => {
-            handleError(err, 'controllers/index.js', 'deleteTask')
-            handleResponse(response, false)
-        })
+  const _id = getPathnameArrayFromRequest(request)[1]
+  Task.remove({ _id })
+    .then((deletedTask) => {
+      handleResponse(response, true)
+    })
+    .catch((err) => {
+      handleError(err, 'controllers/index.js', 'deleteTask')
+      handleResponse(response, false)
+    })
 }
 
 function addTask(request, response) {
-    const task = request.body
-    Task.create(task)
-        .then((insertedTask) => {
-            handleResponse(response, true)
-        })
-        .catch(err => {
-            handleError(err, 'controllers/index.js', 'addTask')
-            handleResponse(response, false)
-        })
+  const task = request.body
+  Task.create(task)
+    .then((insertedTask) => {
+      handleResponse(response, true)
+    })
+    .catch((err) => {
+      handleError(err, 'controllers/index.js', 'addTask')
+      handleResponse(response, false)
+    })
 }
 
 module.exports = {
-    getTaskById,
-    getTasks: getTasks,
-    addTask,
-    updateTaskById,
-    deleteTask,
+  getTaskById,
+  getTasks: getTasks,
+  addTask,
+  updateTaskById,
+  deleteTask
 }

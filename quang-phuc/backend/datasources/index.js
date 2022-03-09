@@ -3,8 +3,8 @@ const FileSystemDataSource = require('./file-system.datasource')
 const database = './database'
 
 const DBCollections = {
-    user: 'users',
-    task: 'tasks'
+  user: 'users',
+  task: 'tasks'
 }
 
 const fileSystemDataSource = new FileSystemDataSource(database)

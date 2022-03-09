@@ -83,7 +83,8 @@ function getUsers(request, response) {
     if (!value) {
       User.find(filter)
         .then((data) => {
-          redisClient.setEx('users', 10, JSON.stringify(data))
+          console.log('read data from mongo')
+          redisClient.set('users', JSON.stringify(data))
           response.end(JSON.stringify(data))
         })
         .catch((err) => {
@@ -91,7 +92,8 @@ function getUsers(request, response) {
           handleResponse(response, false)
         })
     } else {
-      response.end(value)
+      console.log('read data from cache');
+      response.end(value);
     }
   })
 }

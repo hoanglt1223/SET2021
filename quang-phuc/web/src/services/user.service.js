@@ -5,6 +5,7 @@ export function UserService(restConnector) {
 
   this.getAllUsers = async () => {
     const {data} = await this.restConnector.get('/users');
+    console.log(typeof  data);
     return data.map(user => new User(user._id, user.username, undefined, user.fullName, user.status, user.role));
   }
 

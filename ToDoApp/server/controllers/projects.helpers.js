@@ -1,5 +1,7 @@
 const { Project } = require('../models');
-const { cacheClient } = require('./cache.helper');
+const { cacheClient } = require('../cache');
+const {keyCache} = require('../cache/key')
+const { cacheProjects } = require('../cache/cronJob')
 
 function addProject(project) {
     return Project.create(project);
@@ -28,33 +30,18 @@ function verifyProject(project) {
 }
 
 function findProjects(props = {}) {
-    return cacheClient.get('projectsList')
+    return cacheClient.get(keyCache.projects)
         .then(projectsCached => {
-            if (projectsCached && projectsCached.projects) {
-                return JSON.parse(projectsCached.projects)
+            const projectsParse = JSON.parse(projectsCached)
+            if (projectsParse && projectsParse.projects) {
+                return projectsParse.projects
             }
             else {
                 return Project.find(props).then(projects => {
                     if (!projects) {
-                        throw new Error('Failed to get USERS LIST from Database');
+                        throw new Error('Failed to get PROJECTS LIST from Database');
                     }
-                    const today = new Date();
-                    const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-                    const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-                    const dateTime = date + ' ' + time;
-                    const cachingUsersList = {
-                        projects: projects,
-                        modifiedAt: dateTime,
-
-                    }
-                    cacheClient.set('projectsList', JSON.stringify(cachingUsersList))
-                        .then(() => {
-                            // cacheClient.expireAt('userList', parseInt((+new Date) / 1000) + 86400);
-                            // 24 hours
-                            cacheClient.expire('projectsList', 86400);
-                        }
-                        )
-
+                    cacheProjects(projects);
                     return projects
                 })
 

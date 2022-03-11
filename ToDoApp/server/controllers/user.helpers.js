@@ -1,7 +1,9 @@
 
 const { User } = require('../models')
 const crypto = require('crypto')
-const { cacheClient } = require('./cache.helper')
+const { cacheClient } = require('../cache')
+const keyCache = require('../cache/key')
+
 
 function insertUser(user) {
   const password = user.password ? hashPassword(user.password) : undefined
@@ -24,7 +26,7 @@ function insertUser(user) {
 }
 
 function findUsers() {
-  return cacheClient.get('userList')
+  return cacheClient.get(keyCache.users)
     .then(usersCached => {
       if (usersCached && usersCached.users) {
         return JSON.parse(usersCached.users)
@@ -43,11 +45,11 @@ function findUsers() {
             modifiedAt: dateTime,
 
           }
-          cacheClient.set('userList', JSON.stringify(cachingUsersList))
+          cacheClient.set(keyCache.users, JSON.stringify(cachingUsersList))
             .then(() => {
               // cacheClient.expireAt('userList', parseInt((+new Date) / 1000) + 86400);
               // 24 hours
-              cacheClient.expire('userList', 86400);
+              cacheClient.expire(keyCache.users, 86400);
             }
             )
 

@@ -36,7 +36,7 @@ function getProjects(request, response) {
     findProjects(project)
         .then(foundProjects => {
             if (!foundProjects) {
-                throw new Error('Unknow Projects')
+                throw new Error('Unknown Projects')
             }
             else {
                 const projects = foundProjects.filter(project => (project.isDeleted != true));
@@ -131,7 +131,7 @@ function signUp(request, response) {
         })
 }
 
-function getUsers(response) {
+function getUsers(request, response) {
     response.setHeader('Content-Type', 'application/json');
     findUsers()
         .then(foundUsers => {

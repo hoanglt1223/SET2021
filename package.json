@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/hoanglt1223/SET2021/issues"
   },
-  "homepage": "https://github.com/hoanglt1223/SET2021#readme"
+  "homepage": "https://github.com/hoanglt1223/SET2021#readme",
+  "dependencies": {
+    "node-cron": "^3.0.0"
+  }
 }

@@ -1,22 +1,20 @@
-import React, {useEffect} from "react";
-import useAuth from "../hooks/useAuth";
-import {useNavigate} from "react-router";
+import React, { useEffect } from 'react'
+import useAuth from '../hooks/useAuth'
+import { useNavigate } from 'react-router'
 
 function Home(props) {
-  const {loginUser, fetchLoginUser} = useAuth();
-  const navigate = useNavigate();
+  const { loginUser, fetchLoginUser } = useAuth()
+  const navigate = useNavigate()
 
   useEffect(async () => {
-    await fetchLoginUser();
-    if(!loginUser) {
-      navigate('/sign-in');
+    await fetchLoginUser()
+    if (!loginUser) {
+      navigate('/sign-in')
     } else {
-      navigate('/projects');
+      navigate('/projects')
     }
   }, [])
-  return (
-    <></>
-  )
+  return <></>
 }
 
-export default Home;
+export default Home

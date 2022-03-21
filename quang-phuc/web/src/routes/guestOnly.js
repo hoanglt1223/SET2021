@@ -1,10 +1,10 @@
-import React from "react";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
-import Home from "../pages";
-import SignIn from "../pages/sign-in";
-import SignUp from "../pages/sign-up";
-import Header from "../components/common/Header";
-import Sidebar from "../components/common/Sidebar";
+import React from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Home from '../pages'
+import SignIn from '../pages/sign-in'
+import SignUp from '../pages/sign-up'
+import Header from '../components/common/Header'
+import Sidebar from '../components/common/Sidebar'
 
 const GuestOnly = () => {
   return (
@@ -23,4 +23,4 @@ const GuestOnly = () => {
   )
 }
 
-export default GuestOnly;
+export default GuestOnly

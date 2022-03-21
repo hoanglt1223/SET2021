@@ -1,9 +1,11 @@
-import React from "react";
+import React from 'react'
 
 function EditUser(props) {
   return (
-    <><h1>Edit user Page</h1></>
+    <>
+      <h1>Edit user Page</h1>
+    </>
   )
 }
 
-export default EditUser;
+export default EditUser

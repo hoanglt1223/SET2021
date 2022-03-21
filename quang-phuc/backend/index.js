@@ -9,7 +9,6 @@ const server = http.createServer((request, response) => {
   const controller = router.route(request, response)
   controller(request, response)
 })
-
 server.listen(process.env.PORT, () => {
   console.log(`Server running at http://localhost:${process.env.PORT}/`)
 })

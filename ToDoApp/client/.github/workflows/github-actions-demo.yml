@@ -1,10 +1,10 @@
-name: Node.js CI
+name: Node.js CI-CD
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, nhom_2/tai-todoList ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, nhom_2/tai-todoList ]
 
 jobs:
   build:
@@ -31,3 +31,8 @@ jobs:
 
     - name: Build
       run: npm run build
+
+    
+
+
+    

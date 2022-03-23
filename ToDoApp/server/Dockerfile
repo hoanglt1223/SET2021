@@ -1,8 +1,9 @@
 FROM node:14
-WORKDIR /app
-COPY package.json /app/
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+COPY package.json ./
 ENV NODE_ENV staging
 RUN npm install
-COPY . /app/
+COPY . .  
 EXPOSE 5500
 CMD [ "node", "index.js" ]

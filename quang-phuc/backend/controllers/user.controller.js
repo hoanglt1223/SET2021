@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken')
 const { insertUser, verifyUser, handleResponse, signUpUser } = require('./helpers')
 const { handleError, getPathnameArrayFromRequest, getQueryParams } = require('../helpers')
 const { User, UserStatus } = require('../models/user')
-const redisClient = require('../core/connectors/redis')
 
 function signUp(request, response) {
   const user = request.body
@@ -79,23 +78,15 @@ function getUserByUsername(request, response) {
 
 function getUsers(request, response) {
   const filter = getQueryParams(request)
-  redisClient.get('users').then((value) => {
-    if (!value) {
-      User.find(filter)
+  User.find(filter)
         .then((data) => {
           console.log('read data from mongo')
-          redisClient.set('users', JSON.stringify(data))
           response.end(JSON.stringify(data))
         })
         .catch((err) => {
           handleError(err, 'controllers/index.js', 'addTask')
           handleResponse(response, false)
         })
-    } else {
-      console.log('read data from cache');
-      response.end(value);
-    }
-  })
 }
 
 function updateUserByUsername(request, response) {

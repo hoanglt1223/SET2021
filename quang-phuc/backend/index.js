@@ -1,8 +1,6 @@
 const http = require('http')
 const mongoose = require('mongoose')
 const router = require('./router')
-const redisClient = require('./core/connectors/redis')
-const cron = require('./cron/updateCacheCron')
 require('dotenv').config()
 
 const server = http.createServer((request, response) => {
@@ -21,6 +19,3 @@ db.once('open', function () {
   console.log('we are connected!')
 })
 
-redisClient.connect()
-
-cron.getTasks()[0].start()
